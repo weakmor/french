@@ -2540,16 +2540,30 @@ document.addEventListener("click", function(e){
       if(v2Audio){ v2Audio.pause(); v2Audio.currentTime = 0; v2Audio = null; }
       return;
     }
+    const slow = !!el.dataset.slow;
+    const wantRate = slow ? 0.7 : (state.rate || 1);
+
     if(v2Audio && v2Audio.getAttribute("data-src") === src){
+      // если просят другую скорость — меняем и играем с начала
+      if(Math.abs((v2Audio.playbackRate || 1) - wantRate) > 0.01){
+        v2Audio.playbackRate = wantRate;
+        try{ v2Audio.currentTime = 0; }catch(e){}
+        v2Audio.play();
+        el.textContent = "⏸ Пауза";
+        return;
+      }
       if(v2Audio.paused){ v2Audio.play(); el.textContent = "⏸ Пауза"; }
       else { v2Audio.pause(); el.textContent = "▶ Продолжить"; }
       return;
     }
+
     if(v2Audio) v2Audio.pause();
     v2Audio = new Audio(src);
     v2Audio.setAttribute("data-src", src);
-    v2Audio.playbackRate = el.dataset.slow ? 0.7 : (state.rate || 1);
-    v2Audio.onended = () => { el.textContent = el.dataset.slow ? "медленно" : (el.id && el.id.indexOf("play-") === 0 ? "▶ Слушать диалог" : "▶ Прослушать"); };
+    v2Audio.playbackRate = wantRate;
+    v2Audio.onended = () => {
+      el.textContent = slow ? "медленно" : (el.id && el.id.indexOf("play-") === 0 ? "▶ Слушать диалог" : "▶ Прослушать");
+    };
     v2Audio.play();
     el.textContent = "⏸ Пауза";
     return;
