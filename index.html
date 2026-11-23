@@ -1,0 +1,1797 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Французский · Эвелина</title>
+<style>
+  :root{
+    --paper:#faf6ee; --card:#fffdf8; --ink:#232019; --muted:#7b7266;
+    --line:#e7dece; --accent:#2b4c7e; --accent-soft:#eaeef6;
+    --ok:#2f7a55; --ok-soft:#e8f3ec; --bad:#b3492f; --bad-soft:#fbeae5;
+    --near:#a06a12; --near-soft:#fbf1dd;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0; background:var(--paper); color:var(--ink);
+    font:15px/1.6 "Segoe UI", system-ui, -apple-system, sans-serif;
+  }
+  .wrap{max-width:880px; margin:0 auto; padding:0 20px}
+  .fr{font-family:Georgia,"Times New Roman",serif}
+
+  /* ---------- header ---------- */
+  header{
+    position:sticky; top:0; z-index:20;
+    background:rgba(250,246,238,.93);
+    -webkit-backdrop-filter:blur(10px); backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .topbar{display:flex; align-items:center; gap:16px; padding:14px 0 10px}
+  .logo{
+    width:44px; height:44px; flex:0 0 44px; border-radius:13px;
+    background:var(--accent); color:#fff; display:grid; place-items:center;
+    font-family:Georgia,serif; font-size:19px; letter-spacing:.5px;
+  }
+  .who{flex:1; min-width:0}
+  h1{margin:0; font:600 19px/1.2 Georgia,serif}
+  .sub{margin:2px 0 0; font-size:12.5px; color:var(--muted)}
+  .prog{width:168px; flex:0 0 auto}
+  .pbar{height:7px; background:#e9e0cf; border-radius:99px; overflow:hidden}
+  .pfill{height:100%; width:0; background:var(--accent); transition:width .35s ease}
+  .ptext{font-size:11.5px; color:var(--muted); margin-top:6px; text-align:right; white-space:nowrap}
+
+  nav{display:flex; gap:6px; overflow-x:auto; padding:0 0 10px; scrollbar-width:none}
+  nav::-webkit-scrollbar{display:none}
+  .tab{
+    border:1px solid transparent; background:transparent; color:var(--muted);
+    padding:7px 14px; border-radius:99px; font:inherit; font-size:14px;
+    cursor:pointer; white-space:nowrap; transition:background .15s,color .15s;
+  }
+  .tab:hover{color:var(--ink)}
+  .tab.on{
+    background:var(--card); border-color:var(--line); color:var(--ink);
+    font-weight:600; box-shadow:0 1px 2px rgba(0,0,0,.04);
+  }
+
+  /* ---------- sections ---------- */
+  main{padding-bottom:70px}
+  section{display:none}
+  section.on{display:block; animation:fade .22s ease}
+  @keyframes fade{from{opacity:0; transform:translateY(4px)} to{opacity:1; transform:none}}
+  .lead{color:var(--muted); font-size:13.5px; margin:22px 0 4px}
+  h2{font:600 17px/1.3 Georgia,serif; margin:26px 0 10px}
+
+  .card{
+    background:var(--card); border:1px solid var(--line); border-radius:16px;
+    padding:16px 18px; margin:11px 0;
+  }
+  .card.soft{background:#fdfaf3}
+  .note{font-size:13px; color:var(--muted); margin:0}
+  .note b{color:var(--ink); font-weight:600}
+
+  /* ---------- plan ---------- */
+  .day{display:grid; grid-template-columns:36px 1fr 34px; gap:14px; align-items:start}
+  .num{
+    width:34px; height:34px; border-radius:11px; background:#f2e9d7; color:#6a5d49;
+    display:grid; place-items:center; font-weight:600; font-size:13.5px;
+  }
+  .day.done .num{background:var(--ok); color:#fff}
+  .day.done .dtext{opacity:.55}
+  .dtext h3{margin:0 0 3px; font:600 15px/1.35 Georgia,serif}
+  .goal{margin:0 0 6px; font-size:12.5px; color:var(--muted)}
+  .task{margin:0; font-size:14px}
+  .extra{margin:6px 0 0; font-size:12.5px; color:var(--muted); font-style:italic}
+  .chk{
+    width:32px; height:32px; border-radius:10px; border:1.5px solid var(--line);
+    background:#fff; cursor:pointer; color:transparent; font-size:15px; line-height:1;
+    transition:all .15s;
+  }
+  .chk:hover{border-color:#c9bca6}
+  .chk.on{background:var(--ok); border-color:var(--ok); color:#fff}
+  .week{margin:26px 0 6px; font-size:12px; letter-spacing:.08em; text-transform:uppercase; color:var(--muted)}
+
+  /* ---------- phrases / vocab ---------- */
+  .toolbar{display:flex; flex-wrap:wrap; gap:8px; margin:14px 0 6px}
+  .btn{
+    border:1px solid var(--line); background:var(--card); color:var(--ink);
+    padding:7px 13px; border-radius:99px; font:inherit; font-size:13px; cursor:pointer;
+    transition:background .15s,border-color .15s;
+  }
+  .btn:hover{background:#f6efe1; border-color:#d8c9ae}
+  .btn.primary{background:var(--accent); border-color:var(--accent); color:#fff}
+  .btn.primary:hover{background:#234069}
+  .btn.playing{background:var(--accent); border-color:var(--accent); color:#fff}
+  .btn.small{padding:4px 10px; font-size:12px}
+
+  .row{display:flex; gap:12px; align-items:baseline; padding:11px 0; border-bottom:1px dashed var(--line)}
+  .row:last-child{border-bottom:0}
+  .row .txt{flex:1; min-width:0}
+  .row .fr{font-size:16.5px; line-height:1.4}
+  .row .ru{font-size:13px; color:var(--muted)}
+  .hide-tr .ru{filter:blur(5px); transition:filter .2s; cursor:pointer}
+  .hide-tr .ru:hover{filter:none}
+  .spk{
+    flex:0 0 auto; width:30px; height:30px; border-radius:50%; border:1px solid var(--line);
+    background:#fff; cursor:pointer; font-size:13px; color:var(--accent); line-height:1;
+  }
+  .spk:hover{background:var(--accent-soft)}
+  .spk.playing{background:var(--accent); border-color:var(--accent); color:#fff}
+  .word{display:grid; grid-template-columns:auto 1fr auto; gap:10px; align-items:center}
+  .chip{
+    font-size:11px; padding:2px 7px; border-radius:6px; background:#f0e8d8; color:#7a6b53;
+    font-weight:600;
+  }
+  .chip.f{background:#f7e6e1; color:#9c5443}
+  .chip.m{background:#e4ecf7; color:#3f5f8d}
+  .ex{font-size:12.5px; color:var(--muted); margin-top:2px}
+
+  /* ---------- drills ---------- */
+  .drill{position:relative}
+  .drill .qn{font-size:11.5px; color:var(--muted); letter-spacing:.06em; text-transform:uppercase}
+  .q{margin:6px 0 12px; font-size:15px}
+  input[type=text], textarea{
+    width:100%; font:inherit; font-size:15px; padding:10px 12px; border-radius:11px;
+    border:1px solid var(--line); background:#fff; color:var(--ink);
+  }
+  input[type=text]{font-family:Georgia,serif}
+  input[type=text]:focus, textarea:focus{outline:2px solid var(--accent-soft); border-color:#b9c6dc}
+  textarea{min-height:86px; resize:vertical; font-family:Georgia,serif}
+  .drow{display:flex; gap:8px; align-items:center; margin-top:10px; flex-wrap:wrap}
+  .fb{font-size:13.5px; margin-top:10px; padding:9px 12px; border-radius:10px; display:none}
+  .fb.show{display:block}
+  .fb.ok{background:var(--ok-soft); color:#1f5a3d}
+  .fb.near{background:var(--near-soft); color:#7d5311}
+  .fb.bad{background:var(--bad-soft); color:#8d3924}
+  .fb .ans{font-family:Georgia,serif; font-size:14.5px}
+  .opts{display:flex; gap:8px; flex-wrap:wrap}
+  .opt{
+    border:1px solid var(--line); background:#fff; border-radius:11px; padding:8px 16px;
+    font:inherit; font-size:14.5px; font-family:Georgia,serif; cursor:pointer;
+  }
+  .opt:hover{background:#f7f1e3}
+  .opt.ok{background:var(--ok-soft); border-color:#a8cdb7; color:#1f5a3d}
+  .opt.bad{background:var(--bad-soft); border-color:#e0b4a6; color:#8d3924}
+  .drill.solved{border-color:#cfe4d8}
+  .drill.solved::after{
+    content:"решено"; position:absolute; top:14px; right:16px; font-size:11px;
+    color:var(--ok); text-transform:uppercase; letter-spacing:.07em;
+  }
+  .hint{font-size:12.5px; color:var(--muted); margin-top:8px; display:none}
+  .hint.show{display:block}
+  .link{
+    background:none; border:0; padding:0; font:inherit; font-size:12.5px;
+    color:var(--accent); cursor:pointer; text-decoration:underline; text-underline-offset:3px;
+  }
+
+  /* ---------- errors ---------- */
+  .err{border-left:3px solid #e3cdc4; padding:2px 0 2px 14px; margin:14px 0}
+  .err .wrong{color:var(--bad); text-decoration:line-through; text-decoration-color:rgba(179,73,47,.45)}
+  .err .right{color:var(--ok); font-weight:600}
+  .err .rule{font-size:12.5px; color:var(--muted); margin-top:3px}
+
+  /* ---------- lessons ---------- */
+  .lesson{background:var(--card); border:1px solid var(--line); border-radius:16px; margin:10px 0; overflow:hidden}
+  .lhead{
+    display:flex; gap:12px; align-items:center; width:100%; text-align:left;
+    background:none; border:0; padding:14px 16px; cursor:pointer; font:inherit; color:var(--ink);
+  }
+  .lhead:hover{background:#fbf6ea}
+  .lnum{
+    width:30px; height:30px; flex:0 0 30px; border-radius:9px; background:#f2e9d7; color:#6a5d49;
+    display:grid; place-items:center; font-weight:600; font-size:13px;
+  }
+  .lmeta{flex:1; min-width:0; display:flex; flex-direction:column; gap:1px}
+  .lt{font:600 15px/1.3 Georgia,serif}
+  .lg{font-size:12px; color:var(--muted)}
+  .chev{color:var(--muted); font-size:11px; transition:transform .2s}
+  .lesson.open .chev{transform:rotate(180deg)}
+  .lbody{display:none; padding:2px 18px 18px}
+  .lesson.open .lbody{display:block; animation:fade .2s ease}
+  .lbody h4{
+    font:600 11.5px/1.4 "Segoe UI", system-ui, sans-serif; letter-spacing:.07em; text-transform:uppercase;
+    color:var(--muted); margin:18px 0 6px;
+  }
+  .lbody p{margin:0 0 8px; font-size:14px}
+  .lbody ul, .lbody ol{margin:0 0 10px; padding-left:20px; font-size:14px}
+  .lbody li{margin:3px 0}
+  .examples{background:#fbf7ee; border:1px solid var(--line); border-radius:12px; padding:6px 12px; margin:6px 0 10px}
+  .exrow{display:flex; gap:14px; padding:5px 0; border-bottom:1px dashed #eee4d2; font-size:14px}
+  .exrow:last-child{border-bottom:0}
+  .exrow .fr{flex:1.15; font-family:Georgia,serif; line-height:1.4}
+  .exrow .ru{flex:1; color:var(--muted); font-size:13px; line-height:1.45}
+
+  /* ---------- список уроков ---------- */
+  .lcard{
+    display:grid; grid-template-columns:44px 1fr auto; gap:14px; align-items:center;
+    width:100%; text-align:left; font:inherit; color:var(--ink); cursor:pointer;
+    background:var(--card); border:1px solid var(--line); border-radius:16px;
+    padding:13px 16px; margin:10px 0;
+  }
+  .lcard:hover{border-color:#d9c9ab; background:#fdfaf3}
+  .ldot{
+    width:42px; height:42px; border-radius:12px; background:#f2e9d7; color:#6a5d49;
+    display:grid; place-items:center; font:600 15px Georgia,serif;
+  }
+  .lcard.done .ldot{background:var(--ok); color:#fff}
+  .lcenter{display:flex; flex-direction:column; gap:2px; min-width:0}
+  .lct{font:600 15px/1.3 Georgia,serif}
+  .lcg{font-size:12.5px; color:var(--muted)}
+  .mini{font-size:11.5px; color:var(--muted)}
+  .mini b{color:var(--ink); font-weight:600}
+  .larrow{color:#bdb2a0; font-size:18px}
+
+  /* ---------- экран урока ---------- */
+  .lvtop{margin:18px 0 8px}
+  .back{border:0; background:none; padding:0; font:inherit; font-size:13px; color:var(--accent); cursor:pointer}
+  .back:hover{text-decoration:underline}
+  .lvhead{display:flex; align-items:center; gap:12px; margin:0 0 4px}
+  .lvnum{
+    width:36px; height:36px; flex:0 0 36px; border-radius:11px; background:var(--accent); color:#fff;
+    display:grid; place-items:center; font:600 15px Georgia,serif;
+  }
+  .lvtitle{margin:0; font:600 19px/1.25 Georgia,serif}
+  .lvgoal{margin:2px 0 0; font-size:13px; color:var(--muted)}
+  .lvprog{display:flex; gap:5px; margin:16px 0 8px}
+  .pdot{height:6px; flex:1; border-radius:99px; background:#e8dfcd; transition:background .2s}
+  .pdot.on{background:var(--ok)}
+  .lsection{margin:26px 0 0}
+  .lsection > h2{
+    font:600 11.5px/1.4 "Segoe UI", system-ui, sans-serif; letter-spacing:.08em; text-transform:uppercase;
+    color:var(--muted); margin:0 0 10px;
+  }
+  .leadhint{font-size:13px; color:var(--muted); margin:0 0 10px}
+
+  .todolist{display:flex; flex-direction:column; gap:8px}
+  .todoitem{
+    display:flex; gap:11px; align-items:flex-start; text-align:left;
+    background:var(--card); border:1px solid var(--line); border-radius:12px;
+    padding:11px 14px; font:inherit; font-size:14px; color:var(--ink); cursor:pointer;
+  }
+  .todoitem:hover{background:#fdfaf3; border-color:#ddcdb0}
+  .tcheck{
+    width:20px; height:20px; flex:0 0 20px; border-radius:6px; border:1.5px solid var(--line);
+    background:#fff; display:grid; place-items:center; font-size:11px; color:transparent; margin-top:1px;
+  }
+  .todoitem.done .tcheck{background:var(--ok); border-color:var(--ok); color:#fff}
+  .todoitem.done .ttext{color:var(--muted); text-decoration:line-through; text-decoration-color:rgba(0,0,0,.25)}
+
+  footer{border-top:1px solid var(--line); padding:22px 0 40px; margin-top:10px}
+  footer p{font-size:12px; color:var(--muted); margin:0 0 10px}
+
+  .toast{
+    position:fixed; left:50%; bottom:26px; transform:translateX(-50%);
+    background:#232019; color:#fff8ea; padding:12px 17px; border-radius:13px;
+    font-size:13px; line-height:1.45; max-width:min(92vw,540px); z-index:80;
+    box-shadow:0 10px 30px rgba(0,0,0,.22); transition:opacity .35s;
+  }
+
+  @media (max-width:560px){
+    .wrap{padding:0 15px}
+    .prog{width:96px}
+    .ptext{font-size:10.5px}
+    .day{grid-template-columns:32px 1fr 32px; gap:10px}
+    .row .fr{font-size:15.5px}
+  }
+  @media print{
+    header,nav,.toolbar,.spk,.chk{display:none!important}
+    section{display:block!important}
+    body{background:#fff}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="topbar">
+      <div class="logo">fr</div>
+      <div class="who">
+        <h1>Французский</h1>
+        <p class="sub">Эвелина · A1 · 15 минут в день</p>
+      </div>
+      <div class="prog">
+        <div class="pbar"><div class="pfill" id="pfill"></div></div>
+        <div class="ptext" id="ptext">0 из 24</div>
+      </div>
+    </div>
+    <nav id="nav">
+      <button class="tab on" data-act="tab" data-tab="plan">План</button>
+      <button class="tab" data-act="tab" data-tab="lessons">Уроки</button>
+      <button class="tab" data-act="tab" data-tab="ref">Справочник</button>
+      <button class="tab" data-act="tab" data-tab="errors">Ошибки</button>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <section id="plan" class="on"></section>
+  <section id="lessons"></section>
+  <section id="lessonview"></section>
+  <section id="ref"></section>
+  <section id="errors"></section>
+</main>
+
+<footer class="wrap">
+  <p id="progtext">Прогресс хранится в этом браузере. Если откроешь файл в другом браузере — галочки не перенесутся. Звук — в папке <b>audio</b>, рядом с index.html.</p>
+  <button class="btn small" data-act="reset">Сбросить прогресс</button>
+</footer>
+
+<noscript>
+  <p style="padding:20px">Для этого файла нужен JavaScript — включи его в браузере.</p>
+</noscript>
+
+<script src="config.js"></script>
+<script>
+"use strict";
+
+/* ============================ данные ============================ */
+
+const DAYS = [
+  {n:1, t:"Элизия", g:"перестать писать «je apprend» и «le universite»",
+   task:"Правило (блок A в уроке 1) + напиши 10 предложений с j', l', qu'.",
+   extra:"Перепиши свой текст №5 из диагностики с исправлениями."},
+  {n:2, t:"Акценты и раскладка", g:"перестать бояться é, è, ç",
+   task:"Переключись на французскую раскладку (Win+Space) и перепиши 5 фраз с акцентами, читая вслух.",
+   extra:"Продиктуй себе 5 слов и проверь написание."},
+  {n:3, t:"être / avoir + род", g:"je suis étudiante, une leçon, l'université",
+   task:"Выучи être и avoir, плюс 10 слов вместе с артиклем (вкладка «Слова»).",
+   extra:"5 фраз о себе только через être и avoir."},
+  {n:4, t:"Презенс на -er", g:"parler, étudier, jouer, marcher, aimer, habiter",
+   task:"Все 6 форм пяти глаголов, потом 5 фраз о своём дне.",
+   extra:"То же самое, но в отрицании: je ne parle pas…"},
+  {n:5, t:"depuis", g:"«J'apprends le français depuis deux mois» — навсегда",
+   task:"5 предложений «я … уже N времени»: учу, живу, работаю, знаю, жду.",
+   extra:"Вопрос Depuis combien de temps…? и ответы на него."},
+  {n:6, t:"Кафе и «повторите»", g:"15 фраз выживания",
+   task:"Выучи 15 фраз с вкладки «Фразы», потом диалог: я официант, ты заказываешь.",
+   extra:"Второй диалог: я прохожий, ты спрашиваешь дорогу."},
+  {n:7, t:"Слушание + итог недели", g:"услышать то, что уже знаешь",
+   task:"Coffee Break French, сезон 1, эпизод 1 (или Alice Ayel). 5 минут, потом 3 фразы вслух за диктором.",
+   extra:"Повтори все ошибки из журнала за неделю."},
+  {n:8, t:"Вопросы", g:"три способа спросить одно и то же",
+   task:"Tu as quel âge ? / Est-ce que tu as quel âge ? / Quel âge as-tu ? — придумай 8 вопросов, которые тебе реально нужны.",
+   extra:"Расспроси меня (я «француз») и запиши мои ответы."},
+  {n:9, t:"Отрицание", g:"ne … pas, ne … jamais, ne … rien",
+   task:"8 фраз «я не …» о себе.",
+   extra:"Переделай 8 своих старых фраз в отрицание."},
+  {n:10, t:"Глаголы на -re и -ir", g:"apprendre, comprendre, prendre, finir, choisir",
+   task:"По 4 формы каждому, потом 10 предложений с ними.",
+   extra:"Мини-диктант: я даю русскую фразу — ты пишешь французскую."},
+  {n:11, t:"Passé composé", g:"рассказать, что было вчера",
+   task:"10 глаголов с avoir, потом 5 фраз о вчерашнем дне.",
+   extra:"Ещё 5 фраз о выходных и разбор."},
+  {n:12, t:"Города и страны", g:"à Moscou, en France, au Canada, aux États-Unis",
+   task:"10 фраз: я был(а), поеду, живу.",
+   extra:"Рассказ «маршрут мечты» на 5 фраз."},
+  {n:13, t:"Диалог-знакомство", g:"30 минут живой речи без подготовки",
+   task:"Знакомство на вечеринке: кто ты, откуда, чем занимаешься, что любишь. Я задаю неудобные вопросы.",
+   extra:"Топ-3 ошибки — в журнал."},
+  {n:14, t:"Контрольный тест", g:"сравнить с днём 0",
+   task:"Те же 5 заданий, что в диагностике, плюс 5 новых.",
+   extra:"Обновить журнал ошибок и выбрать следующие темы."}
+];
+
+const LESSONS = [
+  {
+    n:1, t:"Элизия", g:"je → j', le/la → l', que → qu'",
+    blocks:[
+      {h:"Правило", p:[
+        "Французы не любят два гласных подряд. Поэтому короткие слова на -e теряют гласную и приклеиваются через апостроф: je → j', le/la → l', ne → n', de → d', que → qu'.",
+        "Срабатывает только перед <b>гласной</b> или <b>немым h</b>: a, e, i, o, u, y, é, è, ê."
+      ], ex:[
+        ["je + apprendre → j'apprends","я учу"],
+        ["je + étudier → j'étudie","я учусь (студентка)"],
+        ["je + ai → j'ai","у меня есть"],
+        ["le / la + université → l'université","университет"],
+        ["le / la + école → l'école","школа"],
+        ["je ne + ai pas → je n'ai pas","у меня нет"],
+        ["de + accord → d'accord","согласна"],
+        ["que + est-ce → qu'est-ce","что"]
+      ]},
+      {h:"Как проверять", p:[
+        "Пишешь «je …» — смотришь на первую букву следующего слова. Гласная → апостроф. Без исключений, даже если фраза кажется длинной."
+      ]}
+    ],
+    traps:["je apprend → <b>j'apprends</b>","le universite → <b>l'université</b>","etudie без подлежащего → <b>j'étudie</b>"],
+    todo:["Перепиши 5 своих фраз, где есть je + гласная.","Произнеси вслух: j'apprends, j'étudie, j'ai, j'habite.","Напиши мне 3 фразы с j'."]
+  },
+  {
+    n:2, t:"Акценты и чтение", g:"é, è, ç и почему французский не читается как пишется",
+    blocks:[
+      {h:"Зачем акценты", p:[
+        "Акцент меняет звук: <i>et</i> — «и», <i>été</i> — «лето». Без него слово просто написано неверно, и француз это видит сразу."
+      ], ex:[
+        ["é — закрытое «э»","café, étudier, répétez"],
+        ["è и ê — открытое «э»","mère, très, être, fenêtre"],
+        ["ç = «с» перед a, o, u","français, leçon, ça"],
+        ["à, ù, î, ô","звук не меняют, различают слова: a/à, ou/où, plait/plaît"]
+      ]},
+      {h:"Чтение: шесть правил, которые дают 80%", p:[], ex:[
+        ["Конечные согласные молчат","petit = «пти», vous = «ву», grand = «грã»"],
+        ["Но c, r, f, l читаются","avec, sur, neuf, seul"],
+        ["-ent у глаголов не читается","ils parlent = «иль парль»"],
+        ["Носовые: on/an, in/ain, un","bon, grand, pain, un"],
+        ["u ≠ ou","tu «тю» — tout «ту». Губы вперёд, язык вперёд, не «у»"],
+        ["Связывание (liaison)","vous avez = «ву-за-вэ», les amis = «ле-за-ми»"]
+      ]},
+      {h:"Почему ты не слышишь", p:[
+        "Ты знаешь слова глазами, а французы говорят слияниями. «Je ne sais pas» звучит как «шё-сэ-па» — половина букв исчезает. Это не скорость, это другая система."
+      ]}
+    ],
+    traps:["francais → <b>français</b>","plait → <b>plaît</b>","universite → <b>université</b>","legumes → <b>légumes</b>"],
+    todo:["Открой «Фразы», поставь 0,75×, читай вслух вместе с записью.","Запиши себя на телефон: J'apprends le français depuis deux mois.","Сравни с mp3 — где съела звук?"]
+  },
+  {
+    n:3, t:"être, avoir и род", g:"je suis étudiante, une leçon, l'université",
+    blocks:[
+      {h:"Два глагола, без которых никуда", p:["être — быть/являться, avoir — иметь. Учи сразу с местоимениями, как песенку."], ex:[
+        ["je suis / j'ai","я есть / у меня есть"],
+        ["tu es / tu as","ты / у тебя есть"],
+        ["il, elle est / il, elle a","он, она"],
+        ["nous sommes / nous avons","мы"],
+        ["vous êtes / vous avez","вы"],
+        ["ils, elles sont / ils, elles ont","они"]
+      ]},
+      {h:"Род: слово учится с артиклем", p:[
+        "Рода не видно по слову, его запоминают вместе с артиклем: <b>une</b> leçon, <b>un</b> café, <b>l'</b>université. Учить «leçon — урок» отдельно бесполезно."
+      ], ex:[
+        ["un / le — мужской","un café, le travail"],
+        ["une / la — женский","une leçon, la maison"],
+        ["l' — любой род перед гласной","l'université, l'école"]
+      ]},
+      {h:"Профессия и статус — без артикля", p:[
+        "Je suis étudiante. Je suis professeur. Артикль не нужен — в отличие от русского «я — студентка»."
+      ]},
+      {h:"mon / ma и ловушка с amie", p:[
+        "Притяжательное согласуется с родом: mon copain, ma copine. Но перед гласной ma → mon: mon amie. Это фонетика, а не род."
+      ], ex:[
+        ["mon copain / ma copine","парень / девушка"],
+        ["mon amie","подруга (не ma amie)"],
+        ["ma copine","девушка (не mon copine)"]
+      ]}
+    ],
+    traps:["je suis etudiant (о себе) → <b>étudiante</b>","ma copine, но <b>mon amie</b>"],
+    todo:["Выучи 13 слов со вкладки «Слова» вместе с артиклем.","Напиши 5 фраз: je suis…, j'ai…, je n'ai pas…","Расскажи, кто ты, где учишься, сколько тебе лет."]
+  },
+  {
+    n:4, t:"Презенс на -er", g:"parler, étudier, jouer, aimer, habiter",
+    blocks:[
+      {h:"Схема", p:["Берёшь инфинитив, отрезаешь -er, добавляешь окончание. Это 90% французских глаголов."], ex:[
+        ["je parl-e","я говорю"],
+        ["tu parl-es","ты говоришь"],
+        ["il / elle parl-e","он говорит"],
+        ["nous parl-ons","мы говорим"],
+        ["vous parl-ez","вы говорите"],
+        ["ils / elles parl-ent","они говорят"]
+      ]},
+      {h:"Хорошая новость", p:[
+        "Четыре формы из шести звучат одинаково: parle, parles, parle, parlent — всё «парль». На слух различаются только nous и vous."
+      ]},
+      {h:"Отрицание", p:["ne … pas обнимает глагол: je ne parle pas. ne → n' перед гласной: je n'aime pas."]},
+      {h:"Список на неделю", p:["parler, étudier, jouer, aimer, habiter, marcher, manger, travailler."]}
+    ],
+    traps:["joue без подлежащего → <b>je joue</b>","nous étudions — двойная i"],
+    todo:["Проспрягай вслух aimer и habiter.","Напиши 5 фраз о своём дне.","Две из них переведи в отрицание."]
+  },
+  {
+    n:5, t:"depuis", g:"J'apprends le français depuis deux mois",
+    blocks:[
+      {h:"Правило", p:[
+        "Действие началось раньше и <b>всё ещё идёт</b> → настоящее время + depuis. По-русски мы говорим в прошедшем («учу два месяца»), по-французски — в настоящем."
+      ], ex:[
+        ["J'apprends le français depuis deux mois.","Учу французский два месяца (и продолжаю)"],
+        ["J'habite à Moscou depuis toujours.","Живу в Москве всю жизнь"],
+        ["Je connais mon amie depuis un an.","Знаю подругу год"],
+        ["Depuis combien de temps… ?","Сколько времени…?"]
+      ]},
+      {h:"Не путать", p:[
+        "<b>depuis</b> — продолжается. <b>il y a</b> — точка в прошлом: J'ai commencé il y a deux mois (начал два месяца назад). <b>pendant</b> — сколько длилось и закончилось: J'ai étudié pendant deux heures."
+      ]}
+    ],
+    traps:["deux mois без depuis → <b>depuis deux mois</b>"],
+    todo:["5 фраз «я … уже N времени».","Спроси меня: Depuis combien de temps tu apprends le français ?"]
+  },
+  {
+    n:6, t:"Диалог: в кафе", g:"заказ, счёт, «что посоветуете»",
+    blocks:[
+      {h:"Диалог", p:[], ex:[
+        ["— Bonjour ! Vous avez choisi ?","— Здравствуйте! Вы выбрали?"],
+        ["— Bonjour, je voudrais un café et un croissant.","— Я бы хотела кофе и круассан."],
+        ["— Très bien. Et avec ça ?","— Хорошо. Что-нибудь ещё?"],
+        ["— C'est tout, merci.","— Это всё, спасибо."],
+        ["— Ça fait six euros.","— С вас шесть евро."],
+        ["— Voilà. L'addition, s'il vous plaît.","— Вот. Счёт, пожалуйста."],
+        ["— Merci, bonne journée !","— Спасибо, хорошего дня!"]
+      ]},
+      {h:"Три опоры", p:[
+        "<b>Je voudrais</b> — вежливое «я бы хотела» (не je veux, это грубовато). <b>L'addition</b> — счёт в кафе. <b>Qu'est-ce que vous me conseillez ?</b> — что посоветуете."
+      ]}
+    ],
+    todo:["Прочитай диалог вслух дважды.","Замени кофе и круассан на то, что любишь.","Скажи по памяти 4 реплики."]
+  },
+  {
+    n:7, t:"Как тренировать слух", g:"10 минут, которые дают больше, чем час чтения",
+    blocks:[
+      {h:"Почему тяжело", p:[
+        "Ты знаешь слова глазами, но не узнаёшь на слух: французы сливают слова, съедают -e и говорят быстрее, чем кажется."
+      ]},
+      {h:"Метод четырёх шагов (10 минут)", p:[
+        "1. Слушаешь минуту без текста — просто привыкаешь к потоку. 2. Слушаешь с транскриптом, находишь глазами то, что услышала. 3. Повторяешь вслух вместе с диктором (shadowing), не останавливая запись. 4. Закрываешь текст и пересказываешь одну фразу своими словами."
+      ]},
+      {h:"Что слушать на A1", p:[
+        "Coffee Break French, сезон 1 — объяснения по-английски, темп учебный. Alice Ayel — медленные истории с рисунками. Duolingo Podcast — истории с английскими вставками."
+      ]},
+      {h:"Норма", p:["5 минут каждый день лучше, чем час раз в неделю. Слух — это навык, а не знание."]}
+    ],
+    todo:["Сегодня 5 минут Coffee Break French S1 E1.","3 фразы вслух за диктором.","Напиши мне, что услышала — хоть одну фразу."]
+  },
+
+  /* ===================== вторая неделя ===================== */
+
+  {
+    n:8, t:"Вопросы", g:"три способа спросить и восемь вопросительных слов",
+    blocks:[
+      {h:"Три способа — один вопрос", p:[
+        "Один и тот же вопрос можно задать тремя способами. Смысл не меняется, меняется только тон."
+      ], ex:[
+        ["Tu parles français ?","интонация — так говорят в жизни"],
+        ["Est-ce que tu parles français ?","нейтрально, годится везде"],
+        ["Parles-tu français ?","инверсия — формально и на письме"]
+      ]},
+      {h:"Восемь слов, из которых собираются вопросы", p:[], ex:[
+        ["qui","кто"],
+        ["que / quoi","что"],
+        ["où","где, куда"],
+        ["quand","когда"],
+        ["pourquoi","почему"],
+        ["comment","как"],
+        ["combien","сколько"],
+        ["quel / quelle","какой / какая"]
+      ]},
+      {h:"Готовые вопросы", p:[], ex:[
+        ["Où est-ce que tu habites ?","Где ты живёшь?"],
+        ["Qu'est-ce que tu fais ?","Чем ты занимаешься?"],
+        ["Tu viens d'où ?","Ты откуда?"],
+        ["Depuis combien de temps… ?","Сколько времени…?"],
+        ["Pourquoi tu apprends le français ?","Почему ты учишь французский?"]
+      ]},
+      {h:"Порядок слов", p:[
+        "В вопросе с вопросом-словом французский не переставляет всё, как английский. Чаще всего слово остаётся там же, куда встало бы в утверждении, а вопросительное слово — в начале."
+      ]}
+    ],
+    traps:["Tu as quel âge ? — верно и так; формально <b>Quel âge as-tu ?</b>","в инверсии нужен дефис: <b>Parles-tu</b>, а не «Parles tu»"],
+    todo:["Придумай 8 вопросов, которые тебе реально нужны.","Задай их мне в чате — я отвечу по-французски."]
+  },
+  {
+    n:9, t:"Отрицание", g:"ne … pas, jamais, rien, personne",
+    blocks:[
+      {h:"Базовая схема", p:[
+        "<b>ne</b> ставится перед глаголом, <b>pas</b> — после. Само отрицание окружает глагол, как рамка."
+      ], ex:[
+        ["Je ne comprends pas.","Я не понимаю."],
+        ["Je n'aime pas le café.","Я не люблю кофе."],
+        ["Je n'ai pas compris.","Я не поняла."]
+      ]},
+      {h:"Другие «вторые половинки»", p:["Вместо pas можно поставить другое слово — смысл меняется."], ex:[
+        ["ne … jamais","никогда: Je ne fume jamais."],
+        ["ne … rien","ничего: Je ne comprends rien."],
+        ["ne … personne","никого: Il n'y a personne."],
+        ["ne … plus","больше не: Je ne travaille plus ici."]
+      ]},
+      {h:"Ловушка разговорной речи", p:[
+        "Французы в речи часто съедают ne: «je comprends pas». Это нормально на слух, но <b>на письме ne обязательно</b>."
+      ]}
+    ],
+    traps:["✗ Je ne comprends rien pas — два отрицания не складываются: либо rien, либо pas","ne ставится перед глаголом, а не после: <b>je ne parle pas</b>"],
+    todo:["8 фраз «я не …» о себе.","Переделай 8 своих старых фраз в отрицание."]
+  },
+  {
+    n:10, t:"Глаголы на -re и -ir", g:"apprendre, comprendre, prendre, finir, choisir",
+    blocks:[
+      {h:"-re: у них теряется окончание", p:["В единственном числе почти ничего не остаётся — запоминай формы целиком."], ex:[
+        ["je prends / tu prends / il prend","я беру / ты берёшь / он берёт"],
+        ["nous prenons / vous prenez / ils prennent","мы / вы / они"],
+        ["j'apprends, tu apprends, il apprend","я учу…"],
+        ["nous apprenons, ils apprennent","мы учим, они учат"]
+      ]},
+      {h:"-ir: два типа, но нужен один", p:["Нам пока хватит «длинного» типа — с -iss- во множественном числе."], ex:[
+        ["je finis / tu finis / il finit","я заканчиваю"],
+        ["nous finissons / vous finissez / ils finissent","мы / вы / они"],
+        ["je choisis, nous choisissons","я выбираю"]
+      ]},
+      {h:"Зачем это нужно", p:["apprendre и comprendre — твои рабочие глаголы: «я учу французский», «я не понимаю». Без них никак."]}
+    ],
+    traps:["je apprend → <b>j'apprends</b>","ils prendent → <b>ils prennent</b>","nous finissons, а не «nous finons»"],
+    todo:["По 4 формы каждому из пяти глаголов.","10 предложений с ними — пришли в чат."]
+  },
+  {
+    n:11, t:"Passé composé", g:"«вчера я …» — как рассказать о прошлом",
+    blocks:[
+      {h:"Формула", p:[
+        "Настоящее время avoir (или être) + причастие прошедшего времени. Причастие: -er → -é, -ir → -i, -re → -u."
+      ], ex:[
+        ["j'ai étudié","я занималась (étudier → étudié)"],
+        ["tu as parlé","ты говорил (parler → parlé)"],
+        ["il a fini","он закончил (finir → fini)"],
+        ["nous avons pris","мы взяли (prendre → pris)"],
+        ["je n'ai pas compris","я не поняла (отрицание вокруг avoir)"]
+      ]},
+      {h:"С avoir причастие не согласуется", p:[
+        "Это главная ошибка. «Я говорила» = j'ai parlé, без -e, даже если ты девушка. Окончание -e появляется только у глаголов движения с être: je suis allée."
+      ]},
+      {h:"Маркеры прошлого", p:["hier, la semaine dernière, l'année dernière, il y a deux jours — увидела их, значит нужен passé composé."]}
+    ],
+    traps:["j'ai parlée → <b>j'ai parlé</b>","Hier, j'apprends → <b>Hier, j'ai étudié</b>"],
+    todo:["5 фраз о вчерашнем дне.","5 фраз о выходных.","Пришли — разберу и запишу ошибки."]
+  },
+  {
+    n:12, t:"Города и страны", g:"à Moscou, en France, au Canada, aux États-Unis",
+    blocks:[
+      {h:"Куда / где", p:["Предлог зависит от того, город это или страна, и от рода страны."], ex:[
+        ["à + город","à Moscou, à Paris, à Londres"],
+        ["en + страна женского рода","en France, en Russie, en Italie"],
+        ["au + страна мужского рода","au Canada, au Japon, au Portugal"],
+        ["aux + множественное число","aux États-Unis, aux Pays-Bas"]
+      ]},
+      {h:"Откуда", p:[], ex:[
+        ["de + город","de Moscou, de Paris"],
+        ["de + страна женского рода","de France, de Russie"],
+        ["du + мужской род","du Canada"],
+        ["des + множественное","des États-Unis"]
+      ]},
+      {h:"Глагол aller — неправильный", p:["Его формы надо знать наизусть, они не по схеме."], ex:[
+        ["je vais","я иду / еду"],
+        ["tu vas","ты идёшь"],
+        ["il / elle va","он идёт"],
+        ["nous allons","мы идём"],
+        ["vous allez","вы идёте"],
+        ["ils / elles vont","они идут"]
+      ]}
+    ],
+    traps:["à France → <b>en France</b>","en Canada → <b>au Canada</b>","je vais à le Canada → <b>au Canada</b> (слияние)"],
+    todo:["10 фраз: я был(а), поеду, живу.","Рассказ «маршрут мечты» на 5 фраз."]
+  },
+  {
+    n:13, t:"Диалог-знакомство", g:"30 минут живой речи без подготовки",
+    blocks:[
+      {h:"Опоры для разговора", p:[], ex:[
+        ["Salut ! Moi, c'est Evelina. Et toi ?","Привет! Я Эвелина. А ты?"],
+        ["Tu viens d'où ?","Ты откуда?"],
+        ["Qu'est-ce que tu fais ?","Чем занимаешься?"],
+        ["Tu aimes quoi ?","Что тебе нравится?"],
+        ["Moi aussi !","Я тоже!"]
+      ]},
+      {h:"Правило хорошего диалога", p:[
+        "Ответ + вопрос обратно. Не «Je suis étudiante.» и тишина, а «Je suis étudiante. Et toi, tu fais quoi ?» Именно это превращает упражнение в разговор."
+      ]}
+    ],
+    todo:["30 минут со мной в чате: знакомство, без подготовки.","Я задаю неудобные вопросы, ты выкручиваешься.","Топ-3 ошибки — в журнал."]
+  },
+  {
+    n:14, t:"Контрольный тест", g:"сравнить с днём 0",
+    blocks:[
+      {h:"Что проверяем", p:[], ex:[
+        ["Элизия","j'apprends, l'université"],
+        ["depuis","J'apprends depuis deux mois."],
+        ["Род и артикли","une leçon, mon amie"],
+        ["-er / -re / -ir","je parle, je prends, je finis"],
+        ["Вопросы","Est-ce que tu parles ?"],
+        ["Отрицание","Je ne comprends rien."],
+        ["Passé composé","Hier, j'ai étudié."],
+        ["Города и страны","en France, au Canada"]
+      ]},
+      {h:"Как проходить", p:[
+        "Сначала закрой теорию и сделай задания ниже. Потом вернись к уроку 1 и проверь, всё ли ещё понятно. Если да — неделя закрыта."
+      ]}
+    ],
+    todo:["Пройди тест ниже без подсказок.","Выгрузи результаты и пришли мне.","Отметь день 14."]
+  }
+];
+
+/* Что входит в каждый урок: индексы фраз и слов, номера заданий */
+const LESSON_CONTENT = {
+  1:  { phr: [0, 1, 3, 4, 5],        voc: [],                             drl: [1, 2, 5, 9] },
+  2:  { phr: [6, 7, 8, 9],           voc: [],                             drl: [15, 16] },
+  3:  { phr: [3],                    voc: [0, 1, 2, 3, 4, 5, 6, 7, 8],   drl: [3, 4, 11, 13] },
+  4:  { phr: [0, 3],                 voc: [],                             drl: [12, 17, 18] },
+  5:  { phr: [2],                    voc: [],                             drl: [6, 43, 44] },
+  6:  { phr: [10, 11, 12, 13, 14],   voc: [4, 5, 8],                      drl: [7, 8, 14] },
+  7:  { phr: [0, 1, 2, 3],           voc: [],                             drl: [10, 19, 20, 21, 22] },
+  8:  { phr: [15, 16, 22, 23],       voc: [],                             drl: [23, 24, 25] },
+  9:  { phr: [17, 18],               voc: [],                             drl: [26, 27, 28] },
+  10: { phr: [],                     voc: [],                             drl: [29, 30, 31] },
+  11: { phr: [19],                   voc: [],                             drl: [32, 33, 34] },
+  12: { phr: [20, 21],               voc: [],                             drl: [35, 36, 37] },
+  13: { phr: [0, 22, 23, 24],        voc: [],                             drl: [38] },
+  14: { phr: [2, 6, 17, 19],         voc: [],                             drl: [39, 40, 41, 42] }
+};
+
+const PHRASES = [
+  {fr:"Je m'appelle Evelina.", ru:"Меня зовут Эвелина.", a:"audio/p1.mp3"},
+  {fr:"Je viens de Moscou.", ru:"Я из Москвы.", a:"audio/p2.mp3"},
+  {fr:"J'apprends le français depuis deux mois.", ru:"Учу французский два месяца.", a:"audio/p3.mp3"},
+  {fr:"Je suis étudiante.", ru:"Я студентка.", a:"audio/p4.mp3"},
+  {fr:"Je ne comprends pas.", ru:"Я не понимаю.", a:"audio/p5.mp3"},
+  {fr:"Je n'ai pas compris.", ru:"Я не поняла.", a:"audio/p6.mp3"},
+  {fr:"Pouvez-vous répéter, s'il vous plaît ?", ru:"Можете повторить, пожалуйста?", a:"audio/p7.mp3"},
+  {fr:"Plus lentement, s'il vous plaît.", ru:"Помедленнее, пожалуйста.", a:"audio/p8.mp3"},
+  {fr:"Comment dit-on … en français ?", ru:"Как сказать … по-французски?", a:"audio/p9.mp3"},
+  {fr:"Qu'est-ce que ça veut dire ?", ru:"Что это значит?", a:"audio/p10.mp3"},
+  {fr:"L'addition, s'il vous plaît.", ru:"Счёт, пожалуйста.", a:"audio/p11.mp3"},
+  {fr:"Qu'est-ce que vous me conseillez ?", ru:"Что посоветуете?", a:"audio/p12.mp3"},
+  {fr:"Je voudrais un café, s'il vous plaît.", ru:"Я бы хотела кофе, пожалуйста.", a:"audio/p13.mp3"},
+  {fr:"C'est combien ?", ru:"Сколько стоит?", a:"audio/p14.mp3"},
+  {fr:"Excusez-moi, je suis perdue.", ru:"Извините, я заблудилась.", a:"audio/p15.mp3"},
+
+  /* --- вторая неделя --- */
+  {fr:"Où est-ce que tu habites ?", ru:"Где ты живёшь?", a:"audio/p16.mp3"},
+  {fr:"Est-ce que tu parles français ?", ru:"Ты говоришь по-французски?", a:"audio/p17.mp3"},
+  {fr:"Je ne comprends rien.", ru:"Я ничего не понимаю.", a:"audio/p18.mp3"},
+  {fr:"Je n'aime pas le café.", ru:"Я не люблю кофе.", a:"audio/p19.mp3"},
+  {fr:"Hier, j'ai étudié le français.", ru:"Вчера я занималась французским.", a:"audio/p20.mp3"},
+  {fr:"Je vais à Moscou.", ru:"Я еду в Москву.", a:"audio/p21.mp3"},
+  {fr:"Je vais en France.", ru:"Я еду во Францию.", a:"audio/p22.mp3"},
+  {fr:"Qu'est-ce que tu fais ?", ru:"Чем ты занимаешься?", a:"audio/p23.mp3"},
+  {fr:"Tu viens d'où ?", ru:"Ты откуда?", a:"audio/p24.mp3"},
+  {fr:"Moi aussi !", ru:"Я тоже!", a:"audio/p25.mp3"}
+];
+
+const VOCAB = [
+  {fr:"une université", ru:"университет", g:"f", ex:"Je vais à l'université.", a:"audio/v1.mp3"},
+  {fr:"une leçon", ru:"урок, тема", g:"f", ex:"une leçon difficile", a:"audio/v2.mp3"},
+  {fr:"un cours", ru:"занятие, курс", g:"m", ex:"Je révise mes cours.", a:"audio/v3.mp3"},
+  {fr:"une école", ru:"школа", g:"f", ex:"L'école est loin.", a:"audio/v4.mp3"},
+  {fr:"un café", ru:"кафе; кофе", g:"m", ex:"un café, s'il vous plaît", a:"audio/v5.mp3"},
+  {fr:"une maison", ru:"дом", g:"f", ex:"à la maison", a:"audio/v6.mp3"},
+  {fr:"le travail", ru:"работа", g:"m", ex:"Je vais au travail.", a:"audio/v7.mp3"},
+  {fr:"un ami / une amie", ru:"друг / подруга", g:"m", ex:"mon amie", a:"audio/v8.mp3"},
+  {fr:"un copain / une copine", ru:"парень / девушка (о партнёре)", g:"m", ex:"Je parle avec mon copain.", a:"audio/v9.mp3"},
+  {fr:"un chien", ru:"собака", g:"m", ex:"Jouer avec mon chien.", a:"audio/v10.mp3"},
+  {fr:"un film", ru:"фильм", g:"m", ex:"un film français", a:"audio/v11.mp3"},
+  {fr:"la musique", ru:"музыка", g:"f", ex:"J'aime la musique.", a:"audio/v12.mp3"},
+  {fr:"le jour / la nuit", ru:"день / ночь", g:"m", ex:"la nuit, le jour", a:"audio/v13.mp3"}
+];
+
+const ERRORS = [
+  {w:"je apprend", r:"j'apprends", rule:"элизия je → j' перед гласной + apprendre"},
+  {w:"le universite", r:"l'université", rule:"le/la → l' перед гласной; université — женский род"},
+  {w:"etudie (без je)", r:"j'étudie", rule:"элизия + акцент é"},
+  {w:"un lecon", r:"une leçon", rule:"leçon — женский род; ç перед o"},
+  {w:"ma amie", r:"mon amie", rule:"ma → mon перед гласной, даже для женского рода"},
+  {w:"deux mois (без depuis)", r:"depuis deux mois", rule:"длительность до сих пор = depuis + présent"},
+  {w:"francais", r:"français", rule:"ç перед a, o, u"},
+  {w:"je suis etudiant", r:"je suis étudiante", rule:"согласование в роде"},
+  {w:"je ne commprend pais", r:"je ne comprends pas", rule:"comprendre: je comprends; отрицание ne … pas"},
+  {w:"s'il voux plait", r:"s'il vous plaît", rule:"vous; î в plaît"},
+  {w:"je marche dans l'université", r:"je me promène à l'université", rule:"marcher = шагать, работать; гулять = se promener"},
+  {w:"m'appele", r:"m'appelle", rule:"двойная l, как в elle"},
+  {w:"mon cher (о парне)", r:"mon copain", rule:"mon cher = обращение «дорогой», а не «мой парень»"},
+  {w:"repites (повторите)", r:"répétez", rule:"повелительное для vous: -ez; répéter → répétez"},
+  {w:"s'il vous plait", r:"s'il vous plaît", rule:"î с циркумфлексом"},
+  {w:"mon copine", r:"ma copine", rule:"mon → ma, если слово женского рода и начинается с согласной"},
+  {w:"On mangent", r:"On mange", rule:"on спрягается как il: окончание -e"},
+  {w:"des bons légumes", r:"de bons légumes", rule:"прилагательное перед существительным во мн. ч. → de"},
+  {w:"Hier, j'apprends", r:"Hier, j'ai étudié", rule:"вчера = passé composé, а не présent"},
+  {w:"dans l'université", r:"à l'université", rule:"учреждение → à, а не dans"}
+];
+
+const DRILLS = [
+  {n:1, type:"fill", q:"Допиши форму: Je ___ (apprendre) le français.",
+   answers:["j'apprends"], hint:"Сначала элизия: je перед гласной → j'."},
+  {n:2, type:"fill", q:"Допиши: ___ (étudier) à l'université.",
+   answers:["j'étudie"], hint:"Тот же случай: je + étudier."},
+  {n:3, type:"choice", q:"Je parle avec ___ amie.", options:["mon","ma"], answer:"mon",
+   hint:"amie — женский род, но начинается с гласной."},
+  {n:4, type:"choice", q:"C'est ___ leçon difficile.", options:["un","une"], answer:"une",
+   hint:"leçon — женский род."},
+  {n:5, type:"fill", q:"Вставь артикль: Je vais à ___ université.",
+   answers:["l'","l’"], hint:"université начинается с гласной."},
+  {n:6, type:"translate", q:"Переведи: «Я учу французский два месяца.»",
+   answers:["j'apprends le français depuis deux mois"],
+   hint:"Нужен depuis, иначе француз не поймёт."},
+  {n:7, type:"translate", q:"Переведи: «Я не понимаю, повторите помедленнее, пожалуйста.»",
+   answers:[
+     "je ne comprends pas pouvez-vous répéter plus lentement s'il vous plaît",
+     "je ne comprends pas répétez plus lentement s'il vous plaît",
+     "je ne comprends pas pouvez-vous répéter s'il vous plaît",
+     "je ne comprends pas pouvez-vous parler plus lentement s'il vous plaît"
+   ],
+   hint:"Два предложения: «не понимаю» и «повторите»."},
+  {n:8, type:"translate", q:"Переведи: «Счёт, пожалуйста.»",
+   answers:["l'addition s'il vous plaît","l'addition s'il te plaît"],
+   hint:"Счёт в кафе — это addition (женский род)."},
+  {n:9, type:"find3", q:"Найди три ошибки: Je viens de Moscow et je apprend le francais.",
+   keywords:["moscou","apprends","franc"],
+   answer:"Moscou · j'apprends · français",
+   hint:"Город, элизия, ç."},
+  {n:10, type:"open", q:"Свободно: напиши 3 фразы о вчерашнем дне. Криво — можно, мне нужны ошибки.",
+   example:"Hier, j'ai étudié le français. J'ai parlé avec mon amie. J'ai joué avec mon chien.",
+   hint:"Потом пришли эти фразы в чат — разберём и запишем в журнал."},
+
+  /* --- вторая порция: по ошибкам из твоей выгрузки --- */
+  {n:11, type:"choice", q:"Tu parles avec ___ copine.", options:["mon","ma"], answer:"ma",
+   hint:"copine — женский род и начинается с согласной, значит ma."},
+  {n:12, type:"fill", q:"Допиши: On ___ bien ici. (manger)", answers:["mange"],
+   hint:"on спрягается как il: окончание -e."},
+  {n:13, type:"choice", q:"J'ai acheté ___ bons légumes.", options:["des","de"], answer:"de",
+   hint:"прилагательное перед существительным во множественном числе → de."},
+  {n:14, type:"fill", q:"Допиши: ___ plus lentement, s'il vous plaît. (répéter, vous)", answers:["répétez"],
+   hint:"повелительное для vous: -ez, без -s."},
+  {n:15, type:"choice", q:"Как правильно написано слово «французский»?", options:["français","francais"], answer:"français",
+   hint:"ç перед a даёт звук «с»."},
+  {n:16, type:"choice", q:"Как правильно?", options:["s'il vous plaît","s'il vous plait"], answer:"s'il vous plaît",
+   hint:"î с циркумфлексом — иначе это просто ошибка."},
+  {n:17, type:"fill", q:"Допиши: Nous ___ (parler) français.", answers:["parlons"],
+   hint:"nous → окончание -ons."},
+  {n:18, type:"fill", q:"Допиши: Elle ___ (aimer) la musique.", answers:["aime"],
+   hint:"elle → окончание -e, как у il."},
+
+  /* --- диктанты (урок 7) --- */
+  {n:19, type:"dictation", q:"Нажми ▶ и напиши, что услышала.", audio:"audio/p5.mp3",
+   answers:["je ne comprends pas"], hint:"Три слова, первое — je."},
+  {n:20, type:"dictation", q:"Нажми ▶ и напиши, что услышала.", audio:"audio/p10.mp3",
+   answers:["qu'est-ce que ça veut dire"], hint:"Вопросительная конструкция из урока 1."},
+  {n:21, type:"dictation", q:"Нажми ▶ и напиши, что услышала.", audio:"audio/v5.mp3",
+   answers:["un café"], hint:"Два слова. Артикль слышно."},
+  {n:22, type:"dictation", q:"Нажми ▶ и напиши, что услышала.", audio:"audio/p3.mp3",
+   answers:["j'apprends le français depuis deux mois"], hint:"Самая длинная — включи «медленно»."},
+
+  /* --- урок 8: вопросы --- */
+  {n:23, type:"choice", q:"Какой вариант — вопрос с инверсией?", options:["Tu parles français ?","Parles-tu français ?"], answer:"Parles-tu français ?",
+   hint:"Инверсия — это глагол перед подлежащим, через дефис."},
+  {n:24, type:"fill", q:"Допиши: ___ est-ce que tu habites ? (где)", answers:["où"],
+   hint:"«где» пишется с ù."},
+  {n:25, type:"fill", q:"Допиши: Est-ce que tu ___ (parler) français ?", answers:["parles"],
+   hint:"после tu — окончание -es."},
+
+  /* --- урок 9: отрицание --- */
+  {n:26, type:"choice", q:"Как сказать «Она никогда не опаздывает»?", options:["Elle n'est jamais en retard.","Elle ne jamais est en retard."], answer:"Elle n'est jamais en retard.",
+   hint:"ne идёт перед глаголом, jamais — после."},
+  {n:27, type:"fill", q:"Допиши: Je ne comprends ___ . (ничего)", answers:["rien"],
+   hint:"«ничего» = rien, после глагола."},
+  {n:28, type:"fill", q:"Допиши: Il n'y a ___ . (никого)", answers:["personne"],
+   hint:"«никого» = personne."},
+
+  /* --- урок 10: -re и -ir --- */
+  {n:29, type:"fill", q:"Допиши: Nous ___ (prendre) un café.", answers:["prenons"],
+   hint:"nous prenons — без d."},
+  {n:30, type:"fill", q:"Допиши: Ils ___ (comprendre) tout.", answers:["comprennent"],
+   hint:"у ils двойная n: comprennent."},
+  {n:31, type:"fill", q:"Допиши: Je ___ (finir) mon travail.", answers:["finis"],
+   hint:"finir: je finis, nous finissons."},
+
+  /* --- урок 11: passé composé --- */
+  {n:32, type:"fill", q:"Допиши: Hier, j'___ (étudier) le français.", answers:["ai étudié"],
+   hint:"avoir в présent + причастие: ai étudié."},
+  {n:33, type:"choice", q:"Как правильно?", options:["J'ai parlé avec mon amie.","J'ai parlée avec mon amie."], answer:"J'ai parlé avec mon amie.",
+   hint:"с avoir причастие не согласуется."},
+  {n:34, type:"fill", q:"Допиши: Nous ___ (manger) au café. (вчера)", answers:["avons mangé"],
+   hint:"nous avons + mangé."},
+
+  /* --- урок 12: города и страны --- */
+  {n:35, type:"choice", q:"Je vais ___ France.", options:["à","en","au"], answer:"en",
+   hint:"страна женского рода → en."},
+  {n:36, type:"choice", q:"Je vais ___ Canada.", options:["en","au"], answer:"au",
+   hint:"страна мужского рода → au."},
+  {n:37, type:"fill", q:"Допиши: J'habite ___ Moscou.", answers:["à"],
+   hint:"город → à."},
+
+  /* --- урок 13: диалог --- */
+  {n:38, type:"open", q:"Напиши 5 фраз о себе: имя, откуда, чем занимаешься, что любишь, и один вопрос мне.",
+   example:"Je m'appelle Evelina. Je viens de Moscou. Je suis étudiante. J'aime la musique. Et toi, tu fais quoi ?",
+   hint:"Потом пришли это в чат — разберём и ответим."},
+
+  /* --- урок 14: контрольный тест --- */
+  {n:39, type:"translate", q:"Переведи: «Я учу французский два месяца.»",
+   answers:["j'apprends le français depuis deux mois"],
+   hint:"Не забывай depuis."},
+  {n:40, type:"translate", q:"Переведи: «Я не понимаю, повторите помедленнее, пожалуйста.»",
+   answers:[
+     "je ne comprends pas pouvez-vous répéter plus lentement s'il vous plaît",
+     "je ne comprends pas répétez plus lentement s'il vous plaît",
+     "je ne comprends pas pouvez-vous répéter s'il vous plaît"
+   ],
+   hint:"ne … pas + répétez."},
+  {n:41, type:"choice", q:"Как правильно?", options:["Il parle français.","Il parles français."], answer:"Il parle français.",
+   hint:"il → окончание -e."},
+  {n:42, type:"fill", q:"Допиши: Nous ___ (aller) au cinéma.", answers:["allons"],
+   hint:"aller — неправильный: nous allons."},
+
+  /* --- добивка для урока 5 --- */
+  {n:43, type:"fill", q:"Допиши: J'habite à Moscou ___ dix ans.", answers:["depuis"],
+   hint:"действие продолжается до сих пор → depuis."},
+  {n:44, type:"fill", q:"Допиши: Depuis combien de ___ tu apprends le français ? (времени)", answers:["temps"],
+   hint:"«сколько времени» = combien de temps."}
+];
+
+/* ============================ состояние ============================ */
+
+const KEY = "fr-progress-v1";
+
+// Облако (Supabase) — если заполнен config.js; иначе локальный сервер; иначе только браузер.
+const CFG = window.FR_CONFIG || {};
+const SB = (CFG.supabaseUrl && CFG.supabaseKey) ? {
+  rest: String(CFG.supabaseUrl).replace(/\/+$/, "") + "/rest/v1/progress",
+  key: CFG.supabaseKey,
+  id: CFG.rowId || "evelina-fr"
+} : null;
+const LOCAL_API = (!SB && (location.protocol === "http:" || location.protocol === "https:")) ? "/api/state" : null;
+const SYNC = !!(SB || LOCAL_API);
+
+function sbHeaders(extra){
+  return Object.assign({
+    "apikey": SB.key,
+    "Authorization": "Bearer " + SB.key,
+    "Content-Type": "application/json"
+  }, extra || {});
+}
+
+async function jfetch(url, opts){
+  const ctl = new AbortController();
+  const t = setTimeout(() => ctl.abort(), 8000);
+  try{
+    return await fetch(url, Object.assign({ signal: ctl.signal }, opts || {}));
+  } finally {
+    clearTimeout(t);
+  }
+}
+
+async function remoteGet(){
+  if(SB){
+    const r = await jfetch(SB.rest + "?select=data&id=eq." + encodeURIComponent(SB.id), { headers: sbHeaders(), cache: "no-store" });
+    if(!r.ok) return null;
+    const rows = await r.json();
+    return (rows && rows.length) ? rows[0].data : null;
+  }
+  if(LOCAL_API){
+    const r = await jfetch(LOCAL_API, { cache: "no-store" });
+    if(!r.ok) return null;
+    const d = await r.json();
+    return (d && Object.keys(d).length) ? d : null;
+  }
+  return null;
+}
+
+async function remotePut(data){
+  if(SB){
+    await jfetch(SB.rest, {
+      method: "POST",
+      headers: sbHeaders({ "Prefer": "resolution=merge-duplicates,return=minimal" }),
+      body: JSON.stringify([{ id: SB.id, data: data, updated_at: new Date().toISOString() }])
+    });
+    return;
+  }
+  if(LOCAL_API){
+    await jfetch(LOCAL_API, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data)
+    });
+  }
+}
+
+function defaultState(){
+  return {days:{}, drills:{}, answers:{}, todo:{}, tab:"plan", hideTr:false, rate:1, lesson:1};
+}
+
+// «Пустой» прогресс — чтобы первое открытие с любого устройства не затёрло уже сделанное.
+function isBlank(s){
+  if(!s) return true;
+  return !Object.keys(s.days || {}).length
+      && !Object.keys(s.drills || {}).length
+      && !Object.keys(s.answers || {}).length
+      && !Object.keys(s.todo || {}).length;
+}
+
+let state = defaultState();
+let saveTimer = null;
+
+function save(){
+  try{ localStorage.setItem(KEY, JSON.stringify(state)); }catch(e){}
+  if(!SYNC) return;
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(() => { remotePut(state).catch(() => {}); }, 400);
+}
+
+function loadLocal(){
+  try{
+    const raw = localStorage.getItem(KEY);
+    if(raw) state = Object.assign(defaultState(), JSON.parse(raw));
+  }catch(e){ /* приватный режим или file:// без хранилища */ }
+}
+
+async function syncCloud(){
+  if(!SYNC) return;
+  try{
+    const remote = await remoteGet();
+    if(remote && !isBlank(remote)){
+      state = Object.assign(defaultState(), remote);
+      try{ localStorage.setItem(KEY, JSON.stringify(state)); }catch(e){}
+      renderAll();
+    } else if(!isBlank(state)){
+      await remotePut(state);
+    }
+  }catch(e){}
+}
+
+/* ============================ прогресс ============================ */
+
+function updateProgress(){
+  const d = Object.keys(state.days).filter(k => state.days[k]).length;
+  const x = Object.keys(state.drills).filter(k => state.drills[k]).length;
+  const total = DAYS.length + DRILLS.length;
+  const done = d + x;
+  const pct = Math.round(done / total * 100);
+  const fill = document.getElementById("pfill");
+  const text = document.getElementById("ptext");
+  if(fill) fill.style.width = pct + "%";
+  if(text) text.textContent = d + " дн · " + x + " упр · " + pct + "%";
+}
+
+/* ============================ озвучка ============================ */
+
+let voices = [];
+function refreshVoices(){
+  try{ voices = window.speechSynthesis.getVoices() || []; }catch(e){ voices = []; }
+}
+function frenchVoice(){
+  const fr = voices.filter(v => /^fr/i.test(v.lang));
+  if(!fr.length) return null;
+  const nice = /Eloise|Denise|Vivienne|Amélie|Amelie/i;
+  const frFr = fr.filter(v => /^fr-FR/i.test(v.lang));
+  return frFr.find(v => nice.test(v.name)) || frFr[0] || fr.find(v => nice.test(v.name)) || fr[0];
+}
+function withVoices(cb){
+  if(!("speechSynthesis" in window)) return;
+  if(voices.length) return cb();
+  let done = false;
+  const go = () => { if(done) return; done = true; refreshVoices(); cb(); };
+  try{ window.speechSynthesis.addEventListener("voiceschanged", go, {once:true}); }catch(e){}
+  setTimeout(go, 1200);
+}
+function utter(text){
+  const v = frenchVoice();
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = v ? v.lang : "fr-FR";
+  if(v) u.voice = v;
+  u.rate = 0.92 * (state.rate || 1);
+  return u;
+}
+
+// Звук: сначала mp3 из папки audio, speechSynthesis — только запасной вариант.
+let live = [];
+let seqToken = 0;
+let currentAudio = null;
+
+function stopAll(){
+  seqToken++;
+  live = [];
+  if(currentAudio){
+    try{ currentAudio.pause(); }catch(e){}
+    currentAudio = null;
+  }
+  document.querySelectorAll(".spk.playing").forEach(b => b.classList.remove("playing"));
+  try{ window.speechSynthesis.cancel(); }catch(e){}
+  try{ window.speechSynthesis.resume(); }catch(e){}
+}
+
+function enqueue(text, onFinish){
+  const u = utter(text);
+  const drop = () => { live = live.filter(x => x !== u); };
+  u.onend = () => { drop(); if(onFinish) onFinish(true); };
+  u.onerror = () => { drop(); if(onFinish) onFinish(false); };
+  live.push(u);
+  window.speechSynthesis.speak(u);
+  return u;
+}
+
+function speakTTS(text, btn, onDone){
+  withVoices(() => {
+    if(!frenchVoice()){
+      showVoiceHint();
+      if(btn) btn.classList.remove("playing");
+      if(onDone) onDone();
+      return;
+    }
+    if(btn) btn.classList.add("playing");
+    enqueue(text, () => {
+      if(btn) btn.classList.remove("playing");
+      if(onDone) onDone();
+    });
+    try{ window.speechSynthesis.resume(); }catch(e){}
+  });
+}
+
+function playFile(src, text, btn, onDone, rateOverride){
+  let finished = false;
+  let a = null;
+
+  const finish = fallback => {
+    if(finished) return;
+    finished = true;
+    if(a){ try{ a.pause(); }catch(e){} }
+    if(currentAudio === a) currentAudio = null;
+    if(btn) btn.classList.remove("playing");
+    if(fallback) speakTTS(text, btn, onDone);
+    else if(onDone) onDone();
+  };
+
+  try{ a = new Audio(src); }catch(e){ finish(true); return; }
+
+  currentAudio = a;
+  try{ a.playbackRate = rateOverride || state.rate || 1; }catch(e){}
+  if(btn) btn.classList.add("playing");
+  a.onended = () => finish(false);
+  a.onerror = () => finish(true);
+  const pr = a.play();
+  if(pr && typeof pr.catch === "function") pr.catch(() => finish(true));
+}
+
+// Пауза после cancel() обязательна: иначе Edge гасит новую реплику вместе со старой.
+function speak(text, btn, src){
+  stopAll();
+  if(src) playFile(src, text, btn);
+  else speakTTS(text, btn);
+}
+
+function speakAll(){
+  stopAll();
+  const tok = seqToken;
+  const btns = Array.from(document.querySelectorAll('section.on .spk[data-i]'));
+  if(!btns.length) return;
+  let i = 0;
+  const step = () => {
+    if(tok !== seqToken || i >= btns.length) return;
+    const btn = btns[i++];
+    const p = PHRASES[Number(btn.dataset.i)];
+    if(!p) return;
+    playFile(p.a, p.fr, btn, () => {
+      if(tok !== seqToken) return;
+      setTimeout(step, 280);
+    });
+  };
+  step();
+}
+function toast(msg){
+  const d = document.createElement("div");
+  d.className = "toast";
+  d.textContent = msg;
+  document.body.appendChild(d);
+  setTimeout(() => { d.style.opacity = "0"; setTimeout(() => d.remove(), 400); }, 5600);
+}
+let hintShown = false;
+function showVoiceHint(){
+  if(hintShown){ return; }
+  hintShown = true;
+  toast("Не проигрался звук. Проверь, что папка audio лежит рядом с index.html — и что файл не открыт из архива.");
+  const box = document.getElementById("voicehint");
+  if(box){ box.style.display = "block"; }
+}
+
+/* ============================ рендер: план ============================ */
+
+function renderPlan(){
+  const intro = `
+    <p class="lead">Каждый день: открой урок → теория → задания → 5 минут слушания. День можно отметить прямо в уроке или галочкой здесь.</p>
+    <div class="card soft">
+      <p class="note"><b>Правило одно:</b> не два пропуска подряд. Пропущенный день — не долг, просто продолжаешь со следующего.</p>
+    </div>`;
+
+  const week = (title, list) => `
+    <div class="week">${title}</div>` +
+    list.map(d => `
+      <div class="card day ${state.days[d.n] ? "done" : ""}">
+        <div class="num">${d.n}</div>
+        <div class="dtext">
+          <h3>${d.t}</h3>
+          <p class="goal">${d.g}</p>
+          <p class="task">${d.task}</p>
+          ${d.n <= LESSONS.length ? `<button class="link" data-act="golesson" data-n="${d.n}">урок ${d.n} →</button>` : ""}
+          <p class="extra">Если есть 30 минут: ${d.extra}</p>
+        </div>
+        <button class="chk ${state.days[d.n] ? "on" : ""}" data-act="day" data-n="${d.n}"
+                title="Отметить день ${d.n}" aria-label="Отметить день ${d.n}">✓</button>
+      </div>`).join("");
+
+  document.getElementById("plan").innerHTML =
+    intro +
+    week("Неделя 1 · фундамент", DAYS.slice(0, 7)) +
+    week("Неделя 2 · вопросы и прошедшее", DAYS.slice(7)) +
+    `<div class="lsection">
+      <h2>Раз в неделю</h2>
+      <div class="card soft">
+        <p class="note">Скачай свои ответы и покажи мне — я разберу их и обновлю журнал ошибок.</p>
+        <div class="toolbar" style="margin-bottom:0">
+          <button class="btn primary" data-act="export">Скачать результаты</button>
+          <button class="btn" data-act="showreport">Показать текстом</button>
+        </div>
+        <div id="reportwrap" style="display:none">
+          <p class="note">Скопируй всё и пришли в чат: кликни в поле, потом Ctrl+A и Ctrl+C.</p>
+          <textarea id="reporttext" readonly style="min-height:240px"></textarea>
+        </div>
+      </div>
+    </div>`;
+}
+
+/* ============================ рендер: уроки ============================ */
+
+function lessonStats(n){
+  const ids = ((LESSON_CONTENT[n] || {}).drl) || [];
+  let done = 0;
+  ids.forEach(id => { if(state.drills[id]) done++; });
+  return { done: done, total: ids.length };
+}
+
+function renderLessonList(){
+  const cards = LESSONS.map(L => {
+    const st = lessonStats(L.n);
+    const complete = st.total > 0 && st.done === st.total;
+    const bits = [];
+    if(st.total) bits.push("задания <b>" + st.done + " из " + st.total + "</b>");
+    if(state.days[L.n]) bits.push("день отмечен");
+    return `
+      <button class="lcard ${complete ? "done" : ""}" data-act="openlesson" data-n="${L.n}">
+        <span class="ldot">${L.n}</span>
+        <span class="lcenter">
+          <span class="lct">${L.t}</span>
+          <span class="lcg">${L.g}</span>
+          <span class="mini">${bits.join(" · ")}</span>
+        </span>
+        <span class="larrow">›</span>
+      </button>`;
+  }).join("");
+
+  document.getElementById("lessons").innerHTML = `
+    <p class="lead">Каждый урок — отдельный экран: теория, фразы со звуком, слова и задания с полем ввода. Переходить в другие вкладки не нужно.</p>
+    ${cards}
+    <p class="lead">Две недели, 14 уроков. Дальше — по твоим ошибкам: скажешь, и соберу следующие.</p>`;
+}
+
+/* ============================ рендер: строки фраз и слов ============================ */
+
+function phraseRow(p, i){
+  return `
+    <div class="row">
+      <button class="spk" data-act="speak" data-i="${i}" data-a="${p.a}" data-text="${p.fr.replace(/"/g, "&quot;")}"
+              title="Прослушать" aria-label="Прослушать">▶</button>
+      <div class="txt">
+        <div class="fr">${p.fr}</div>
+        <div class="ru">${p.ru}</div>
+      </div>
+    </div>`;
+}
+
+function vocabRow(v){
+  const chip = /\/|le jour/i.test(v.fr) ? "" : `<span class="chip ${v.g}">${v.g === "f" ? "ж" : "м"}</span>`;
+  return `
+    <div class="row">
+      <div class="txt">
+        <div class="fr">${v.fr} ${chip}</div>
+        <div class="ru">${v.ru}</div>
+        <div class="ex">${v.ex}</div>
+      </div>
+      <button class="spk" data-act="speak" data-a="${v.a}" data-text="${v.fr.replace(/"/g, "&quot;")}"
+              title="Прослушать" aria-label="Прослушать">▶</button>
+    </div>`;
+}
+
+/* ============================ рендер: экран урока ============================ */
+
+function esc(s){
+  return String(s == null ? "" : s)
+    .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+}
+
+function drillCard(d){
+  const solved = !!state.drills[d.n];
+  const saved = (state.answers || {})[d.n];
+  const savedText = saved && saved.text ? esc(saved.text) : "";
+  let body = "";
+  if(d.type === "choice"){
+    body = `<div class="opts">` + d.options.map(o =>
+      `<button class="opt" data-act="choice" data-n="${d.n}" data-val="${esc(o)}">${o}</button>`).join("") + `</div>`;
+  } else if(d.type === "open"){
+    body = `<textarea id="in-${d.n}" placeholder="Hier, j'ai …">${savedText}</textarea>
+      <div class="drow">
+        <button class="btn" data-act="reveal-open" data-n="${d.n}">Показать пример</button>
+        <button class="btn primary" data-act="open-done" data-n="${d.n}">Готово</button>
+      </div>
+      <div class="hint" id="ex-${d.n}"><span class="fr">${d.example}</span></div>`;
+  } else if(d.type === "dictation"){
+    body = `<div class="drow" style="margin:0 0 10px">
+        <button class="btn primary" data-act="playdict" data-n="${d.n}">▶ Прослушать</button>
+        <button class="btn" data-act="playdictslow" data-n="${d.n}">медленно</button>
+      </div>
+      <input type="text" id="in-${d.n}" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="что услышала…" value="${savedText}">
+      <div class="drow">
+        <button class="btn primary" data-act="check" data-n="${d.n}">Проверить</button>
+        <button class="link" data-act="showans" data-n="${d.n}">показать текст</button>
+      </div>
+      <div class="hint" id="ex-${d.n}"></div>`;
+  } else {
+    body = `<input type="text" id="in-${d.n}" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="по-французски…" value="${savedText}">
+      <div class="drow">
+        <button class="btn primary" data-act="check" data-n="${d.n}">Проверить</button>
+        <button class="link" data-act="showans" data-n="${d.n}">показать ответ</button>
+      </div>
+      <div class="hint" id="ex-${d.n}"></div>`;
+  }
+  return `
+    <div class="card drill ${solved ? "solved" : ""}" id="drill-${d.n}">
+      <div class="qn">${d.type === "dictation" ? "Диктант" : "Задание"}</div>
+      <p class="q">${d.q}</p>
+      ${body}
+      <div class="fb" id="fb-${d.n}"></div>
+      <div class="hint" id="hint-${d.n}">${d.hint || ""}</div>
+    </div>`;
+}
+
+function renderLessonView(n){
+  const L = LESSONS.find(x => x.n === Number(n));
+  if(!L) return;
+  const C = LESSON_CONTENT[L.n] || { phr: [], voc: [], drl: [] };
+  const st = lessonStats(L.n);
+
+  const theory = L.blocks.map(b => {
+    const ps = b.p ? b.p.map(t => `<p>${t}</p>`).join("") : "";
+    const ex = b.ex ? `<div class="examples">` + b.ex.map(e =>
+      `<div class="exrow"><span class="fr">${e[0]}</span><span class="ru">${e[1]}</span></div>`).join("") + `</div>` : "";
+    return `<h4>${b.h}</h4>${ps}${ex}`;
+  }).join("");
+  const traps = L.traps ? `<h4>Твои ловушки</h4><ul>${L.traps.map(t => `<li>${t}</li>`).join("")}</ul>` : "";
+  const phr = (C.phr || []).map(i => phraseRow(PHRASES[i], i)).join("");
+  const voc = (C.voc || []).map(i => vocabRow(VOCAB[i])).join("");
+  const drl = (C.drl || []).map(id => drillCard(drillByN(id))).join("");
+  const dots = st.total
+    ? `<div class="lvprog">` + Array.from({ length: st.total }, (_, k) =>
+        `<span class="pdot ${k < st.done ? "on" : ""}"></span>`).join("") + `</div>`
+    : "";
+  const next = L.n < LESSONS.length
+    ? `<button class="btn" data-act="openlesson" data-n="${L.n + 1}">Следующий урок →</button>` : "";
+
+  document.getElementById("lessonview").innerHTML = `
+    <div class="lvtop"><button class="back" data-act="backlessons">← все уроки</button></div>
+
+    <div class="lvhead">
+      <span class="lvnum">${L.n}</span>
+      <div>
+        <h2 class="lvtitle">${L.t}</h2>
+        <p class="lvgoal">${L.g}</p>
+      </div>
+    </div>
+    ${dots}
+    ${st.total ? `<p class="mini">задания: ${st.done} из ${st.total}</p>` : ""}
+
+    <div class="lsection"><h2>Теория</h2>${theory}${traps}</div>
+
+    ${phr ? `<div class="lsection">
+      <h2>Фразы урока</h2>
+      <div class="toolbar">
+        <button class="btn primary" data-act="speakall">▶ Прослушать все</button>
+        <button class="btn" data-act="rate">Скорость: ${rateText()}</button>
+      </div>
+      <div class="card">${phr}</div>
+    </div>` : ""}
+
+    ${voc ? `<div class="lsection"><h2>Слова урока</h2><div class="card">${voc}</div></div>` : ""}
+
+    ${drl ? `<div class="lsection"><h2>Задания</h2>${drl}</div>` : ""}
+
+    ${L.todo ? `<div class="lsection">
+      <h2>Вне приложения</h2>
+      <p class="leadhint">Это не проверяется внутри: что-то вслух, что-то в тетради, что-то в чате со мной. Отмечай, когда сделала.</p>
+      <div class="todolist">${L.todo.map((t, i) => {
+        const done = !!(state.todo && state.todo[L.n] && state.todo[L.n][i]);
+        return `<button class="todoitem ${done ? "done" : ""}" data-act="todo" data-n="${L.n}" data-i="${i}">
+          <span class="tcheck">✓</span><span class="ttext">${t}</span>
+        </button>`;
+      }).join("")}</div>
+    </div>` : ""}
+
+    <div class="toolbar" style="margin-top:28px">
+      <button class="btn ${state.days[L.n] ? "" : "primary"}" data-act="dayfromlesson" data-n="${L.n}">
+        ${state.days[L.n] ? "✓ день " + L.n + " отмечен" : "Отметить день " + L.n}
+      </button>
+      ${next}
+    </div>`;
+}
+
+/* ============================ рендер: справочник ============================ */
+
+function renderRef(){
+  const phrases = PHRASES.map((p, i) => phraseRow(p, i)).join("");
+  const vocab = VOCAB.map(v => vocabRow(v)).join("");
+
+  document.getElementById("ref").innerHTML = `
+    <p class="lead">Всё из уроков одним списком — для повторения и поиска.</p>
+    <div class="toolbar">
+      <button class="btn primary" data-act="speakall">▶ Прослушать все фразы</button>
+      <button class="btn" data-act="rate">Скорость: ${rateText()}</button>
+      <button class="btn" data-act="hidetr" id="hidetrbtn">${state.hideTr ? "Показать переводы" : "Скрыть переводы"}</button>
+    </div>
+    <h2>Фразы</h2>
+    <div class="card ${state.hideTr ? "hide-tr" : ""}" id="phrasesbox">${phrases}</div>
+    <h2>Слова</h2>
+    <p class="lead">Слово учится вместе с артиклем: <b>une</b> leçon, а не «leçon».</p>
+    <div class="card">${vocab}</div>`;
+}
+
+/* ============================ рендер: ошибки ============================ */
+
+function renderErrors(){
+  const items = ERRORS.map(e => `
+    <div class="err">
+      <div class="fr"><span class="wrong">${e.w}</span> → <span class="right">${e.r}</span></div>
+      <div class="rule">${e.rule}</div>
+    </div>`).join("");
+
+  document.getElementById("errors").innerHTML = `
+    <p class="lead">Твои ошибки: вводный тест и первая выгрузка упражнений. Когда правило перестанет всплывать — уйдёт отсюда.</p>
+    <div class="card">${items}</div>
+    <div class="card soft">
+      <p class="note">Ошибка, которая появилась дважды, — отдельное упражнение. Трижды — дырка в правиле, разбираем заново.</p>
+    </div>`;
+}
+
+/* ============================ проверка ответов ============================ */
+
+function base(s){
+  return String(s).toLowerCase()
+    .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+    .replace(/[’']/g, "")
+    .replace(/[^a-z]/g, "");
+}
+function accKey(s){
+  return String(s).toLowerCase()
+    .replace(/[’']/g, "'")
+    .replace(/[^a-zà-öø-ÿ'’]/g, "");
+}
+
+function drillByN(n){ return DRILLS.find(d => d.n === Number(n)); }
+
+function rateText(){
+  return state.rate === 1 ? "1×" : String(state.rate).replace(".", ",") + "×";
+}
+
+function cap(s){ return s ? s.charAt(0).toUpperCase() + s.slice(1) : s; }
+
+function markSolved(n){
+  state.drills[n] = true;
+  save();
+  const card = document.getElementById("drill-" + n);
+  if(card) card.classList.add("solved");
+  updateProgress();
+  syncLessonProgress();
+}
+
+/* обновляет полоску и счётчик прямо на экране урока, не перерисовывая задания */
+function syncLessonProgress(){
+  const L = LESSONS.find(x => x.n === Number(state.lesson));
+  if(!L || state.tab !== "lesson") return;
+  const st = lessonStats(L.n);
+  document.querySelectorAll("#lessonview .pdot").forEach((d, i) => d.classList.toggle("on", i < st.done));
+  const mini = document.querySelector("#lessonview .lvprog + .mini");
+  if(mini) mini.textContent = "задания: " + st.done + " из " + st.total;
+}
+
+/* Ответы хранятся только у тебя в браузере. Кнопка «Скачать» кладёт их в файл,
+   чтобы Эвелина могла показать их в чате. Никуда в сеть ничего не уходит. */
+function rememberAnswer(n, text, verdict){
+  if(!state.answers) state.answers = {};
+  state.answers[n] = { text: text, verdict: verdict, at: Date.now() };
+  save();
+}
+
+function buildReport(){
+  const now = new Date();
+  const pad = x => String(x).padStart(2, "0");
+  const days = DAYS.filter(d => state.days[d.n]).map(d => d.n);
+  const solved = DRILLS.filter(d => state.drills[d.n]).length;
+  const verdictText = v => v === "ok" ? "верно" : v === "near" ? "почти (акценты)" : v === "open" ? "свободное" : "неверно";
+  const out = [];
+  out.push("Французский · результаты");
+  out.push("Дата выгрузки: " + pad(now.getDate()) + "." + pad(now.getMonth() + 1) + "." + now.getFullYear() + " " + pad(now.getHours()) + ":" + pad(now.getMinutes()));
+  out.push("Дней отмечено: " + days.length + " из " + DAYS.length + (days.length ? " (" + days.join(", ") + ")" : ""));
+  out.push("Упражнений решено: " + solved + " из " + DRILLS.length);
+  out.push("");
+  DRILLS.forEach(d => {
+    const a = (state.answers || {})[d.n];
+    out.push("Задание " + d.n + ": " + d.q);
+    if(a && a.text) out.push("  мой ответ: " + a.text + "   [" + verdictText(a.verdict) + "]");
+    else if(state.drills[d.n]) out.push("  мой ответ: (отмечено как сделанное)");
+    else out.push("  мой ответ: —");
+    if(d.answers) out.push("  правильно: " + d.answers[0]);
+    else if(d.answer) out.push("  правильно: " + d.answer);
+    if(d.example) out.push("  пример: " + d.example);
+    out.push("");
+  });
+  return out.join("\n");
+}
+
+function checkFill(n){
+  const d = drillByN(n);
+  const input = document.getElementById("in-" + n);
+  const fb = document.getElementById("fb-" + n);
+  const hint = document.getElementById("hint-" + n);
+  const val = input.value.trim();
+  if(!val){ feedback(fb, "bad", "Пусто. Хотя бы попробуй — ошибка тоже результат."); return; }
+
+  const exact = d.answers.some(a => base(a) === base(val));
+  const accentsMatch = d.answers.some(a => accKey(a) === accKey(val));
+
+  let verdict = "bad";
+  if(exact && accentsMatch) verdict = "ok";
+  else if(exact) verdict = "near";
+  rememberAnswer(n, val, verdict);
+
+  if(exact && accentsMatch){
+    feedback(fb, "ok", "Верно. <span class='ans fr'>" + cap(d.answers[0]) + "</span>");
+    markSolved(n);
+    if(hint) hint.classList.remove("show");
+  } else if(exact){
+    feedback(fb, "near", "Почти — не хватает акцентов: <span class='ans fr'>" + cap(d.answers[0]) + "</span>");
+    markSolved(n);
+  } else {
+    const msg = d.type === "dictation"
+      ? "Пока нет. Послушай ещё раз — лучше «медленно», и проверь, все ли слова на месте."
+      : "Пока нет.";
+    feedback(fb, "bad", msg);
+    if(hint) hint.classList.add("show");
+  }
+}
+
+function checkFind3(n){
+  const d = drillByN(n);
+  const input = document.getElementById("in-" + n);
+  const fb = document.getElementById("fb-" + n);
+  const hint = document.getElementById("hint-" + n);
+  const val = base(input.value);
+  const missing = d.keywords.filter(k => !val.includes(base(k)));
+  if(!val){ feedback(fb, "bad", "Напиши, что не так, хотя бы одним словом."); return; }
+  rememberAnswer(n, input.value.trim(), missing.length === 0 ? "ok" : "bad");
+  if(missing.length === 0){
+    feedback(fb, "ok", "Все три найдены: <span class='ans fr'>" + d.answer + "</span>");
+    markSolved(n);
+  } else {
+    feedback(fb, "bad", "Нашла " + (d.keywords.length - missing.length) + " из 3. Смотри на город, на «je» перед гласной и на «c» с хвостиком.");
+    if(hint) hint.classList.add("show");
+  }
+}
+
+function feedback(el, kind, html){
+  if(!el) return;
+  el.className = "fb show " + kind;
+  el.innerHTML = html;
+}
+
+/* ============================ события ============================ */
+
+function switchTab(name){
+  const sec = name === "lesson" ? "lessonview" : name;
+  document.querySelectorAll("main > section").forEach(s => s.classList.toggle("on", s.id === sec));
+  const navName = name === "lesson" ? "lessons" : name;
+  document.querySelectorAll(".tab").forEach(t => t.classList.toggle("on", t.dataset.tab === navName));
+  state.tab = name; save();
+  window.scrollTo({top:0, behavior:"smooth"});
+}
+
+let currentLesson = 1;
+
+function openLesson(n){
+  currentLesson = Number(n);
+  state.lesson = currentLesson;
+  save();
+  renderLessonView(currentLesson);
+  switchTab("lesson");
+}
+
+document.addEventListener("click", ev => {
+  const el = ev.target.closest("[data-act]");
+  if(!el) return;
+  const act = el.dataset.act;
+  const n = el.dataset.n;
+
+  if(act === "tab"){
+    if(el.dataset.tab === "lessons") renderLessonList();
+    switchTab(el.dataset.tab);
+    return;
+  }
+
+  if(act === "openlesson" || act === "golesson"){ openLesson(n); return; }
+
+  if(act === "backlessons"){ renderLessonList(); switchTab("lessons"); return; }
+
+  if(act === "todo"){
+    const L = Number(n), i = Number(el.dataset.i);
+    if(!state.todo) state.todo = {};
+    if(!state.todo[L]) state.todo[L] = {};
+    state.todo[L][i] = !state.todo[L][i];
+    save();
+    el.classList.toggle("done", !!state.todo[L][i]);
+    return;
+  }
+
+  if(act === "dayfromlesson"){
+    const k = Number(n);
+    state.days[k] = !state.days[k];
+    save();
+    renderLessonView(k);
+    renderPlan();
+    renderLessonList();
+    updateProgress();
+    return;
+  }
+
+  if(act === "day"){
+    const k = Number(n);
+    state.days[k] = !state.days[k];
+    save();
+    const card = el.closest(".day");
+    if(card) card.classList.toggle("done", !!state.days[k]);
+    el.classList.toggle("on", !!state.days[k]);
+    updateProgress();
+    return;
+  }
+
+  if(act === "speak"){ speak(el.dataset.text, el, el.dataset.a); return; }
+
+  if(act === "speakall"){ speakAll(); return; }
+
+  if(act === "rate"){
+    const seq = [1, 0.85, 0.75];
+    const at = seq.indexOf(state.rate);
+    state.rate = seq[(at + 1) % seq.length];
+    save();
+    document.querySelectorAll('[data-act="rate"]').forEach(b => { b.textContent = "Скорость: " + rateText(); });
+    if(currentAudio){ try{ currentAudio.playbackRate = state.rate; }catch(e){} }
+    return;
+  }
+
+  if(act === "hidetr"){
+    state.hideTr = !state.hideTr; save();
+    const box = document.getElementById("phrasesbox");
+    if(box) box.classList.toggle("hide-tr", state.hideTr);
+    el.textContent = state.hideTr ? "Показать переводы" : "Скрыть переводы";
+    return;
+  }
+
+  if(act === "playdict" || act === "playdictslow"){
+    const d = drillByN(n);
+    if(!d || !d.audio) return;
+    stopAll();
+    playFile(d.audio, d.answers[0], el, null, act === "playdictslow" ? 0.62 : null);
+    return;
+  }
+
+  if(act === "check"){
+    const d = drillByN(n);
+    if(d.type === "find3") checkFind3(n); else checkFill(n);
+    return;
+  }
+
+  if(act === "choice"){
+    const d = drillByN(n);
+    const fb = document.getElementById("fb-" + n);
+    const hint = document.getElementById("hint-" + n);
+    const ok = el.dataset.val === d.answer;
+    rememberAnswer(n, el.dataset.val, ok ? "ok" : "bad");
+    el.classList.add(ok ? "ok" : "bad");
+    if(ok){
+      feedback(fb, "ok", "Верно: <span class='ans fr'>" + d.answer + "</span>");
+      markSolved(n);
+    } else {
+      feedback(fb, "bad", "Не то. " + (hint ? hint.textContent : ""));
+      if(hint) hint.classList.add("show");
+    }
+    return;
+  }
+
+  if(act === "showans"){
+    const d = drillByN(n);
+    const fb = document.getElementById("fb-" + n);
+    feedback(fb, "near", "Ответ: <span class='ans fr'>" + cap(d.answers ? d.answers[0] : d.answer) + "</span>");
+    return;
+  }
+
+  if(act === "reveal-open"){
+    const ex = document.getElementById("ex-" + n);
+    if(ex) ex.classList.add("show");
+    return;
+  }
+
+  if(act === "open-done"){
+    const ta = document.getElementById("in-" + n);
+    rememberAnswer(n, ta ? ta.value.trim() : "", "open");
+    markSolved(n);
+    const fb = document.getElementById("fb-" + n);
+    feedback(fb, "ok", "Отмечено. Не забудь прислать фразы в чат.");
+    return;
+  }
+
+  if(act === "export"){
+    const text = buildReport();
+    const now = new Date();
+    const pad = x => String(x).padStart(2, "0");
+    const name = "французский-" + now.getFullYear() + "-" + pad(now.getMonth() + 1) + "-" + pad(now.getDate()) + ".txt";
+    try{
+      const blob = new Blob([text], { type: "text/plain;charset=utf-8" });
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = name;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      setTimeout(() => URL.revokeObjectURL(a.href), 5000);
+      toast("Файл " + name + " сохранён в «Загрузки». Скажи мне — я посмотрю.");
+    }catch(e){
+      toast("Не получилось сохранить файл. Нажми «Показать текстом» и скопируй вручную.");
+    }
+    return;
+  }
+
+  if(act === "showreport"){
+    const wrap = document.getElementById("reportwrap");
+    const ta = document.getElementById("reporttext");
+    if(!wrap || !ta) return;
+    ta.value = buildReport();
+    wrap.style.display = wrap.style.display === "none" ? "block" : "none";
+    if(wrap.style.display === "block") ta.select();
+    return;
+  }
+
+  if(act === "reset"){
+    if(confirm("Сбросить весь прогресс: дни и упражнения?")){
+      state = {days:{}, drills:{}, answers:{}, todo:{}, tab:state.tab, hideTr:state.hideTr, rate:state.rate, lesson:state.lesson};
+      save();
+      renderAll();
+    }
+    return;
+  }
+});
+
+document.addEventListener("keydown", ev => {
+  if(ev.key === "Enter" && ev.target.matches("input[type=text]")){
+    const card = ev.target.closest(".drill");
+    if(!card) return;
+    const n = card.id.replace("drill-", "");
+    const d = drillByN(n);
+    if(d.type === "find3") checkFind3(n); else checkFill(n);
+  }
+});
+
+/* ============================ старт ============================ */
+
+function renderAll(){
+  renderPlan();
+  renderLessonList();
+  renderRef();
+  renderErrors();
+  updateProgress();
+  const allowed = ["plan", "lessons", "lesson", "ref", "errors"];
+  const tab = allowed.indexOf(state.tab) >= 0 ? state.tab : "plan";
+  if(tab === "lesson"){
+    currentLesson = Number(state.lesson) || 1;
+    renderLessonView(currentLesson);
+  }
+  switchTab(tab);
+}
+
+(async function boot(){
+  loadLocal();
+  refreshVoices();
+  if("speechSynthesis" in window){
+    window.speechSynthesis.onvoiceschanged = refreshVoices;
+  }
+  if(SYNC){
+    const p = document.getElementById("progtext");
+    if(p) p.innerHTML = SB
+      ? "Прогресс синхронизируется через облако: он одинаков на телефоне, ноутбуке и в любом браузере. Звук — из папки <b>audio</b>."
+      : "Прогресс общий: он хранится на компьютере-сервере, поэтому одинаков на телефоне и на ноутбуке. Звук — из папки <b>audio</b>.";
+  }
+  renderAll();
+  syncCloud();
+})();
+</script>
+</body>
+</html>
