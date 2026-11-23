@@ -1866,7 +1866,7 @@ const LESSONS_V2 = {
           { id:"l1w3", type:"choice", q:"Ты девушка. Je suis ___ .",
             options:["étudiante","étudiant"], answer:"étudiante", hint:"согласование в роде" },
           { id:"l1w4", type:"dictation", q:"Нажми ▶ и напиши, что услышала.",
-            audio:"audio/p2.mp3", answers:["je viens de moscou"], hint:"три слова" }
+            audio:"audio/p6.mp3", answers:["je n'ai pas compris"], hint:"три слова, отрицание" }
         ]
       },
       {
@@ -1977,9 +1977,9 @@ const LESSONS_V2 = {
               { q:"Кто спрашивает «Tu viens d'où ?»", options:["Пьер","Лея","Никто"], answer:"Пьер" }
             ] },
           { id:"l1a2", type:"dictation", q:"Ещё одна фраза на слух.",
-            audio:"audio/p5.mp3", answers:["je ne comprends pas"], hint:"отрицание, три слова" },
+            audio:"audio/p8.mp3", answers:["plus lentement s'il vous plaît"], hint:"два слова + вежливость" },
           { id:"l1a3", type:"dictation", q:"Ещё одна — короткая.",
-            audio:"audio/p1.mp3", answers:["je m'appelle léa"], hint:"два слова" }
+            audio:"audio/p27.mp3", answers:["j'aime la musique"], hint:"три слова" }
         ]
       },
       {
@@ -2038,12 +2038,12 @@ const LESSONS_V2 = {
           { id:"l2g5", type:"input", q:"Скажи по-французски: «Помедленнее, пожалуйста».",
             answers:["plus lentement s'il vous plaît"], hint:"plus lentement" },
           { id:"l2g6", type:"order", q:"Собери фразу.",
-            answer:"Plus lentement, s'il vous plaît.",
-            words:[{t:"vous",id:0},{t:"plaît.",id:1},{t:"Plus",id:2},{t:"s'il",id:3},{t:"lentement,",id:4}],
-            hint:"начни с наречия" },
-          { id:"l2g7", type:"gapset", q:"Вставь слова с правильными акцентами.",
-            text:"Le matin, je bois un ___ (cafe). Mon ami est ___ (etre) content. Il apprend le ___ (francais).",
-            answers:["café","être","français"], hint:"акценты обязательны" },
+            answer:"Je voudrais un café, s'il vous plaît.",
+            words:[{t:"café,",id:0},{t:"s'il",id:1},{t:"Je",id:2},{t:"plaît.",id:3},{t:"un",id:4},{t:"voudrais",id:5},{t:"vous",id:6}],
+            hint:"вежливая просьба" },
+          { id:"l2g7", type:"gapset", q:"Вставь слова по смыслу — с правильными акцентами.",
+            text:"Le matin, je bois un ___ (кофе). Mon amie est ___ (студентка). Il apprend le ___ (французский).",
+            answers:["café","étudiante","français"], hint:"акценты обязательны" },
           { id:"l2g8", type:"input", q:"Извинись: «Извините, я заблудилась».",
             answers:["excusez-moi je suis perdue"], hint:"excusez-moi" }
         ]
@@ -2073,8 +2073,8 @@ const LESSONS_V2 = {
           traps:["je veux un café — грубовато, лучше <b>je voudrais</b>"]
         },
         items: [
-          { id:"l2p1", type:"gapset", q:"Рассказ о походе в кафе — вставь слова.",
-            text:"Le matin, je vais au ___ (cafe). Je prends un ___ (the) et un croissant. Le serveur est très ___ (sympa). L'___ (addition) fait six euros. Je dis : « Merci, bonne ___ (journee) ! »",
+          { id:"l2p1", type:"gapset", q:"Рассказ о походе в кафе — вставь слова по смыслу.",
+            text:"Le matin, je vais au ___ (кафе). Je prends un ___ (чай) et un croissant. Le serveur est très ___ (милый). L'___ (счёт) fait six euros. Je dis : « Merci, bonne ___ (день) ! »",
             answers:["café","thé","sympa","addition","journée"], hint:"не забывай акценты" },
           { id:"l2p2", type:"writefree", q:"Опиши свой завтрак или поход в кафе: 5–7 предложений.",
             min:25, example:"Le matin, je vais au café. Je prends un thé et un croissant. Le café est petit mais très sympa. Je paie cinq euros. Le soir, je retourne à la maison." }
@@ -2102,7 +2102,7 @@ const LESSONS_V2 = {
               { q:"Что Лея говорит на прощание?", options:["Хорошего дня","До завтра","Извините"], answer:"Хорошего дня" }
             ] },
           { id:"l2a2", type:"dictation", q:"Фраза на слух.",
-            audio:"audio/p11.mp3", answers:["l'addition s'il vous plaît"], hint:"три слова" },
+            audio:"audio/p9.mp3", answers:["comment dit-on ça en français"], hint:"вопросительная конструкция" },
           { id:"l2a3", type:"dictation", q:"Ещё одна — короткая.",
             audio:"audio/p14.mp3", answers:["c'est combien"], hint:"два слова" }
         ]
@@ -2134,7 +2134,7 @@ const LESSONS_V2 = {
             options:["étudiante","étudiant"], answer:"étudiante", hint:"согласование в роде" },
           { id:"l3w2", type:"choice", q:"Какой артикль? ___ leçon",
             options:["une","un"], answer:"une", hint:"leçon — женский род" },
-          { id:"l3w3", type:"input", q:"Скажи по-французски: «У меня есть кот».", answers:["j'ai un chat"], hint:"avoir: j'ai" },
+          { id:"l3w3", type:"input", q:"Скажи по-французски: «У меня есть брат».", answers:["j'ai un frère"], hint:"avoir: j'ai" },
           { id:"l3w4", type:"dictation", q:"Послушай и напиши.",
             audio:"audio/p31.mp3", answers:["j'ai un chat"], hint:"три слова" }
         ]
@@ -2157,13 +2157,13 @@ const LESSONS_V2 = {
           { id:"l3g1", type:"input", q:"Допиши: Je ___ à la maison.", answers:["suis"], hint:"être: je suis" },
           { id:"l3g2", type:"input", q:"Допиши: Nous ___ une voiture.", answers:["avons"], hint:"avoir: nous avons" },
           { id:"l3g3", type:"input", q:"Скажи по-французски: «Это трудный урок».", answers:["c'est une leçon difficile"], hint:"leçon — женский род" },
-          { id:"l3g4", type:"input", q:"Исправь: C'est un leçon difficile.", answers:["c'est une leçon difficile"], hint:"род слова leçon" },
+          { id:"l3g4", type:"input", q:"Исправь: Ma sœur est étudiant.", answers:["ma sœur est étudiante"], hint:"согласование в роде" },
           { id:"l3g5", type:"input", q:"Допиши: Elle ___ (être) étudiante.", answers:["est"], hint:"elle est" },
           { id:"l3g6", type:"input", q:"Допиши: Ils ___ (avoir) un chat.", answers:["ont"], hint:"ils ont" },
           { id:"l3g7", type:"order", q:"Собери фразу.",
-            answer:"Je suis à la maison.",
-            words:[{t:"à",id:0},{t:"maison.",id:1},{t:"Je",id:2},{t:"la",id:3},{t:"suis",id:4}],
-            hint:"à la maison = дома" },
+            answer:"Nous avons un chat et une voiture.",
+            words:[{t:"chat",id:0},{t:"Nous",id:1},{t:"voiture.",id:2},{t:"et",id:3},{t:"avons",id:4},{t:"une",id:5},{t:"un",id:6}],
+            hint:"avoir: nous avons" },
           { id:"l3g8", type:"choice", q:"Tu ___ quel âge ?", options:["as","est"], answer:"as", hint:"avoir: tu as" }
         ]
       },
