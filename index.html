@@ -284,6 +284,25 @@
     background:#fbf7ee; border:1px solid var(--line); border-radius:12px; padding:12px 14px; margin:8px 0 14px;
   }
 
+  /* ---------- теория в блоках ---------- */
+  .theory{border:1px solid var(--line); border-radius:12px; margin:0 0 12px; background:#fbf7ee; overflow:hidden}
+  .theoryhead{
+    display:flex; align-items:center; justify-content:space-between; gap:10px; width:100%;
+    background:none; border:0; padding:10px 14px; font:inherit; font-size:13.5px; color:var(--ink); cursor:pointer;
+  }
+  .theorybody{display:none; padding:0 14px 12px; font-size:14px; line-height:1.6}
+  .theory.open .theorybody{display:block}
+  .theory .chev{transition:transform .2s; color:var(--muted); font-size:10px}
+  .theory.open .chev{transform:rotate(180deg)}
+  .theorybody h4{margin:10px 0 4px}
+  .theorybody p{margin:0 0 8px}
+  .theorybody ul{margin:0; padding-left:18px}
+
+  .v2ta{
+    width:100%; min-height:110px; padding:10px 12px; border:1px solid var(--line); border-radius:10px;
+    font:inherit; font-family:Georgia,serif; font-size:15px; background:#fff; color:var(--ink); resize:vertical;
+  }
+
   .todolist{display:flex; flex-direction:column; gap:8px}
   .todoitem{
     display:flex; gap:11px; align-items:flex-start; text-align:left;
@@ -407,8 +426,8 @@
 
 const DAYS = [
   {n:1, t:"Элизия", g:"перестать писать «je apprend» и «le universite»",
-   task:"Правило (блок A в уроке 1) + напиши 10 предложений с j', l', qu'.",
-   extra:"Перепиши свой текст №5 из диагностики с исправлениями."},
+   task:"Урок целиком: 6 блоков (теория, лексика, письмо, диалог, чтение), 25 заданий.",
+   extra:"Пройти блок чтения ещё раз через день."},
   {n:2, t:"Акценты и раскладка", g:"перестать бояться é, è, ç",
    task:"Переключись на французскую раскладку (Win+Space) и перепиши 5 фраз с акцентами, читая вслух.",
    extra:"Продиктуй себе 5 слов и проверь написание."},
@@ -1354,7 +1373,7 @@ function showVoiceHint(){
 
 function renderPlan(){
   const intro = `
-    <p class="lead">Каждый день: открой урок → теория → задания → 5 минут слушания. День можно отметить прямо в уроке или галочкой здесь.</p>
+    <p class="lead">Каждый день: открой урок → пройди блоки (теория, практика, письмо, слух, чтение) → отметь день. Один урок ≈ 30 минут.</p>
     <div class="card soft">
       <p class="note"><b>Правило одно:</b> не два пропуска подряд. Пропущенный день — не долг, просто продолжаешь со следующего.</p>
     </div>`;
@@ -1720,8 +1739,9 @@ function buildReport(){
   const writes = [];
   Object.keys(LESSONS_V2).forEach(k => {
     v2Items(Number(k)).forEach(it => {
-      const s = (state.items || {})[it.id];
-      if(it.type === "write" && s && s.texts) writes.push({ lesson: Number(k), q: it.q, texts: s.texts });
+      const s = (state.items || {})[it.id] || {};
+      if(it.type === "write" && s.texts) writes.push({ lesson: Number(k), q: it.q, texts: s.texts });
+      if(it.type === "writefree" && s.text) writes.push({ lesson: Number(k), q: it.q, texts: [s.text] });
     });
   });
   if(writes.length){
@@ -1850,8 +1870,17 @@ const LESSONS_V2 = {
         ]
       },
       {
-        id: "gram", title: "Грамматика: элизия", est: "7 мин",
-        rule:"Перед гласной короткие слова теряют гласную и цепляются апострофом: je → j', le/la → l', ne → n', que → qu'. <b>Je apprends</b> невозможно — только <b>j'apprends</b>. Срабатывает перед a, e, i, o, u, y, é, è, ê.",
+        id: "gram", title: "Грамматика: элизия", est: "8 мин",
+        theory:{
+          rule:"Перед гласной короткие слова теряют гласную и цепляются апострофом: je → j', le/la → l', ne → n', que → qu'. Срабатывает перед a, e, i, o, u, y, é, è, ê.",
+          ex:[
+            ["j'apprends","я учу"],
+            ["l'université","университет"],
+            ["je n'ai pas compris","я не поняла"],
+            ["qu'est-ce que c'est ?","что это?"]
+          ],
+          traps:["Je apprends ✗ → <b>j'apprends</b>","le université ✗ → <b>l'université</b>","je ne aime pas ✗ → <b>je n'aime pas</b>"]
+        },
         items: [
           { id:"l1g1", type:"choice", q:"Как правильно?",
             options:["j'apprends","je apprends"], answer:"j'apprends", hint:"je + гласная" },
@@ -1867,12 +1896,25 @@ const LESSONS_V2 = {
             words:[{t:"j'apprends",id:0},{t:"à",id:1},{t:"et",id:2},{t:"J'habite",id:3},{t:"le",id:4},{t:"Moscou",id:5},{t:"français.",id:6}],
             hint:"два предложения через et" },
           { id:"l1g6", type:"input", q:"Скажи по-французски: «Я учу французский два месяца».",
-            answers:["j'apprends le français depuis deux mois"], hint:"depuis + présent" }
+            answers:["j'apprends le français depuis deux mois"], hint:"depuis + présent" },
+          { id:"l1g7", type:"input", q:"Скажи по-французски: «Я не понимаю».",
+            answers:["je ne comprends pas"], hint:"ne … pas вокруг глагола" },
+          { id:"l1g8", type:"input", q:"Исправь: Je ne aime pas le café.",
+            answers:["je n'aime pas le café"], hint:"ne перед гласной → n'" }
         ]
       },
       {
-        id: "vocab", title: "Лексика", est: "4 мин",
+        id: "vocab", title: "Лексика", est: "5 мин",
         words:[0,1,2,3,4,5,6,7],
+        theory:{
+          rule:"Род запоминается только вместе с артиклем: <b>une</b> leçon, <b>un</b> café. Отдельно слово учить бесполезно.",
+          ex:[
+            ["une université, une leçon, une école","женский род"],
+            ["un cours, un café, un travail, un ami","мужской род"],
+            ["la maison, le travail","с определённым артиклем"]
+          ],
+          traps:["un leçon ✗ → <b>une leçon</b>","le école ✗ → <b>l'école</b>"]
+        },
         items: [
           { id:"l1v1", type:"choice", q:"Какой артикль? ___ université",
             options:["une","un"], answer:"une", hint:"université — женский род" },
@@ -1881,11 +1923,24 @@ const LESSONS_V2 = {
           { id:"l1v3", type:"input", q:"Как по-французски «школа»?",
             answers:["école","une école"], hint:"с артиклем необязательно" },
           { id:"l1v4", type:"input", q:"Как по-французски «работа»?",
-            answers:["travail","le travail"], hint:"существительное мужского рода" }
+            answers:["travail","le travail"], hint:"существительное мужского рода" },
+          { id:"l1v5", type:"input", q:"Вставь слово: J'habite dans une ___ à Moscou. (дом)",
+            answers:["maison"], hint:"une maison" },
+          { id:"l1v6", type:"input", q:"Как по-французски «друг»?",
+            answers:["ami","un ami"], hint:"un ami" }
         ]
       },
       {
-        id: "write", title: "Письмо", est: "6 мин",
+        id: "write", title: "Письмо", est: "8 мин",
+        theory:{
+          rule:"Пиши короткими фразами: подлежащее + глагол + остальное. Каждое предложение может начинаться с je / j'.",
+          ex:[
+            ["Je m'appelle Léa.","Меня зовут Лея."],
+            ["J'habite à Moscou.","Я живу в Москве."],
+            ["J'aime la musique.","Я люблю музыку."]
+          ],
+          traps:["Не переводи слово в слово: «я есть студентка» → <b>je suis étudiante</b>"]
+        },
         items: [
           { id:"l1p1", type:"gapset", q:"Заполни пропуски в рассказе о себе.",
             text:"Je m'appelle Léa. J'___ (habiter) à Moscou. Je ___ (être) étudiante. J'___ (apprendre) le français depuis deux mois. J'___ (aimer) la musique. Je ___ (avoir) un chat. Le soir, je ___ (parler) avec mon amie. Elle ___ (être) très sympa. Nous ___ (aimer) le café.",
@@ -1893,7 +1948,10 @@ const LESSONS_V2 = {
             hint:"глаголы в présent; в скобках инфинитив" },
           { id:"l1p2", type:"write", q:"Напиши 5 фраз о себе — своими словами, без примеров.",
             prompts:["Как тебя зовут","Откуда ты","Чем занимаешься","Что любишь","Что у тебя есть"],
-            example:"Je m'appelle Léa. Je viens de Russie. Je suis étudiante. J'aime la musique. J'ai un chat." }
+            example:"Je m'appelle Léa. Je viens de Russie. Je suis étudiante. J'aime la musique. J'ai un chat." },
+          { id:"l1p3", type:"writefree", q:"Теперь свободный текст: 5–7 предложений о своей неделе.",
+            min:25,
+            example:"Cette semaine, j'étudie le français. Je vais à l'université. Je parle avec mon amie. Le soir, j'écoute de la musique." }
         ]
       },
       {
@@ -1914,10 +1972,14 @@ const LESSONS_V2 = {
               { q:"Откуда Лея?", options:["Из России","Из Франции","Из Канады"], answer:"Из России" },
               { q:"Где она живёт?", options:["В Москве","В Париже","В Петербурге"], answer:"В Москве" },
               { q:"Сколько она учит французский?", options:["Два месяца","Два года","Два дня"], answer:"Два месяца" },
-              { q:"Как она говорит по-французски?", options:["Немного","Свободно","Не говорит"], answer:"Немного" }
+              { q:"Как она говорит по-французски?", options:["Немного","Свободно","Не говорит"], answer:"Немного" },
+              { q:"Сколько человек в диалоге?", options:["Двое","Трое","Один"], answer:"Двое" },
+              { q:"Кто спрашивает «Tu viens d'où ?»", options:["Пьер","Лея","Никто"], answer:"Пьер" }
             ] },
           { id:"l1a2", type:"dictation", q:"Ещё одна фраза на слух.",
-            audio:"audio/p5.mp3", answers:["je ne comprends pas"], hint:"отрицание, три слова" }
+            audio:"audio/p5.mp3", answers:["je ne comprends pas"], hint:"отрицание, три слова" },
+          { id:"l1a3", type:"dictation", q:"Ещё одна — короткая.",
+            audio:"audio/p1.mp3", answers:["je m'appelle léa"], hint:"два слова" }
         ]
       },
       {
@@ -2013,15 +2075,16 @@ function v2ItemHTML(it, label){
   const head = `<div class="v2num">${label}</div><p class="q" style="margin:6px 0 10px">${it.q || ""}</p>`;
 
   if(it.type === "choice"){
+    const inline = it.options.every(o => o.length <= 24);
     return `${head}
-      <div class="opts col">
+      <div class="opts ${inline ? "" : "col"}">
         ${it.options.map((o, i) => {
           let cls = "";
           if(st.checked){
             if(o === it.answer) cls = " ok";
             else if(st.pick === i) cls = " bad";
           }
-          return `<button class="opt wide${cls}" data-act="v2-opt" data-id="${it.id}" data-i="${i}">${esc(o)}</button>`;
+          return `<button class="opt ${inline ? "" : "wide"}${cls}" data-act="v2-opt" data-id="${it.id}" data-i="${i}">${esc(o)}</button>`;
         }).join("")}
       </div>
       ${st.checked ? `<div class="fb show ${st.ok ? "ok" : "bad"}">${st.ok ? "Верно." : "Не то."}</div>` : ""}
@@ -2081,10 +2144,25 @@ function v2ItemHTML(it, label){
       <div class="toolbar" style="margin:0 0 10px">
         <button class="btn primary" id="play-${it.id}" data-act="v2-play" data-src="${it.audio}" data-id="${it.id}">▶ Слушать диалог</button>
         <button class="btn" data-act="v2-play" data-src="${it.audio}" data-restart="1">с начала</button>
+        <button class="btn" data-act="v2-text" data-id="${it.id}">${st.showText ? "Скрыть текст" : "Показать текст"}</button>
       </div>
-      <div class="card" style="margin:0 0 10px">${v2LinesHTML(it)}</div>
+      ${st.showText ? `<div class="card" style="margin:0 0 12px">${v2LinesHTML(it)}</div>` : ""}
       ${v2QuestionsHTML(it)}
       ${st.done ? `<div class="fb show ok">Диалог разобран.</div>` : ""}`;
+  }
+
+  if(it.type === "writefree"){
+    const text = st.text || "";
+    const words = text.trim() ? text.trim().split(/\s+/).filter(Boolean).length : 0;
+    return `${head}
+      <textarea class="v2ta" id="wf-${it.id}" data-min="${it.min}" placeholder="пиши по-французски…">${esc(text)}</textarea>
+      <p class="mini" id="cnt-${it.id}">слов: ${words} из ${it.min}</p>
+      <div class="drow">
+        <button class="btn primary" data-act="v2-free" data-id="${it.id}">Готово</button>
+        <button class="link" data-act="v2-example" data-id="${it.id}">показать пример</button>
+      </div>
+      ${st.done ? `<div class="fb show ok">Сохранено. Уйдёт в отчёт — я проверю вручную.</div>` : ""}
+      <div class="hint" id="ex-${it.id}"><span class="fr">${esc(it.example)}</span></div>`;
   }
 
   if(it.type === "reading"){
@@ -2114,6 +2192,27 @@ function v2ItemHTML(it, label){
   return head;
 }
 
+function v2TheoryHTML(n, b){
+  const th = b.theory || (b.rule ? { rule: b.rule } : null);
+  if(!th) return "";
+  const key = n + ":" + b.id;
+  const saved = (state.theory || {})[key];
+  const open = saved !== undefined ? !!saved : (b.id === "gram");
+  const ex = (th.ex || []).map(e => `<div class="exrow"><span class="fr">${e[0]}</span><span class="ru">${e[1]}</span></div>`).join("");
+  const traps = (th.traps || []).map(t => `<li>${t}</li>`).join("");
+  return `
+    <div class="theory ${open ? "open" : ""}">
+      <button class="theoryhead" data-act="v2-th" data-n="${n}" data-bid="${b.id}">
+        <span>Теория</span><span class="chev">▼</span>
+      </button>
+      <div class="theorybody">
+        <p>${th.rule || ""}</p>
+        ${ex ? `<div class="examples">${ex}</div>` : ""}
+        ${traps ? `<h4>Ловушки</h4><ul>${traps}</ul>` : ""}
+      </div>
+    </div>`;
+}
+
 function renderLessonV2(n){
   const L = v2Lesson(n);
   const meta = LESSONS.find(x => x.n === n) || { t: "Урок", g: "" };
@@ -2129,7 +2228,7 @@ function renderLessonV2(n){
           <span class="chev">▼</span>
         </button>
         <div class="blkbody">
-          ${b.rule ? `<div class="blkrule">${b.rule}</div>` : ""}
+          ${v2TheoryHTML(n, b)}
           ${words ? `<div class="card" style="margin:8px 0 12px">${words}</div>` : ""}
           ${(b.items || []).map((it, i) => `<div class="v2item">${v2ItemHTML(it, bi + 1 + "." + (i + 1))}</div>`).join("")}
         </div>
@@ -2179,6 +2278,18 @@ document.addEventListener("click", function(e){
     return;
   }
 
+  if(act === "v2-th"){
+    const key = el.dataset.n + ":" + el.dataset.bid;
+    if(!state.theory) state.theory = {};
+    const cur = state.theory[key];
+    const b = (v2Lesson(Number(el.dataset.n)) || { blocks: [] }).blocks.find(x => x.id === el.dataset.bid);
+    const dflt = b && b.id === "gram";
+    state.theory[key] = cur === undefined ? !dflt : !cur;
+    save();
+    renderLessonV2(currentLesson);
+    return;
+  }
+
   if(act === "v2-play"){
     const src = el.dataset.src;
     if(el.dataset.restart){
@@ -2203,6 +2314,25 @@ document.addEventListener("click", function(e){
   const all = Object.keys(LESSONS_V2).reduce((acc, k) => acc.concat(v2Items(Number(k))), []);
   const it = all.find(x => x.id === id);
   if(!it) return;
+
+  if(act === "v2-text"){
+    v2Save(id, { showText: !(state.items[id] || {}).showText });
+    renderLessonV2(currentLesson);
+    return;
+  }
+
+  if(act === "v2-free"){
+    const ta = document.getElementById("wf-" + id);
+    const text = ta ? ta.value.trim() : "";
+    const words = text ? text.split(/\s+/).filter(Boolean).length : 0;
+    if(words < (it.min || 20)){
+      toast("Пока " + words + " слов, нужно минимум " + it.min + ".");
+      return;
+    }
+    v2Save(id, { text: text, done: true, checked: true, ok: true });
+    renderLessonV2(currentLesson);
+    return;
+  }
 
   if(act === "v2-opt"){
     const i = Number(el.dataset.i);
@@ -2298,6 +2428,15 @@ document.addEventListener("click", function(e){
     if(ex) ex.classList.add("show");
     return;
   }
+});
+
+document.addEventListener("input", function(e){
+  const t = e.target;
+  if(!t || !t.id || t.id.indexOf("wf-") !== 0) return;
+  const cnt = document.getElementById("cnt-" + t.id.slice(3));
+  if(!cnt) return;
+  const n = t.value.trim() ? t.value.trim().split(/\s+/).filter(Boolean).length : 0;
+  cnt.textContent = "слов: " + n + " из " + (t.dataset.min || 0);
 });
 
 function rnd(n){ return Math.floor(Math.random() * n); }
@@ -2678,10 +2817,38 @@ function switchTab(name){
   const navName = name === "lesson" ? "lessons" : name;
   document.querySelectorAll(".tab").forEach(t => t.classList.toggle("on", t.dataset.tab === navName));
   state.tab = name; save();
+  pushNav();
   window.scrollTo({top:0, behavior:"smooth"});
 }
 
 let currentLesson = 1;
+let navLock = false;
+
+function pushNav(){
+  if(navLock) return;
+  try{
+    history.pushState({ view: state.tab, lesson: currentLesson }, "");
+  }catch(e){}
+}
+
+function applyNav(s){
+  if(!s) return;
+  navLock = true;
+  if(s.view === "lesson" && s.lesson){
+    currentLesson = Number(s.lesson) || 1;
+    state.lesson = currentLesson;
+    save();
+    renderLessonView(currentLesson);
+    switchTab("lesson");
+  } else {
+    if(s.view === "lessons") renderLessonList();
+    if(s.view === "practice"){ session = null; renderPractice(); }
+    switchTab(s.view || "plan");
+  }
+  navLock = false;
+}
+
+window.addEventListener("popstate", function(e){ applyNav(e.state); });
 
 function openLesson(n){
   currentLesson = Number(n);
@@ -2937,6 +3104,7 @@ function renderAll(){
   }
   renderAll();
   syncCloud();
+  try{ history.replaceState({ view: state.tab, lesson: currentLesson }, ""); }catch(e){}
 })();
 </script>
 </body>
