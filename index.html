@@ -1238,11 +1238,12 @@ function renderPlan(){
       <div class="card soft">
         <p class="note">Скачай свои ответы и покажи мне — я разберу их и обновлю журнал ошибок.</p>
         <div class="toolbar" style="margin-bottom:0">
-          <button class="btn primary" data-act="export">Скачать результаты</button>
-          <button class="btn" data-act="showreport">Показать текстом</button>
+          <button class="btn primary" data-act="copyreport">Скопировать результаты</button>
+          <button class="btn" data-act="export">Скачать файлом</button>
         </div>
+        <p class="mini" style="margin:8px 0 0">На телефоне удобнее «Скопировать»: один тап, потом вставить в чат.</p>
         <div id="reportwrap" style="display:none">
-          <p class="note">Скопируй всё и пришли в чат: кликни в поле, потом Ctrl+A и Ctrl+C.</p>
+          <p class="note">Не дал доступ к буферу — выдели текст ниже и скопируй вручную.</p>
           <textarea id="reporttext" readonly style="min-height:240px"></textarea>
         </div>
       </div>
@@ -1524,21 +1525,28 @@ function buildReport(){
   const days = DAYS.filter(d => state.days[d.n]).map(d => d.n);
   const solved = DRILLS.filter(d => state.drills[d.n]).length;
   const verdictText = v => v === "ok" ? "верно" : v === "near" ? "почти (акценты)" : v === "open" ? "свободное" : "неверно";
+  const answered = DRILLS.filter(d => (state.answers || {})[d.n] || state.drills[d.n]);
   const out = [];
   out.push("Французский · результаты");
-  out.push("Дата выгрузки: " + pad(now.getDate()) + "." + pad(now.getMonth() + 1) + "." + now.getFullYear() + " " + pad(now.getHours()) + ":" + pad(now.getMinutes()));
+  out.push("Дата: " + pad(now.getDate()) + "." + pad(now.getMonth() + 1) + "." + now.getFullYear() + " " + pad(now.getHours()) + ":" + pad(now.getMinutes()));
   out.push("Дней отмечено: " + days.length + " из " + DAYS.length + (days.length ? " (" + days.join(", ") + ")" : ""));
-  out.push("Упражнений решено: " + solved + " из " + DRILLS.length);
+  out.push("Упражнений: " + solved + " решено, " + answered.length + " с ответом из " + DRILLS.length);
+  const pr = state.practice || { done: 0, correct: 0 };
+  if(pr.done) out.push("Тренировка: " + pr.correct + " из " + pr.done + " (" + Math.round(pr.correct / pr.done * 100) + "%)");
   out.push("");
-  DRILLS.forEach(d => {
+
+  if(!answered.length){
+    out.push("Пока нет ответов — сделай пару заданий и выгрузи снова.");
+    return out.join("\n");
+  }
+
+  answered.forEach(d => {
     const a = (state.answers || {})[d.n];
     out.push("Задание " + d.n + ": " + d.q);
     if(a && a.text) out.push("  мой ответ: " + a.text + "   [" + verdictText(a.verdict) + "]");
-    else if(state.drills[d.n]) out.push("  мой ответ: (отмечено как сделанное)");
-    else out.push("  мой ответ: —");
+    else out.push("  мой ответ: (отмечено как сделанное)");
     if(d.answers) out.push("  правильно: " + d.answers[0]);
     else if(d.answer) out.push("  правильно: " + d.answer);
-    if(d.example) out.push("  пример: " + d.example);
     out.push("");
   });
   return out.join("\n");
@@ -2134,6 +2142,32 @@ document.addEventListener("click", ev => {
       toast("Файл " + name + " сохранён в «Загрузки». Скажи мне — я посмотрю.");
     }catch(e){
       toast("Не получилось сохранить файл. Нажми «Показать текстом» и скопируй вручную.");
+    }
+    return;
+  }
+
+  if(act === "copyreport"){
+    const text = buildReport();
+    const openBox = () => {
+      const wrap = document.getElementById("reportwrap");
+      const ta = document.getElementById("reporttext");
+      if(wrap && ta){
+        ta.value = text;
+        wrap.style.display = "block";
+        ta.focus();
+        try{ ta.select(); }catch(e){}
+      }
+    };
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(text).then(() => {
+        toast("Скопировано. Вставь в чат — Ctrl+V или «Вставить».");
+      }).catch(() => {
+        openBox();
+        toast("Буфер не дал доступ — текст открыт ниже.");
+      });
+    } else {
+      openBox();
+      toast("Текст открыт ниже — выдели и скопируй.");
     }
     return;
   }
