@@ -2241,6 +2241,401 @@ const LESSONS_V2 = {
         ]
       }
     ]
+  },
+
+  /* ===================== урок 4 ===================== */
+  4: {
+    blocks: [
+      {
+        id: "warm", title: "Разминка", est: "4 мин",
+        items: [
+          { id:"l4w1", type:"choice", q:"Как правильно?", options:["je parle","je parles"], answer:"je parle", hint:"je → -e" },
+          { id:"l4w2", type:"input", q:"Скажи по-французски: «Я говорю по-французски».", answers:["je parle français"], hint:"parler: je parle" },
+          { id:"l4w3", type:"choice", q:"Как правильно?", options:["nous parlons","nous parlez"], answer:"nous parlons", hint:"nous → -ons" },
+          { id:"l4w4", type:"dictation", q:"Послушай и напиши.", audio:"audio/p4.mp3", answers:["je suis étudiante"], hint:"три слова" }
+        ]
+      },
+      {
+        id: "gram", title: "Грамматика: глаголы на -er", est: "8 мин",
+        theory:{
+          rule:"Инфинитив минус <b>-er</b> + окончание: je <b>-e</b>, tu <b>-es</b>, il/elle <b>-e</b>, nous <b>-ons</b>, vous <b>-ez</b>, ils/elles <b>-ent</b>. Четыре формы из шести звучат одинаково — «парль».",
+          ex:[
+            ["je parle, tu parles, il parle","все три — «парль»"],
+            ["nous parlons, vous parlez","окончание слышно"],
+            ["ils parlent","«иль парль», -ent молчит"]
+          ],
+          traps:["je parles ✗ → <b>je parle</b>","nous parle ✗ → <b>nous parlons</b>"]
+        },
+        items: [
+          { id:"l4g1", type:"input", q:"Допиши: Tu ___ (parler) français.", answers:["parles"], hint:"tu → -es" },
+          { id:"l4g2", type:"input", q:"Допиши: Elle ___ (habiter) à Moscou.", answers:["habite"], hint:"elle → -e" },
+          { id:"l4g3", type:"input", q:"Допиши: Nous ___ (étudier) le français.", answers:["étudions"], hint:"nous → -ons" },
+          { id:"l4g4", type:"input", q:"Допиши: Ils ___ (aimer) la musique.", answers:["aiment"], hint:"ils → -ent" },
+          { id:"l4g5", type:"input", q:"Исправь: Tu parle français.", answers:["tu parles français"], hint:"tu → -es" },
+          { id:"l4g6", type:"input", q:"Исправь: Nous parle français.", answers:["nous parlons français"], hint:"nous → -ons" },
+          { id:"l4g7", type:"input", q:"Скажи по-французски: «Я работаю в кафе».", answers:["je travaille dans un café"], hint:"travailler" },
+          { id:"l4g8", type:"order", q:"Собери фразу.", answer:"Elle étudie le français à l'université.",
+            words:[{t:"français",id:0},{t:"à",id:1},{t:"Elle",id:2},{t:"l'université.",id:3},{t:"le",id:4},{t:"étudie",id:5}],
+            hint:"подлежащее + глагол + остальное" }
+        ]
+      },
+      {
+        id: "vocab", title: "Лексика: глаголы", est: "5 мин",
+        theory:{
+          rule:"Восемь глаголов недели спрягаются одинаково: <b>parler, étudier, jouer, aimer, habiter, marcher, manger, travailler</b>.",
+          ex:[["je mange, tu manges, il mange","manger"],["nous mangeons","запомни: -eons у manger"],["vous travaillez","travailler"]],
+          traps:["nous mangons ✗ → <b>nous mangeons</b>"]
+        },
+        items: [
+          { id:"l4v1", type:"input", q:"Допиши: Je ___ (manger) au café.", answers:["mange"], hint:"je → -e" },
+          { id:"l4v2", type:"input", q:"Допиши: Vous ___ (jouer) au tennis.", answers:["jouez"], hint:"vous → -ez" },
+          { id:"l4v3", type:"input", q:"Как по-французски «работать»?", answers:["travailler"], hint:"инфинитив" },
+          { id:"l4v4", type:"input", q:"Как по-французски «играть»?", answers:["jouer"], hint:"инфинитив" },
+          { id:"l4v5", type:"input", q:"Как по-французски «кушать»?", answers:["manger"], hint:"инфинитив" },
+          { id:"l4v6", type:"input", q:"Как по-французски «жить»?", answers:["habiter"], hint:"инфинитив" }
+        ]
+      },
+      {
+        id: "write", title: "Письмо", est: "8 мин",
+        theory:{
+          rule:"Рассказ о дне: время + подлежащее + глагол. Le matin…, l'après-midi…, le soir…",
+          ex:[["Le matin, je vais à l'université.","Утром я иду в университет."],["Le soir, je regarde un film.","Вечером я смотрю фильм."]],
+          traps:["Порядок: <b>Le matin, je…</b>, а не «Je le matin…»"]
+        },
+        items: [
+          { id:"l4p1", type:"gapset", q:"Рассказ о дне — вставь глаголы в нужной форме.",
+            text:"Je ___ (habiter) à Moscou. Le matin, je ___ (étudier) à l'université. Je ___ (parler) français avec mes amis. Nous ___ (manger) à midi. L'après-midi, je ___ (travailler) dans un café. Le soir, je ___ (regarder) un film. Tu ___ (aimer) les films ? Mes amis ___ (jouer) au tennis.",
+            answers:["habite","étudie","parle","mangeons","travaille","regarde","aimes","jouent"], hint:"все глаголы на -er" },
+          { id:"l4p2", type:"writefree", q:"Опиши свой обычный день: 5–7 предложений.", min:25,
+            example:"Le matin, je vais à l'université. J'étudie le français. À midi, je mange avec mes amis. L'après-midi, je travaille. Le soir, je regarde un film et j'écoute de la musique." }
+        ]
+      },
+      {
+        id: "listen", title: "Аудирование", est: "5 мин",
+        items: [
+          { id:"l4a1", type:"dialog", q:"Послушай разговор о распорядке дня и ответь на вопросы.",
+            audio:"audio/dialog4.mp3",
+            lines:[
+              ["Pierre","Tu étudies le matin ou le soir ?","Ты учишься утром или вечером?"],
+              ["Léa","Le matin, j'étudie à l'université. Le soir, je travaille dans un café.","Утром учусь в университете. Вечером работаю в кафе."],
+              ["Pierre","Tu travailles beaucoup ?","Ты много работаешь?"],
+              ["Léa","Oui, je travaille quatre heures par jour.","Да, четыре часа в день."],
+              ["Pierre","Et le week-end ?","А на выходных?"],
+              ["Léa","Le week-end, je reste à la maison. Je regarde des films et j'écoute de la musique.","На выходных я дома. Смотрю фильмы и слушаю музыку."]
+            ],
+            questions:[
+              { q:"Когда Лея учится?", options:["Утром","Вечером","Ночью"], answer:"Утром" },
+              { q:"Где она работает вечером?", options:["В кафе","В школе","В библиотеке"], answer:"В кафе" },
+              { q:"Сколько часов она работает?", options:["Четыре","Два","Восемь"], answer:"Четыре" },
+              { q:"Что она делает в выходные?", options:["Смотрит фильмы и слушает музыку","Работает в кафе","Едет в Париж"], answer:"Смотрит фильмы и слушает музыку" },
+              { q:"Работает ли она в выходные?", options:["Нет, она дома","Да, в кафе","Да, в университете"], answer:"Нет, она дома" },
+              { q:"Кто задаёт вопросы?", options:["Пьер","Лея","Никто"], answer:"Пьер" }
+            ] },
+          { id:"l4a2", type:"dictation", q:"Фраза на слух.", audio:"audio/p21.mp3", answers:["je vais à moscou"], hint:"три слова" },
+          { id:"l4a3", type:"dictation", q:"Ещё одна.", audio:"audio/p8.mp3", answers:["plus lentement s'il vous plaît"], hint:"вежливая просьба" }
+        ]
+      },
+      {
+        id: "read", title: "Чтение", est: "4 мин",
+        items: [
+          { id:"l4r1", type:"reading", title:"День Леи",
+            text:"Léa étudie à l'université. Le matin, elle va à l'université à neuf heures. Elle étudie l'économie. À midi, elle mange à la cantine avec ses amis. L'après-midi, elle travaille dans un café : elle prépare des cafés et elle parle avec les clients. Le soir, elle rentre à la maison. Elle dîne, elle regarde un film et elle écoute de la musique. Le week-end, elle ne travaille pas : elle reste à la maison ou elle va au cinéma avec son amie.",
+            questions:[
+              { q:"Куда Лея идёт утром?", options:["В университет","В кафе","В кино"], answer:"В университет" },
+              { q:"Что она изучает?", options:["Экономику","Историю","Медицину"], answer:"Экономику" },
+              { q:"Где она ест в полдень?", options:["В столовой","Дома","В кафе"], answer:"В столовой" },
+              { q:"Что она делает в кафе?", options:["Готовит кофе и говорит с клиентами","Моет посуду","Работает на кухне"], answer:"Готовит кофе и говорит с клиентами" },
+              { q:"Что она делает в выходные?", options:["Отдыхает или идёт в кино","Работает","Учится"], answer:"Отдыхает или идёт в кино" }
+            ] }
+        ]
+      }
+    ]
+  },
+
+  /* ===================== урок 5 ===================== */
+  5: {
+    blocks: [
+      {
+        id: "warm", title: "Разминка", est: "4 мин",
+        items: [
+          { id:"l5w1", type:"choice", q:"Как сказать «уже два месяца»?", options:["depuis deux mois","pour deux mois"], answer:"depuis deux mois", hint:"depuis + длительность" },
+          { id:"l5w2", type:"input", q:"Скажи по-французски: «Я учу французский два месяца».", answers:["j'apprends le français depuis deux mois"], hint:"depuis + présent" },
+          { id:"l5w3", type:"choice", q:"Как правильно?", options:["J'habite ici depuis vingt ans.","J'habite ici pendant vingt ans."], answer:"J'habite ici depuis vingt ans.", hint:"действие продолжается" },
+          { id:"l5w4", type:"dictation", q:"Послушай и напиши.", audio:"audio/p26.mp3", answers:["j'habite à moscou"], hint:"три слова" }
+        ]
+      },
+      {
+        id: "gram", title: "Грамматика: depuis", est: "8 мин",
+        theory:{
+          rule:"<b>depuis</b> + настоящее время: действие началось раньше и <b>продолжается</b>. <b>il y a</b> — точка в прошлом (два месяца назад). <b>pendant</b> — сколько длилось и закончилось.",
+          ex:[
+            ["J'apprends le français depuis deux mois.","учу два месяца (и продолжаю)"],
+            ["J'ai commencé il y a deux mois.","начал два месяца назад"],
+            ["J'ai étudié pendant deux heures.","занимался два часа"]
+          ],
+          traps:["j'apprends pendant deux mois ✗ → <b>depuis</b>","depuis + passé composé ✗ → <b>depuis + présent</b>"]
+        },
+        items: [
+          { id:"l5g1", type:"input", q:"Допиши: Je travaille ici ___ un an.", answers:["depuis"], hint:"действие продолжается" },
+          { id:"l5g2", type:"input", q:"Допиши: Elle apprend le français ___ deux mois.", answers:["depuis"], hint:"depuis" },
+          { id:"l5g3", type:"input", q:"Скажи по-французски: «Я живу в Москве двадцать лет».", answers:["j'habite à moscou depuis vingt ans"], hint:"habiter + depuis" },
+          { id:"l5g4", type:"input", q:"Скажи по-французски: «Он работает в кафе год».", answers:["il travaille dans un café depuis un an"], hint:"travailler + depuis" },
+          { id:"l5g5", type:"input", q:"Исправь: Elle apprend le français pendant deux mois.", answers:["elle apprend le français depuis deux mois"], hint:"действие продолжается → depuis" },
+          { id:"l5g6", type:"order", q:"Собери фразу.", answer:"Je connais Pierre depuis un an.",
+            words:[{t:"depuis",id:0},{t:"Pierre",id:1},{t:"Je",id:2},{t:"an.",id:3},{t:"un",id:4},{t:"connais",id:5}],
+            hint:"подлежащее + глагол + depuis" },
+          { id:"l5g7", type:"choice", q:"Что значит «il y a deux mois»?", options:["два месяца назад","два месяца (длится)"], answer:"два месяца назад", hint:"это точка в прошлом" },
+          { id:"l5g8", type:"input", q:"Допиши вопрос: Depuis combien de ___ tu apprends ?", answers:["temps"], hint:"combien de temps" }
+        ]
+      },
+      {
+        id: "vocab", title: "Лексика: время", est: "5 мин",
+        theory:{
+          rule:"Слова времени: <b>un an</b> (год), <b>un mois</b> (месяц), <b>une semaine</b> (неделя), <b>un jour</b> (день).",
+          ex:[["deux ans, trois mois","два года, три месяца"],["une semaine, un jour","неделя, день"]],
+          traps:["deux ans, но trois mois — запоминай по словам"]
+        },
+        items: [
+          { id:"l5v1", type:"input", q:"Как по-французски «год»?", answers:["an","année"], hint:"un an" },
+          { id:"l5v2", type:"input", q:"Как по-французски «месяц»?", answers:["mois"], hint:"un mois" },
+          { id:"l5v3", type:"input", q:"Как по-французски «неделя»?", answers:["semaine","une semaine"], hint:"une semaine" },
+          { id:"l5v4", type:"input", q:"Как по-французски «день»?", answers:["jour","un jour"], hint:"un jour" },
+          { id:"l5v5", type:"input", q:"Допиши: deux ___ (года)", answers:["ans"], hint:"множественное число" },
+          { id:"l5v6", type:"input", q:"Допиши: trois ___ (месяца)", answers:["mois"], hint:"mois не меняется" }
+        ]
+      },
+      {
+        id: "write", title: "Письмо", est: "8 мин",
+        theory:{
+          rule:"Три маркера: <b>depuis</b> (с какого времени, продолжается), <b>il y a</b> (назад), <b>pendant</b> (в течение, закончилось).",
+          ex:[["depuis un an","уже год"],["il y a un an","год назад"],["pendant un an","в течение года"]],
+          traps:["Не путай <b>depuis</b> и <b>pendant</b>"]
+        },
+        items: [
+          { id:"l5p1", type:"gapset", q:"Вставь нужный маркер времени.",
+            text:"J'habite à Moscou ___ (с) vingt ans. J'ai commencé le français ___ (назад) deux mois. Elle travaille ici ___ (с) un an. J'ai étudié ___ (в течение) deux heures. Il est parti ___ (назад) une heure.",
+            answers:["depuis","il y a","depuis","pendant","il y a"], hint:"depuis / il y a / pendant" },
+          { id:"l5p2", type:"writefree", q:"Что ты делаешь уже давно? 5–7 предложений.", min:25,
+            example:"J'habite à Moscou depuis vingt ans. J'apprends le français depuis deux mois. Je connais mon amie depuis dix ans. J'aime la musique depuis toujours." }
+        ]
+      },
+      {
+        id: "listen", title: "Аудирование", est: "5 мин",
+        items: [
+          { id:"l5a1", type:"dialog", q:"Послушай разговор про «сколько времени» и ответь на вопросы.",
+            audio:"audio/dialog5.mp3",
+            lines:[
+              ["Pierre","Tu apprends le français depuis longtemps ?","Ты давно учишь французский?"],
+              ["Léa","Depuis deux mois.","Два месяца."],
+              ["Pierre","Et tu habites à Moscou depuis longtemps ?","А в Москве давно живёшь?"],
+              ["Léa","Oui, depuis vingt ans.","Да, двадцать лет."],
+              ["Pierre","Tu connais Pierre depuis longtemps ?","Пьера давно знаешь?"],
+              ["Léa","Oui, je connais Pierre depuis un an.","Да, знаю Пьера год."]
+            ],
+            questions:[
+              { q:"Сколько Лея учит французский?", options:["Два месяца","Два года","Двадцать лет"], answer:"Два месяца" },
+              { q:"Сколько она живёт в Москве?", options:["Двадцать лет","Два года","Два месяца"], answer:"Двадцать лет" },
+              { q:"Сколько она знает Пьера?", options:["Год","Месяц","Двадцать лет"], answer:"Год" },
+              { q:"Живёт ли она в Москве давно?", options:["Да","Нет","Не говорит"], answer:"Да" },
+              { q:"Кто задаёт вопросы?", options:["Пьер","Лея","Никто"], answer:"Пьер" },
+              { q:"Что Лея говорит про французский?", options:["Учит два месяца","Учит два года","Не учит"], answer:"Учит два месяца" }
+            ] },
+          { id:"l5a2", type:"dictation", q:"Фраза на слух.", audio:"audio/p33.mp3", answers:["je suis à la maison"], hint:"четыре слова" },
+          { id:"l5a3", type:"dictation", q:"Ещё одна.", audio:"audio/p24.mp3", answers:["tu viens d'où"], hint:"вопрос" }
+        ]
+      },
+      {
+        id: "read", title: "Чтение", est: "4 мин",
+        items: [
+          { id:"l5r1", type:"reading", title:"Сколько времени?",
+            text:"Léa habite à Moscou depuis vingt ans. Elle apprend le français depuis deux mois. Elle travaille dans un café depuis un an. Son amie Nina habite à Paris depuis trois ans. Nina travaille dans un restaurant. Les deux amies parlent français ensemble depuis un mois. Elles étudient aussi l'anglais : elles apprennent l'anglais depuis cinq ans. Le français est difficile, mais Léa aime cette langue.",
+            questions:[
+              { q:"Сколько Лея живёт в Москве?", options:["Двадцать лет","Два года","Два месяца"], answer:"Двадцать лет" },
+              { q:"Сколько она работает в кафе?", options:["Год","Месяц","Двадцать лет"], answer:"Год" },
+              { q:"Где живёт Нина?", options:["В Париже","В Москве","В Лионе"], answer:"В Париже" },
+              { q:"Сколько они учат английский?", options:["Пять лет","Месяц","Год"], answer:"Пять лет" },
+              { q:"Что Лея думает о французском?", options:["Трудный, но нравится","Лёгкий","Скучный"], answer:"Трудный, но нравится" }
+            ] }
+        ]
+      }
+    ]
+  },
+
+  /* ===================== урок 6 ===================== */
+  6: {
+    blocks: [
+      {
+        id: "warm", title: "Разминка", est: "4 мин",
+        items: [
+          { id:"l6w1", type:"choice", q:"Как вежливо заказать?", options:["Je voudrais un café.","Je veux un café."], answer:"Je voudrais un café.", hint:"je voudrais — вежливо" },
+          { id:"l6w2", type:"input", q:"Скажи по-французски: «Счёт, пожалуйста».", answers:["l'addition s'il vous plaît"], hint:"addition" },
+          { id:"l6w3", type:"input", q:"Скажи по-французски: «Что вы посоветуете?»", answers:["qu'est-ce que vous me conseillez"], hint:"conseiller" },
+          { id:"l6w4", type:"dictation", q:"Послушай и напиши.", audio:"audio/p13.mp3", answers:["je voudrais un café s'il vous plaît"], hint:"пять слов" }
+        ]
+      },
+      {
+        id: "gram", title: "Грамматика: вежливый заказ", est: "8 мин",
+        theory:{
+          rule:"Вежливая просьба — <b>je voudrais</b> (я бы хотела), а не je veux. Артикль перед блюдом: <b>un</b> café, <b>une</b> soupe, <b>une</b> tarte.",
+          ex:[["Je voudrais un thé.","Я бы хотела чай."],["Une soupe, s'il vous plaît.","Суп, пожалуйста."]],
+          traps:["je veux ✗ → <b>je voudrais</b>","un soupe ✗ → <b>une soupe</b>"]
+        },
+        items: [
+          { id:"l6g1", type:"input", q:"Допиши: Je ___ un thé. (я бы хотела)", answers:["voudrais"], hint:"vouloir в вежливой форме" },
+          { id:"l6g2", type:"input", q:"Исправь: Je veux une soupe, s'il vous plaît.", answers:["je voudrais une soupe s'il vous plaît"], hint:"вежливость" },
+          { id:"l6g3", type:"input", q:"Скажи по-французски: «Я бы хотела суп».", answers:["je voudrais une soupe"], hint:"une soupe" },
+          { id:"l6g4", type:"input", q:"Как спросить «сколько стоит?»", answers:["c'est combien"], hint:"три слова" },
+          { id:"l6g5", type:"choice", q:"Какой артикль? ___ soupe", options:["une","un"], answer:"une", hint:"soupe — женский род" },
+          { id:"l6g6", type:"input", q:"Допиши: Deux cafés, s'il vous ___ .", answers:["plaît"], hint:"î" },
+          { id:"l6g7", type:"order", q:"Собери фразу.", answer:"Je voudrais une tarte aux pommes.",
+            words:[{t:"une",id:0},{t:"voudrais",id:1},{t:"aux",id:2},{t:"Je",id:3},{t:"pommes.",id:4},{t:"tarte",id:5}],
+            hint:"вежливая просьба" },
+          { id:"l6g8", type:"input", q:"Скажи по-французски: «Я бы хотела десерт».", answers:["je voudrais un dessert"], hint:"un dessert" }
+        ]
+      },
+      {
+        id: "vocab", title: "Лексика: меню", est: "5 мин",
+        theory:{
+          rule:"Меню: <b>une</b> soupe, <b>une</b> salade, <b>un</b> dessert, <b>une</b> tarte, <b>l'addition</b>, <b>le serveur</b>.",
+          ex:[["une soupe, une salade","женский род"],["un dessert, un café","мужской род"]],
+          traps:["un soupe ✗ → <b>une soupe</b>"]
+        },
+        items: [
+          { id:"l6v1", type:"input", q:"Как по-французски «суп»?", answers:["soupe","une soupe"], hint:"une soupe" },
+          { id:"l6v2", type:"input", q:"Как по-французски «салат»?", answers:["salade","une salade"], hint:"une salade" },
+          { id:"l6v3", type:"input", q:"Как по-французски «десерт»?", answers:["dessert","un dessert"], hint:"un dessert" },
+          { id:"l6v4", type:"input", q:"Как по-французски «счёт»?", answers:["addition","l'addition"], hint:"une addition" },
+          { id:"l6v5", type:"input", q:"Как по-французски «официант»?", answers:["serveur","le serveur"], hint:"le serveur" },
+          { id:"l6v6", type:"input", q:"Допиши: une tarte aux ___ (яблоки)", answers:["pommes"], hint:"множественное число" }
+        ]
+      },
+      {
+        id: "write", title: "Письмо", est: "8 мин",
+        theory:{
+          rule:"Заказ: <b>Je voudrais</b> + блюдо + <b>s'il vous plaît</b>. Счёт: <b>L'addition, s'il vous plaît</b>.",
+          ex:[["Je voudrais une salade.","Я бы хотела салат."],["L'addition, s'il vous plaît.","Счёт, пожалуйста."]],
+          traps:["Одно «s'il vous plaît» на заказ достаточно"]
+        },
+        items: [
+          { id:"l6p1", type:"gapset", q:"Заказ в ресторане — вставь слова.",
+            text:"Au restaurant, je ___ (я бы хотела) une soupe et une salade. Le serveur demande : « Et comme ___ (десерт) ? » Je prends une ___ (тарт) aux pommes. L'___ (счёт) fait douze euros. Je dis : « Merci, bonne ___ (день) ! »",
+            answers:["voudrais","dessert","tarte","addition","journée"], hint:"вежливость + слова меню" },
+          { id:"l6p2", type:"writefree", q:"Опиши свой обед в кафе или ресторане: 5–7 предложений.", min:25,
+            example:"Je vais au restaurant avec mon amie. Je voudrais une soupe et une salade. Mon amie prend une tarte aux pommes. L'addition fait douze euros. Le serveur est très sympa." }
+        ]
+      },
+      {
+        id: "listen", title: "Аудирование", est: "5 мин",
+        items: [
+          { id:"l6a1", type:"dialog", q:"Послушай заказ в ресторане и ответь на вопросы.",
+            audio:"audio/dialog6.mp3",
+            lines:[
+              ["Pierre","Bonjour ! Vous avez choisi ?","Здравствуйте! Вы выбрали?"],
+              ["Léa","Oui, je voudrais une soupe et un thé, s'il vous plaît.","Да, я бы хотела суп и чай, пожалуйста."],
+              ["Pierre","Et comme dessert ?","А на десерт?"],
+              ["Léa","Une tarte aux pommes, s'il vous plaît.","Тарт с яблоками, пожалуйста."],
+              ["Pierre","Très bien. Ça fait douze euros.","Хорошо. С вас двенадцать евро."],
+              ["Léa","Voilà. Merci beaucoup !","Вот. Большое спасибо!"]
+            ],
+            questions:[
+              { q:"Что заказывает Лея?", options:["Суп и чай","Салат и кофе","Тарт и воду"], answer:"Суп и чай" },
+              { q:"Какой десерт она берёт?", options:["Тарт с яблоками","Шоколадный торт","Мороженое"], answer:"Тарт с яблоками" },
+              { q:"Сколько стоит заказ?", options:["Двенадцать евро","Шесть евро","Два евро"], answer:"Двенадцать евро" },
+              { q:"Кто официант?", options:["Пьер","Лея","Никто"], answer:"Пьер" },
+              { q:"Что Лея говорит в конце?", options:["Большое спасибо","До свидания","Извините"], answer:"Большое спасибо" },
+              { q:"Сколько блюд она заказывает?", options:["Два (суп и десерт)","Одно","Три"], answer:"Два (суп и десерт)" }
+            ] },
+          { id:"l6a2", type:"dictation", q:"Фраза на слух.", audio:"audio/p15.mp3", answers:["excusez-moi je suis perdue"], hint:"четыре слова" },
+          { id:"l6a3", type:"dictation", q:"Ещё одна.", audio:"audio/p22.mp3", answers:["je vais en france"], hint:"четыре слова" }
+        ]
+      },
+      {
+        id: "read", title: "Чтение", est: "4 мин",
+        items: [
+          { id:"l6r1", type:"reading", title:"Меню",
+            text:"Au restaurant « Chez Pierre », le menu est simple. Il y a une soupe à cinq euros, une salade à sept euros et une tarte aux pommes à quatre euros. Un thé coûte deux euros, un café trois euros. Le restaurant est ouvert de midi à vingt-trois heures. Le serveur s'appelle Pierre. Il est très sympa. Le week-end, il y a beaucoup de gens. En semaine, le restaurant est calme.",
+            questions:[
+              { q:"Сколько стоит суп?", options:["Пять евро","Семь евро","Четыре евро"], answer:"Пять евро" },
+              { q:"Сколько стоит салат?", options:["Семь евро","Пять евро","Два евро"], answer:"Семь евро" },
+              { q:"Сколько стоит тарт?", options:["Четыре евро","Семь евро","Двенадцать евро"], answer:"Четыре евро" },
+              { q:"До скольки открыт ресторан?", options:["До двадцати трёх","До двадцати","До полуночи"], answer:"До двадцати трёх" },
+              { q:"Когда в ресторане много людей?", options:["На выходных","В понедельник","Утром"], answer:"На выходных" }
+            ] }
+        ]
+      }
+    ]
+  },
+
+  /* ===================== урок 7 ===================== */
+  7: {
+    blocks: [
+      {
+        id: "warm", title: "Повторение недели", est: "6 мин",
+        items: [
+          { id:"l7w1", type:"choice", q:"Как правильно?", options:["j'apprends","je apprends"], answer:"j'apprends", hint:"элизия" },
+          { id:"l7w2", type:"input", q:"Исправь: Je vais à le université.", answers:["je vais à l'université"], hint:"à + le перед гласной" },
+          { id:"l7w3", type:"input", q:"Скажи по-французски: «У меня есть кот».", answers:["j'ai un chat"], hint:"avoir" },
+          { id:"l7w4", type:"choice", q:"Какой артикль? ___ leçon", options:["une","un"], answer:"une", hint:"leçon — женский род" },
+          { id:"l7w5", type:"input", q:"Скажи по-французски: «Я живу в Москве».", answers:["j'habite à moscou"], hint:"habiter + à" },
+          { id:"l7w6", type:"input", q:"Скажи по-французски: «Я не понимаю».", answers:["je ne comprends pas"], hint:"ne … pas" },
+          { id:"l7w7", type:"choice", q:"Как правильно?", options:["s'il vous plaît","s'il vous plait"], answer:"s'il vous plaît", hint:"î" },
+          { id:"l7w8", type:"input", q:"Скажи по-французски: «Она студентка».", answers:["elle est étudiante"], hint:"être + род" }
+        ]
+      },
+      {
+        id: "listen", title: "Слух", est: "9 мин",
+        items: [
+          { id:"l7a1", type:"dictation", q:"Диктант 1. Слушай целиком.", audio:"audio/p6.mp3", answers:["je n'ai pas compris"], hint:"отрицание" },
+          { id:"l7a2", type:"dictation", q:"Диктант 2.", audio:"audio/p16.mp3", answers:["où est-ce que tu habites"], hint:"вопрос" },
+          { id:"l7a3", type:"dictation", q:"Диктант 3.", audio:"audio/p23.mp3", answers:["qu'est-ce que tu fais"], hint:"вопрос" },
+          { id:"l7a4", type:"dictation", q:"Диктант 4.", audio:"audio/p29.mp3", answers:["ça va"], hint:"два слова" },
+          { id:"l7a5", type:"dictation", q:"Диктант 5.", audio:"audio/p33.mp3", answers:["je suis à la maison"], hint:"четыре слова" },
+          { id:"l7a6", type:"dictation", q:"Диктант 6 — длинный.", audio:"audio/p3.mp3", answers:["j'apprends le français depuis deux mois"], hint:"включай «медленно»" },
+          { id:"l7a7", type:"dictation", q:"Диктант 7.", audio:"audio/p25.mp3", answers:["moi aussi"], hint:"два слова" }
+        ]
+      },
+      {
+        id: "read", title: "Чтение", est: "5 мин",
+        items: [
+          { id:"l7r1", type:"reading", title:"Неделя Леи",
+            text:"Cette semaine, Léa étudie beaucoup. Le lundi, elle va à l'université et elle parle français avec ses amis. Le mardi, elle travaille dans un café. Le mercredi, elle regarde un film français. Le jeudi, elle écoute de la musique et elle lit un livre. Le vendredi, elle va au restaurant avec Nina. Elles prennent une soupe et une tarte aux pommes. Le samedi, Léa reste à la maison : elle est fatiguée. Le dimanche, elle téléphone à sa mère.",
+            questions:[
+              { q:"Что Лея делает в понедельник?", options:["Идёт в университет","Работает в кафе","Смотрит фильм"], answer:"Идёт в университет" },
+              { q:"Что она делает в среду?", options:["Смотрит французский фильм","Идёт в ресторан","Звонит маме"], answer:"Смотрит французский фильм" },
+              { q:"Куда она идёт в пятницу?", options:["В ресторан","В кино","В университет"], answer:"В ресторан" },
+              { q:"Что они берут в ресторане?", options:["Суп и тарт","Кофе и круассан","Салат и чай"], answer:"Суп и тарт" },
+              { q:"Почему в субботу она дома?", options:["Она устала","Она работает","Она в Париже"], answer:"Она устала" }
+            ] }
+        ]
+      },
+      {
+        id: "write", title: "Письмо", est: "8 мин",
+        theory:{
+          rule:"Итоги недели: что делала, что было трудно. Короткие фразы, маркеры времени: le lundi, le soir, cette semaine.",
+          ex:[["Cette semaine, j'ai étudié le français.","На этой неделе я учила французский."],["Le soir, je regarde des films.","Вечером я смотрю фильмы."]],
+          traps:["Не бойся писать просто: главное — глагол в нужной форме"]
+        },
+        items: [
+          { id:"l7p1", type:"gapset", q:"Рассказ о себе — вставь формы.",
+            text:"Je ___ (habiter) à Moscou. J'___ (apprendre) le français depuis deux mois. Je ___ (être) étudiante. J'___ (avoir) un chat. Le matin, je ___ (aller) à l'université.",
+            answers:["habite","apprends","suis","ai","vais"], hint:"être, avoir, -er и aller" },
+          { id:"l7p2", type:"writefree", q:"Итоги недели: что ты выучила, что было трудно, что понравилось. 5–7 предложений.", min:30,
+            example:"Cette semaine, j'ai étudié le français. J'ai appris les articles et les verbes en -er. Les dictées sont difficiles pour moi. Mais j'aime les dialogues. La semaine prochaine, je vais travailler plus." }
+        ]
+      },
+      {
+        id: "final", title: "Финал недели", est: "5 мин",
+        items: [
+          { id:"l7f1", type:"input", q:"Скажи по-французски: «Я живу в Москве двадцать лет».", answers:["j'habite à moscou depuis vingt ans"], hint:"depuis" },
+          { id:"l7f2", type:"input", q:"Исправь: Je suis etudiant.", answers:["je suis étudiante"], hint:"ты девушка" },
+          { id:"l7f3", type:"order", q:"Собери фразу.", answer:"Nous avons un chat et une voiture.",
+            words:[{t:"chat",id:0},{t:"Nous",id:1},{t:"voiture.",id:2},{t:"et",id:3},{t:"avons",id:4},{t:"une",id:5},{t:"un",id:6}],
+            hint:"avoir: nous avons" },
+          { id:"l7f4", type:"input", q:"Скажи по-французски: «Счёт, пожалуйста».", answers:["l'addition s'il vous plaît"], hint:"addition" },
+          { id:"l7f5", type:"input", q:"Скажи по-французски: «Что это значит?»", answers:["qu'est-ce que ça veut dire"], hint:"ça veut dire" }
+        ]
+      }
+    ]
   }
 };
 
