@@ -248,6 +248,42 @@
   }
   .wave::after{content:""; flex:1; height:1px; background:var(--line)}
 
+  /* ---------- уроки v2: блоки ---------- */
+  .blk{background:var(--card); border:1px solid var(--line); border-radius:16px; margin:12px 0; overflow:hidden}
+  .blkhead{
+    display:flex; align-items:center; gap:12px; width:100%; text-align:left;
+    background:none; border:0; padding:14px 16px; font:inherit; color:var(--ink); cursor:pointer;
+  }
+  .blkhead:hover{background:#fbf6ea}
+  .blkhead .bt{flex:1; font:600 15px Georgia,serif}
+  .blkhead .bs{font-size:12px; color:var(--muted)}
+  .blk .chev{transition:transform .2s; color:var(--muted); font-size:11px}
+  .blk.open .chev{transform:rotate(180deg)}
+  .blkbody{display:none; padding:0 16px 16px}
+  .blk.open .blkbody{display:block}
+  .blkrule{background:#fbf7ee; border:1px solid var(--line); border-radius:12px; padding:10px 14px; font-size:14px; margin:0 0 12px; line-height:1.55}
+  .v2item{border-top:1px dashed var(--line); padding:14px 0}
+  .v2item:first-child{border-top:0; padding-top:4px}
+  .v2num{font-size:11px; color:var(--muted); letter-spacing:.08em; text-transform:uppercase}
+  .v2in{width:100%; padding:10px 12px; border:1px solid var(--line); border-radius:10px; font:inherit; font-family:Georgia,serif; font-size:15px; background:#fff; color:var(--ink)}
+  input.v2gap{
+    display:inline-block; width:118px; margin:0 5px; padding:3px 8px;
+    border:1px solid var(--line); border-radius:8px; font:inherit; font-family:Georgia,serif;
+    font-size:14.5px; background:#fff; color:var(--ink); vertical-align:baseline;
+  }
+  .v2gap.ok{border-color:#a8cdb7; background:var(--ok-soft)}
+  .v2gap.bad{border-color:#e0b4a6; background:var(--bad-soft)}
+  .gaptext{font-family:Georgia,serif; font-size:15.5px; line-height:2.5; margin:4px 0 12px}
+  .gaprow{margin:0 0 8px; line-height:1.8}
+  .dlgline{display:grid; grid-template-columns:70px 1fr; gap:10px; padding:7px 0; border-bottom:1px dashed var(--line); font-size:14px}
+  .dlgline:last-child{border-bottom:0}
+  .dlgline .who{font-size:10.5px; letter-spacing:.06em; text-transform:uppercase; color:var(--muted); padding-top:3px}
+  .dlgline .ru{color:var(--muted); font-size:13px}
+  .readtext{
+    font-family:Georgia,serif; font-size:15.5px; line-height:1.7;
+    background:#fbf7ee; border:1px solid var(--line); border-radius:12px; padding:12px 14px; margin:8px 0 14px;
+  }
+
   .todolist{display:flex; flex-direction:column; gap:8px}
   .todoitem{
     display:flex; gap:11px; align-items:flex-start; text-align:left;
@@ -328,7 +364,7 @@
       <div class="logo">fr</div>
       <div class="who">
         <h1>Французский</h1>
-        <p class="sub">Эвелина · A1 · 15 минут в день</p>
+        <p class="sub">Эвелина · A1 · 30 минут в день</p>
       </div>
       <div class="prog">
         <div class="pbar"><div class="pfill" id="pfill"></div></div>
@@ -698,7 +734,7 @@ const LESSONS = [
     n:13, t:"Диалог-знакомство", g:"30 минут живой речи без подготовки",
     blocks:[
       {h:"Опоры для разговора", p:[], ex:[
-        ["Salut ! Moi, c'est Evelina. Et toi ?","Привет! Я Эвелина. А ты?"],
+        ["Salut ! Moi, c'est Léa. Et toi ?","Привет! Я Лея. А ты?"],
         ["Tu viens d'où ?","Ты откуда?"],
         ["Qu'est-ce que tu fais ?","Чем занимаешься?"],
         ["Tu aimes quoi ?","Что тебе нравится?"],
@@ -753,7 +789,7 @@ const LESSON_CONTENT = {
 };
 
 const PHRASES = [
-  {fr:"Je m'appelle Evelina.", ru:"Меня зовут Эвелина.", a:"audio/p1.mp3"},
+  {fr:"Je m'appelle Léa.", ru:"Меня зовут Лея.", a:"audio/p1.mp3"},
   {fr:"Je viens de Moscou.", ru:"Я из Москвы.", a:"audio/p2.mp3"},
   {fr:"J'apprends le français depuis deux mois.", ru:"Учу французский два месяца.", a:"audio/p3.mp3"},
   {fr:"Je suis étudiante.", ru:"Я студентка.", a:"audio/p4.mp3"},
@@ -934,7 +970,7 @@ const DRILLS = [
 
   /* --- урок 13: диалог --- */
   {n:38, type:"open", q:"Напиши 5 фраз о себе: имя, откуда, чем занимаешься, что любишь, и один вопрос мне.",
-   example:"Je m'appelle Evelina. Je viens de Moscou. Je suis étudiante. J'aime la musique. Et toi, tu fais quoi ?",
+   example:"Je m'appelle Léa. Je viens de Moscou. Je suis étudiante. J'aime la musique. Et toi, tu fais quoi ?",
    hint:"Потом пришли это в чат — разберём и ответим."},
 
   /* --- урок 14: контрольный тест --- */
@@ -988,7 +1024,7 @@ const DRILLS = [
 
   /* --- урок 1: финал --- */
   {n:55, type:"open", q:"Напиши 3 фразы о себе. Каждую начинай с je или j'.",
-   example:"Je m'appelle Evelina. J'habite à Moscou. J'aime la musique.",
+   example:"Je m'appelle Léa. J'habite à Moscou. J'aime la musique.",
    hint:"это уйдёт в отчёт — я проверю вручную"},
 
   /* --- урок 2: разминка --- */
@@ -1017,7 +1053,7 @@ const DRILLS = [
 
   /* --- урок 2: финал --- */
   {n:65, type:"open", q:"Напиши 3 фразы, где есть é, è или ç.",
-   example:"Je m'appelle Evelina. J'étudie à l'université. C'est très bien.",
+   example:"Je m'appelle Léa. J'étudie à l'université. C'est très bien.",
    hint:"акценты важны — я проверю"},
 
   /* --- урок 3: разминка --- */
@@ -1045,7 +1081,7 @@ const DRILLS = [
 
   /* --- урок 3: финал --- */
   {n:75, type:"open", q:"Напиши 5 фраз: кто ты, откуда, сколько лет, что у тебя есть, что любишь.",
-   example:"Je m'appelle Evelina. Je viens de Moscou. J'ai vingt ans. J'ai un chat. J'aime la musique.",
+   example:"Je m'appelle Léa. Je viens de Moscou. J'ai vingt ans. J'ai un chat. J'aime la musique.",
    hint:"это уйдёт в отчёт — разберу каждую"}
 ];
 
@@ -1116,7 +1152,7 @@ async function remotePut(data){
 }
 
 function defaultState(){
-  return {days:{}, drills:{}, answers:{}, todo:{}, tab:"plan", hideTr:false, rate:1, lesson:1, pracSize:10, practice:{done:0, correct:0}};
+  return {days:{}, drills:{}, answers:{}, todo:{}, items:{}, tab:"plan", hideTr:false, rate:1, lesson:1, pracSize:10, practice:{done:0, correct:0}};
 }
 
 // «Пустой» прогресс — чтобы первое открытие с любого устройства не затёрло уже сделанное.
@@ -1369,6 +1405,10 @@ function lessonDrillIds(n){
 }
 
 function lessonStats(n){
+  if(LESSONS_V2[n]){
+    const items = v2Items(n);
+    return { done: items.filter(v2ItemDone).length, total: items.length };
+  }
   const ids = lessonDrillIds(n);
   let done = 0;
   ids.forEach(id => { if(state.drills[id]) done++; });
@@ -1493,7 +1533,9 @@ function drillCard(d, num){
 }
 
 function renderLessonView(n){
-  const L = LESSONS.find(x => x.n === Number(n));
+  n = Number(n);
+  if(LESSONS_V2[n]){ renderLessonV2(n); return; }
+  const L = LESSONS.find(x => x.n === n);
   if(!L) return;
   const C = LESSON_CONTENT[L.n] || { phr: [], voc: [], drl: [] };
   const st = lessonStats(L.n);
@@ -1674,6 +1716,23 @@ function buildReport(){
   if(pr.done) out.push("Тренировка: " + pr.correct + " из " + pr.done + " (" + Math.round(pr.correct / pr.done * 100) + "%)");
   out.push("");
 
+  // свободное письмо из уроков
+  const writes = [];
+  Object.keys(LESSONS_V2).forEach(k => {
+    v2Items(Number(k)).forEach(it => {
+      const s = (state.items || {})[it.id];
+      if(it.type === "write" && s && s.texts) writes.push({ lesson: Number(k), q: it.q, texts: s.texts });
+    });
+  });
+  if(writes.length){
+    out.push("--- письмо ---");
+    writes.forEach(w => {
+      out.push("Урок " + w.lesson + ": " + w.q);
+      w.texts.forEach(t => out.push("  " + t));
+      out.push("");
+    });
+  }
+
   if(!answered.length){
     out.push("Пока нет ответов — сделай пару заданий и выгрузи снова.");
     return out.join("\n");
@@ -1771,7 +1830,475 @@ function feedback(el, kind, html){
   el.innerHTML = html;
 }
 
-/* ============================ тренировка ============================ */
+/* ============================ уроки v2: блоки ============================ */
+
+const LESSONS_V2 = {
+  1: {
+    blocks: [
+      {
+        id: "warm", title: "Разминка", est: "4 мин",
+        items: [
+          { id:"l1w1", type:"choice", q:"Как сказать «Меня зовут Лея»?",
+            options:["Je m'appelle Léa.","J'appelle Léa.","Moi est Léa."], answer:"Je m'appelle Léa.",
+            hint:"возвратный глагол: je m'appelle" },
+          { id:"l1w2", type:"input", q:"Скажи по-французски: «Я из Москвы».",
+            answers:["je viens de moscou"], hint:"venir de + город" },
+          { id:"l1w3", type:"choice", q:"Ты девушка. Je suis ___ .",
+            options:["étudiante","étudiant"], answer:"étudiante", hint:"согласование в роде" },
+          { id:"l1w4", type:"dictation", q:"Нажми ▶ и напиши, что услышала.",
+            audio:"audio/p2.mp3", answers:["je viens de moscou"], hint:"три слова" }
+        ]
+      },
+      {
+        id: "gram", title: "Грамматика: элизия", est: "7 мин",
+        rule:"Перед гласной короткие слова теряют гласную и цепляются апострофом: je → j', le/la → l', ne → n', que → qu'. <b>Je apprends</b> невозможно — только <b>j'apprends</b>. Срабатывает перед a, e, i, o, u, y, é, è, ê.",
+        items: [
+          { id:"l1g1", type:"choice", q:"Как правильно?",
+            options:["j'apprends","je apprends"], answer:"j'apprends", hint:"je + гласная" },
+          { id:"l1g2", type:"input", q:"Скажи по-французски: «Я живу в Москве».",
+            answers:["j'habite à moscou"], hint:"habiter: je habite → j'habite" },
+          { id:"l1g3", type:"input", q:"Исправь: J'étudie à le université.",
+            answers:["j'étudie à l'université"], hint:"à + le перед гласной → à l'" },
+          { id:"l1g4", type:"gapset", q:"Заполни три пропуска.",
+            text:"Je vais à ___ université. J'___ un chat. Je n'___ pas le café.",
+            answers:["l'","ai","aime"], hint:"элизия в трёх разных местах" },
+          { id:"l1g5", type:"order", q:"Собери фразу.",
+            answer:"J'habite à Moscou et j'apprends le français.",
+            words:[{t:"j'apprends",id:0},{t:"à",id:1},{t:"et",id:2},{t:"J'habite",id:3},{t:"le",id:4},{t:"Moscou",id:5},{t:"français.",id:6}],
+            hint:"два предложения через et" },
+          { id:"l1g6", type:"input", q:"Скажи по-французски: «Я учу французский два месяца».",
+            answers:["j'apprends le français depuis deux mois"], hint:"depuis + présent" }
+        ]
+      },
+      {
+        id: "vocab", title: "Лексика", est: "4 мин",
+        words:[0,1,2,3,4,5,6,7],
+        items: [
+          { id:"l1v1", type:"choice", q:"Какой артикль? ___ université",
+            options:["une","un"], answer:"une", hint:"université — женский род" },
+          { id:"l1v2", type:"choice", q:"Какой артикль? ___ café",
+            options:["un","une"], answer:"un", hint:"café — мужской род" },
+          { id:"l1v3", type:"input", q:"Как по-французски «школа»?",
+            answers:["école","une école"], hint:"с артиклем необязательно" },
+          { id:"l1v4", type:"input", q:"Как по-французски «работа»?",
+            answers:["travail","le travail"], hint:"существительное мужского рода" }
+        ]
+      },
+      {
+        id: "write", title: "Письмо", est: "6 мин",
+        items: [
+          { id:"l1p1", type:"gapset", q:"Заполни пропуски в рассказе о себе.",
+            text:"Je m'appelle Léa. J'___ (habiter) à Moscou. Je ___ (être) étudiante. J'___ (apprendre) le français depuis deux mois. J'___ (aimer) la musique. Je ___ (avoir) un chat. Le soir, je ___ (parler) avec mon amie. Elle ___ (être) très sympa. Nous ___ (aimer) le café.",
+            answers:["habite","suis","apprends","aime","ai","parle","est","aimons"],
+            hint:"глаголы в présent; в скобках инфинитив" },
+          { id:"l1p2", type:"write", q:"Напиши 5 фраз о себе — своими словами, без примеров.",
+            prompts:["Как тебя зовут","Откуда ты","Чем занимаешься","Что любишь","Что у тебя есть"],
+            example:"Je m'appelle Léa. Je viens de Russie. Je suis étudiante. J'aime la musique. J'ai un chat." }
+        ]
+      },
+      {
+        id: "listen", title: "Аудирование", est: "5 мин",
+        items: [
+          { id:"l1a1", type:"dialog", q:"Послушай диалог целиком и ответь на вопросы.",
+            audio:"audio/dialog1.mp3",
+            lines:[
+              ["Pierre","Bonjour ! Je m'appelle Pierre. Et toi ?","Привет! Меня зовут Пьер. А тебя?"],
+              ["Léa","Salut ! Moi, c'est Léa.","Привет! Я Лея."],
+              ["Pierre","Tu viens d'où ?","Ты откуда?"],
+              ["Léa","Je viens de Russie. J'habite à Moscou.","Я из России. Живу в Москве."],
+              ["Pierre","Tu parles français ?","Ты говоришь по-французски?"],
+              ["Léa","Un peu. J'apprends le français depuis deux mois.","Немного. Учу французский два месяца."]
+            ],
+            questions:[
+              { q:"Как зовут собеседника?", options:["Pierre","Paul","Michel"], answer:"Pierre" },
+              { q:"Откуда Лея?", options:["Из России","Из Франции","Из Канады"], answer:"Из России" },
+              { q:"Где она живёт?", options:["В Москве","В Париже","В Петербурге"], answer:"В Москве" },
+              { q:"Сколько она учит французский?", options:["Два месяца","Два года","Два дня"], answer:"Два месяца" },
+              { q:"Как она говорит по-французски?", options:["Немного","Свободно","Не говорит"], answer:"Немного" }
+            ] },
+          { id:"l1a2", type:"dictation", q:"Ещё одна фраза на слух.",
+            audio:"audio/p5.mp3", answers:["je ne comprends pas"], hint:"отрицание, три слова" }
+        ]
+      },
+      {
+        id: "read", title: "Чтение", est: "4 мин",
+        items: [
+          { id:"l1r1", type:"reading", title:"Лея",
+            text:"Léa est étudiante. Elle habite à Moscou avec sa famille. Elle apprend le français depuis deux mois. Le matin, elle va à l'université et elle étudie l'économie. L'après-midi, elle travaille dans un petit café. Le soir, elle parle avec son amie française : elles regardent des films et écoutent de la musique. Léa aime beaucoup le café et les croissants. Le week-end, elle va au cinéma ou elle reste à la maison. Elle dit : « Le français est difficile, mais j'aime cette langue. »",
+            questions:[
+              { q:"Где живёт Лея?", options:["В Москве","В Париже","В Лионе"], answer:"В Москве" },
+              { q:"Что она изучает в университете?", options:["Экономику","Медицину","Историю"], answer:"Экономику" },
+              { q:"Где она работает днём?", options:["В кафе","В школе","В библиотеке"], answer:"В кафе" },
+              { q:"Что они делают с подругой вечером?", options:["Смотрят фильмы и слушают музыку","Готовят ужин","Играют в теннис"], answer:"Смотрят фильмы и слушают музыку" },
+              { q:"Что Лея думает о французском?", options:["Трудный, но нравится","Лёгкий и скучный","Слишком быстрый"], answer:"Трудный, но нравится" }
+            ] }
+        ]
+      }
+    ]
+  }
+};
+
+function v2Lesson(n){ return LESSONS_V2[n] || null; }
+
+function v2Items(n){
+  const L = v2Lesson(n);
+  if(!L) return [];
+  const out = [];
+  L.blocks.forEach(b => (b.items || []).forEach(it => out.push(it)));
+  return out;
+}
+
+function v2ItemDone(it){
+  const s = (state.items || {})[it.id];
+  return !!(s && s.done);
+}
+
+function v2BlockStats(n, b){
+  const items = b.items || [];
+  const done = items.filter(v2ItemDone).length;
+  return { done: done, total: items.length };
+}
+
+function v2AnswerText(it){
+  if(it.type === "input" || it.type === "dictation" || it.type === "gapset") return (it.answers || []).join(" · ");
+  if(it.type === "choice") return it.answer;
+  if(it.type === "order") return it.answer;
+  return "";
+}
+
+function v2Save(id, patch){
+  if(!state.items) state.items = {};
+  state.items[id] = Object.assign(state.items[id] || {}, patch);
+  save();
+}
+
+function v2LinesHTML(it){
+  return it.lines.map(l => `
+    <div class="dlgline">
+      <span class="who">${esc(l[0])}</span>
+      <span><span class="fr">${esc(l[1])}</span><br><span class="ru">${esc(l[2])}</span></span>
+    </div>`).join("");
+}
+
+function v2QuestionsHTML(it, idPrefix){
+  const st = (state.items[it.id] || {}).qa || {};
+  return it.questions.map((q, qi) => {
+    const picked = st[qi];
+    const answered = picked !== undefined;
+    return `
+      <div class="v2q" data-qi="${qi}">
+        <p class="q" style="margin:10px 0 8px">${qi + 1}. ${esc(q.q)}</p>
+        <div class="opts col">
+          ${q.options.map((o, oi) => {
+            let cls = "";
+            if(answered){
+              if(o === q.answer) cls = " ok";
+              else if(oi === picked) cls = " bad";
+            }
+            return `<button class="opt wide${cls}" data-act="v2-q" data-id="${it.id}" data-qi="${qi}" data-oi="${oi}">${esc(o)}</button>`;
+          }).join("")}
+        </div>
+      </div>`;
+  }).join("");
+}
+
+function v2AllQuestionsAnswered(it){
+  const st = (state.items[it.id] || {}).qa || {};
+  return it.questions.every((q, i) => st[i] !== undefined);
+}
+
+function v2ItemHTML(it, label){
+  const st = state.items[it.id] || {};
+  const done = !!st.done;
+  const head = `<div class="v2num">${label}</div><p class="q" style="margin:6px 0 10px">${it.q || ""}</p>`;
+
+  if(it.type === "choice"){
+    return `${head}
+      <div class="opts col">
+        ${it.options.map((o, i) => {
+          let cls = "";
+          if(st.checked){
+            if(o === it.answer) cls = " ok";
+            else if(st.pick === i) cls = " bad";
+          }
+          return `<button class="opt wide${cls}" data-act="v2-opt" data-id="${it.id}" data-i="${i}">${esc(o)}</button>`;
+        }).join("")}
+      </div>
+      ${st.checked ? `<div class="fb show ${st.ok ? "ok" : "bad"}">${st.ok ? "Верно." : "Не то."}</div>` : ""}
+      ${!st.ok && st.checked && it.hint ? `<div class="hint show">${it.hint}</div>` : ""}`;
+  }
+
+  if(it.type === "input" || it.type === "dictation"){
+    const src = it.type === "dictation" ? `
+      <div class="toolbar" style="margin:0 0 10px">
+        <button class="btn primary" data-act="v2-play" data-src="${it.audio}" data-id="${it.id}">▶ Прослушать</button>
+        <button class="btn" data-act="v2-play" data-src="${it.audio}" data-slow="1">медленно</button>
+      </div>` : "";
+    return `${head}${src}
+      <input type="text" class="v2in" id="in-${it.id}" value="${esc(st.text || "")}" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="по-французски…">
+      <div class="drow">
+        <button class="btn primary" data-act="v2-check" data-id="${it.id}">Проверить</button>
+        ${it.type === "input" ? `<button class="link" data-act="v2-reveal" data-id="${it.id}">показать ответ</button>` : ""}
+      </div>
+      ${st.checked ? `<div class="fb show ${st.ok ? "ok" : "bad"}">${st.ok ? "Верно." : "Не то. "}<span class="ans fr">${esc(st.ok ? "" : v2AnswerText(it))}</span></div>` : ""}
+      ${!st.ok && st.checked && it.hint ? `<div class="hint show">${it.hint}</div>` : ""}`;
+  }
+
+  if(it.type === "gapset"){
+    const parts = it.text.split("___");
+    const vals = st.gaps || [];
+    const inner = parts.map((p, i) => {
+      const last = i === parts.length - 1;
+      const ok = st.checked && st.gapOk && st.gapOk[i];
+      const bad = st.checked && st.gapOk && !st.gapOk[i];
+      const inp = last ? "" :
+        `<input type="text" class="v2gap ${ok ? "ok" : ""} ${bad ? "bad" : ""}" id="gap-${it.id}-${i}" value="${esc(vals[i] || "")}" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="…">`;
+      return esc(p) + inp;
+    }).join("");
+    return `${head}
+      <div class="gaptext">${inner}</div>
+      <div class="drow"><button class="btn primary" data-act="v2-gapcheck" data-id="${it.id}">Проверить</button></div>
+      ${st.checked ? `<div class="fb show ${st.ok ? "ok" : "bad"}">${st.ok ? "Все пропуски верно." : "Верно: " + (st.gapOk || []).filter(Boolean).length + " из " + it.answers.length}</div>` : ""}`;
+  }
+
+  if(it.type === "order"){
+    const picked = it._picked || [];
+    const used = picked.map(id => it.words.find(w => w.id === id));
+    const free = it.words.filter(w => picked.indexOf(w.id) < 0);
+    return `${head}
+      <div class="built ${used.length ? "" : "empty"}">
+        ${used.map(w => `<button class="word" data-act="v2-word" data-id="${it.id}" data-wid="${w.id}">${esc(w.t)}</button>`).join("")}
+      </div>
+      <div class="words">
+        ${free.map(w => `<button class="word" data-act="v2-word" data-id="${it.id}" data-wid="${w.id}">${esc(w.t)}</button>`).join("")}
+      </div>
+      <div class="drow"><button class="btn primary" data-act="v2-ordercheck" data-id="${it.id}">Проверить</button></div>
+      ${st.checked ? `<div class="fb show ${st.ok ? "ok" : "bad"}">${st.ok ? "Верно." : "Порядок другой. Попробуй ещё."}</div>` : ""}`;
+  }
+
+  if(it.type === "dialog"){
+    return `${head}
+      <div class="toolbar" style="margin:0 0 10px">
+        <button class="btn primary" id="play-${it.id}" data-act="v2-play" data-src="${it.audio}" data-id="${it.id}">▶ Слушать диалог</button>
+        <button class="btn" data-act="v2-play" data-src="${it.audio}" data-restart="1">с начала</button>
+      </div>
+      <div class="card" style="margin:0 0 10px">${v2LinesHTML(it)}</div>
+      ${v2QuestionsHTML(it)}
+      ${st.done ? `<div class="fb show ok">Диалог разобран.</div>` : ""}`;
+  }
+
+  if(it.type === "reading"){
+    return `${head}
+      <p class="mini" style="margin:0 0 4px">${esc(it.title)}</p>
+      <div class="readtext">${esc(it.text)}</div>
+      ${v2QuestionsHTML(it)}
+      ${st.done ? `<div class="fb show ok">Текст разобран.</div>` : ""}`;
+  }
+
+  if(it.type === "write"){
+    const texts = st.texts || [];
+    return `${head}
+      ${it.prompts.map((p, i) => `
+        <div style="margin:8px 0">
+          <div class="mini">${esc(p)}</div>
+          <input type="text" class="v2in" id="w-${it.id}-${i}" value="${esc(texts[i] || "")}" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="по-французски…">
+        </div>`).join("")}
+      <div class="drow">
+        <button class="btn primary" data-act="v2-write" data-id="${it.id}">Готово</button>
+        <button class="link" data-act="v2-example" data-id="${it.id}">показать пример</button>
+      </div>
+      ${st.done ? `<div class="fb show ok">Сохранено. Уйдёт в отчёт — я проверю вручную.</div>` : ""}
+      <div class="hint" id="ex-${it.id}"><span class="fr">${esc(it.example)}</span></div>`;
+  }
+
+  return head;
+}
+
+function renderLessonV2(n){
+  const L = v2Lesson(n);
+  const meta = LESSONS.find(x => x.n === n) || { t: "Урок", g: "" };
+  const blocks = L.blocks.map((b, bi) => {
+    const st = v2BlockStats(n, b);
+    const open = (state.openBlocks || {})[b.id + ":" + n] !== false;
+    const words = (b.words || []).map(i => VOCAB[i]).map(v => vocabRow(v)).join("");
+    return `
+      <div class="blk ${open ? "open" : ""}" id="blk-${n}-${b.id}">
+        <button class="blkhead" data-act="v2-toggle" data-n="${n}" data-bid="${b.id}">
+          <span class="bt">${b.title}</span>
+          <span class="bs">${st.done} из ${st.total}${b.est ? " · " + b.est : ""}</span>
+          <span class="chev">▼</span>
+        </button>
+        <div class="blkbody">
+          ${b.rule ? `<div class="blkrule">${b.rule}</div>` : ""}
+          ${words ? `<div class="card" style="margin:8px 0 12px">${words}</div>` : ""}
+          ${(b.items || []).map((it, i) => `<div class="v2item">${v2ItemHTML(it, bi + 1 + "." + (i + 1))}</div>`).join("")}
+        </div>
+      </div>`;
+  }).join("");
+
+  const total = v2Items(n).length;
+  const done = v2Items(n).filter(v2ItemDone).length;
+  const dots = Array.from({ length: total }, (_, k) => `<span class="pdot ${k < done ? "on" : ""}"></span>`).join("");
+
+  document.getElementById("lessonview").innerHTML = `
+    <div class="lvtop"><button class="back" data-act="backlessons">← все уроки</button></div>
+    <div class="lvhead">
+      <span class="lvnum">${n}</span>
+      <div>
+        <h2 class="lvtitle">${meta.t}</h2>
+        <p class="lvgoal">${meta.g}</p>
+      </div>
+    </div>
+    <div class="lvprog">${dots}</div>
+    <p class="mini">сделано ${done} из ${total}</p>
+    ${blocks}
+    <div class="toolbar" style="margin-top:26px">
+      <button class="btn ${state.days[n] ? "" : "primary"}" data-act="dayfromlesson" data-n="${n}">
+        ${state.days[n] ? "✓ день " + n + " отмечен" : "Отметить день " + n}
+      </button>
+      ${n < LESSONS.length ? `<button class="btn" data-act="openlesson" data-n="${n + 1}">Следующий урок →</button>` : ""}
+    </div>`;
+}
+
+let v2Audio = null;
+
+document.addEventListener("click", function(e){
+  const el = e.target.closest("[data-act]");
+  if(!el) return;
+  const act = el.dataset.act;
+  if(act.indexOf("v2") !== 0) return;
+  const id = el.dataset.id;
+
+  if(act === "v2-toggle"){
+    const key = el.dataset.bid + ":" + el.dataset.n;
+    if(!state.openBlocks) state.openBlocks = {};
+    state.openBlocks[key] = state.openBlocks[key] === false ? true : false;
+    const box = document.getElementById("blk-" + el.dataset.n + "-" + el.dataset.bid);
+    if(box) box.classList.toggle("open", state.openBlocks[key] !== false);
+    save();
+    return;
+  }
+
+  if(act === "v2-play"){
+    const src = el.dataset.src;
+    if(el.dataset.restart){
+      if(v2Audio){ v2Audio.pause(); v2Audio.currentTime = 0; v2Audio = null; }
+      return;
+    }
+    if(v2Audio && v2Audio.getAttribute("data-src") === src){
+      if(v2Audio.paused){ v2Audio.play(); el.textContent = "⏸ Пауза"; }
+      else { v2Audio.pause(); el.textContent = "▶ Продолжить"; }
+      return;
+    }
+    if(v2Audio) v2Audio.pause();
+    v2Audio = new Audio(src);
+    v2Audio.setAttribute("data-src", src);
+    v2Audio.playbackRate = el.dataset.slow ? 0.7 : (state.rate || 1);
+    v2Audio.onended = () => { el.textContent = el.dataset.slow ? "медленно" : (el.id && el.id.indexOf("play-") === 0 ? "▶ Слушать диалог" : "▶ Прослушать"); };
+    v2Audio.play();
+    el.textContent = "⏸ Пауза";
+    return;
+  }
+
+  const all = Object.keys(LESSONS_V2).reduce((acc, k) => acc.concat(v2Items(Number(k))), []);
+  const it = all.find(x => x.id === id);
+  if(!it) return;
+
+  if(act === "v2-opt"){
+    const i = Number(el.dataset.i);
+    const ok = it.options[i] === it.answer;
+    v2Save(id, { pick: i, checked: true, ok: ok, done: ok });
+    renderLessonV2(currentLesson);
+    return;
+  }
+
+  if(act === "v2-check"){
+    const input = document.getElementById("in-" + id);
+    const val = input ? input.value.trim() : "";
+    if(!val) return;
+    const ok = (it.answers || []).some(a => base(a) === base(val));
+    v2Save(id, { text: val, checked: true, ok: ok, done: ok });
+    renderLessonV2(currentLesson);
+    return;
+  }
+
+  if(act === "v2-reveal"){
+    v2Save(id, { checked: true, ok: false });
+    renderLessonV2(currentLesson);
+    return;
+  }
+
+  if(act === "v2-gapcheck"){
+    const gapOk = (it.answers || []).map((a, i) => {
+      const inp = document.getElementById("gap-" + id + "-" + i);
+      const v = inp ? inp.value.trim() : "";
+      return base(a) === base(v);
+    });
+    const allOk = gapOk.every(Boolean);
+    const vals = (it.answers || []).map((a, i) => {
+      const inp = document.getElementById("gap-" + id + "-" + i);
+      return inp ? inp.value.trim() : "";
+    });
+    v2Save(id, { gaps: vals, gapOk: gapOk, checked: true, ok: allOk, done: allOk });
+    renderLessonV2(currentLesson);
+    return;
+  }
+
+  if(act === "v2-word"){
+    const wid = Number(el.dataset.wid);
+    if(!it._picked) it._picked = [];
+    const at = it._picked.indexOf(wid);
+    if(at >= 0) it._picked.splice(at, 1);
+    else it._picked.push(wid);
+    renderLessonV2(currentLesson);
+    return;
+  }
+
+  if(act === "v2-ordercheck"){
+    const picked = it._picked || [];
+    const built = picked.map(wid => it.words.find(w => w.id === wid).t);
+    const ans = it.answer.split(/\s+/);
+    const ok = built.length === ans.length && built.every((t, i) => t === ans[i]);
+    v2Save(id, { checked: true, ok: ok, done: ok });
+    renderLessonV2(currentLesson);
+    return;
+  }
+
+  if(act === "v2-q"){
+    const qi = Number(el.dataset.qi);
+    const oi = Number(el.dataset.oi);
+    const q = it.questions[qi];
+    const ok = q.options[oi] === q.answer;
+    const st = state.items[id] || {};
+    const qa = Object.assign({}, st.qa || {});
+    qa[qi] = oi;
+    const allDone = it.questions.every((x, i) => qa[i] !== undefined);
+    v2Save(id, { qa: qa, done: allDone });
+    renderLessonV2(currentLesson);
+    return;
+  }
+
+  if(act === "v2-write"){
+    const texts = (it.prompts || []).map((p, i) => {
+      const inp = document.getElementById("w-" + id + "-" + i);
+      return inp ? inp.value.trim() : "";
+    });
+    const filled = texts.filter(Boolean).length;
+    if(filled < texts.length){
+      toast("Заполни все " + texts.length + " фраз — тогда сохраню.");
+      return;
+    }
+    v2Save(id, { texts: texts, done: true, checked: true, ok: true });
+    renderLessonV2(currentLesson);
+    return;
+  }
+
+  if(act === "v2-example"){
+    const ex = document.getElementById("ex-" + id);
+    if(ex) ex.classList.add("show");
+    return;
+  }
+});
 
 function rnd(n){ return Math.floor(Math.random() * n); }
 function shuffle(a){
