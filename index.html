@@ -241,6 +241,13 @@
   }
   .leadhint{font-size:13px; color:var(--muted); margin:0 0 10px}
 
+  .wave{
+    display:flex; align-items:center; gap:10px; margin:22px 0 8px;
+    font:600 11.5px/1 "Segoe UI", system-ui, sans-serif; letter-spacing:.08em;
+    text-transform:uppercase; color:var(--accent);
+  }
+  .wave::after{content:""; flex:1; height:1px; background:var(--line)}
+
   .todolist{display:flex; flex-direction:column; gap:8px}
   .todoitem{
     display:flex; gap:11px; align-items:flex-start; text-align:left;
@@ -429,7 +436,7 @@ const LESSONS = [
       ]}
     ],
     traps:["je apprend → <b>j'apprends</b>","le universite → <b>l'université</b>","etudie без подлежащего → <b>j'étudie</b>"],
-    todo:["Перепиши 5 своих фраз, где есть je + гласная.","Произнеси вслух: j'apprends, j'étudie, j'ai, j'habite.","Напиши мне 3 фразы с j'."]
+    todo:[]
   },
   {
     n:2, t:"Акценты и чтение", g:"é, è, ç и почему французский не читается как пишется",
@@ -455,7 +462,7 @@ const LESSONS = [
       ]}
     ],
     traps:["francais → <b>français</b>","plait → <b>plaît</b>","universite → <b>université</b>","legumes → <b>légumes</b>"],
-    todo:["Открой «Фразы», поставь 0,75×, читай вслух вместе с записью.","Запиши себя на телефон: J'apprends le français depuis deux mois.","Сравни с mp3 — где съела звук?"]
+    todo:[]
   },
   {
     n:3, t:"être, avoir и род", g:"je suis étudiante, une leçon, l'université",
@@ -487,7 +494,7 @@ const LESSONS = [
       ]}
     ],
     traps:["je suis etudiant (о себе) → <b>étudiante</b>","ma copine, но <b>mon amie</b>"],
-    todo:["Выучи 13 слов со вкладки «Слова» вместе с артиклем.","Напиши 5 фраз: je suis…, j'ai…, je n'ai pas…","Расскажи, кто ты, где учишься, сколько тебе лет."]
+    todo:[]
   },
   {
     n:4, t:"Презенс на -er", g:"parler, étudier, jouer, aimer, habiter",
@@ -726,9 +733,12 @@ const LESSONS = [
 
 /* Что входит в каждый урок: индексы фраз и слов, номера заданий */
 const LESSON_CONTENT = {
-  1:  { phr: [0, 1, 3, 4, 5],        voc: [],                             drl: [1, 2, 5, 9] },
-  2:  { phr: [6, 7, 8, 9],           voc: [],                             drl: [15, 16] },
-  3:  { phr: [3],                    voc: [0, 1, 2, 3, 4, 5, 6, 7, 8],   drl: [3, 4, 11, 13] },
+  1:  { phr: [0, 1, 3, 4, 5, 25, 26], voc: [],
+        waves: { warm: [45, 46, 47], main: [48, 49, 50, 51, 52, 53, 54], final: [55] } },
+  2:  { phr: [6, 7, 8, 9, 27, 28],    voc: [],
+        waves: { warm: [56, 57, 58], main: [59, 60, 61, 62, 63, 64], final: [65] } },
+  3:  { phr: [3, 29, 30, 31, 32],     voc: [0, 1, 2, 3, 4, 5, 6, 7, 8],
+        waves: { warm: [66, 67, 68], main: [69, 70, 71, 72, 73, 74], final: [75] } },
   4:  { phr: [0, 3],                 voc: [],                             drl: [12, 17, 18] },
   5:  { phr: [2],                    voc: [],                             drl: [6, 43, 44] },
   6:  { phr: [10, 11, 12, 13, 14],   voc: [4, 5, 8],                      drl: [7, 8, 14] },
@@ -769,7 +779,17 @@ const PHRASES = [
   {fr:"Je vais en France.", ru:"Я еду во Францию.", a:"audio/p22.mp3"},
   {fr:"Qu'est-ce que tu fais ?", ru:"Чем ты занимаешься?", a:"audio/p23.mp3"},
   {fr:"Tu viens d'où ?", ru:"Ты откуда?", a:"audio/p24.mp3"},
-  {fr:"Moi aussi !", ru:"Я тоже!", a:"audio/p25.mp3"}
+  {fr:"Moi aussi !", ru:"Я тоже!", a:"audio/p25.mp3"},
+
+  /* --- пилот: расширение уроков 1–3 --- */
+  {fr:"J'habite à Moscou.", ru:"Я живу в Москве.", a:"audio/p26.mp3"},
+  {fr:"J'aime la musique.", ru:"Я люблю музыку.", a:"audio/p27.mp3"},
+  {fr:"Très bien, merci.", ru:"Очень хорошо, спасибо.", a:"audio/p28.mp3"},
+  {fr:"Ça va ?", ru:"Как дела?", a:"audio/p29.mp3"},
+  {fr:"J'ai vingt ans.", ru:"Мне двадцать лет.", a:"audio/p30.mp3"},
+  {fr:"J'ai un chat.", ru:"У меня есть кот.", a:"audio/p31.mp3"},
+  {fr:"C'est une leçon difficile.", ru:"Это трудный урок.", a:"audio/p32.mp3"},
+  {fr:"Je suis à la maison.", ru:"Я дома.", a:"audio/p33.mp3"}
 ];
 
 const VOCAB = [
@@ -937,7 +957,96 @@ const DRILLS = [
   {n:43, type:"fill", q:"Допиши: J'habite à Moscou ___ dix ans.", answers:["depuis"],
    hint:"действие продолжается до сих пор → depuis."},
   {n:44, type:"fill", q:"Допиши: Depuis combien de ___ tu apprends le français ? (времени)", answers:["temps"],
-   hint:"«сколько времени» = combien de temps."}
+   hint:"«сколько времени» = combien de temps."},
+
+  /* ================= пилот: уроки 1–3, три волны ================= */
+
+  /* --- урок 1: разминка --- */
+  {n:45, type:"choice", q:"Как правильно?", options:["j'apprends","je apprends"], answer:"j'apprends",
+   hint:"перед гласной je → j'"},
+  {n:46, type:"choice", q:"Как правильно?", options:["l'université","le université"], answer:"l'université",
+   hint:"le/la перед гласной → l'"},
+  {n:47, type:"fill", q:"Вставь артикль: Je vais à ___ université.", answers:["l'"],
+   hint:"перед гласной le/la → l'"},
+
+  /* --- урок 1: основное --- */
+  {n:48, type:"translate", q:"Скажи по-французски: «Я учу французский два месяца».", answers:["j'apprends le français depuis deux mois"],
+   hint:"длительность → depuis + présent"},
+  {n:49, type:"fix", q:"Исправь и напиши правильно: Je apprends le français.", answers:["j'apprends le français"],
+   hint:"одна ошибка: je перед гласной"},
+  {n:50, type:"fix", q:"Исправь: J'étudie à le université.", answers:["j'étudie à l'université"],
+   hint:"à + le перед гласной → à l'"},
+  {n:51, type:"order", q:"Собери фразу.", answer:"J'apprends le français depuis deux mois.",
+   words:[{t:"depuis",id:0},{t:"J'apprends",id:1},{t:"mois.",id:2},{t:"le",id:3},{t:"deux",id:4},{t:"français",id:5}],
+   hint:"подлежащее + глагол + depuis"},
+  {n:52, type:"dictation", q:"Нажми ▶ и напиши, что услышала.", audio:"audio/p3.mp3",
+   answers:["j'apprends le français depuis deux mois"], hint:"самая длинная — включи «медленно»"},
+  {n:53, type:"gap", q:"Вставь пропущенное слово: J'___ à Moscou. (живу)", answers:["habite"],
+   hint:"habiter: je habite → j'habite"},
+  {n:54, type:"translate", q:"Скажи по-французски: «Я живу в Москве».", answers:["j'habite à moscou"],
+   hint:"город → à"},
+
+  /* --- урок 1: финал --- */
+  {n:55, type:"open", q:"Напиши 3 фразы о себе. Каждую начинай с je или j'.",
+   example:"Je m'appelle Evelina. J'habite à Moscou. J'aime la musique.",
+   hint:"это уйдёт в отчёт — я проверю вручную"},
+
+  /* --- урок 2: разминка --- */
+  {n:56, type:"choice", q:"Как правильно пишется «французский»?", options:["français","francais"], answer:"français",
+   hint:"ç перед a"},
+  {n:57, type:"choice", q:"Как правильно?", options:["s'il vous plaît","s'il vous plait"], answer:"s'il vous plaît",
+   hint:"î с циркумфлексом"},
+  {n:58, type:"choice", q:"Как звучит «petit»?", options:["пти","пети"], answer:"пти",
+   hint:"конечная t не читается"},
+
+  /* --- урок 2: основное --- */
+  {n:59, type:"dictation", q:"Нажми ▶ и напиши, что услышала.", audio:"audio/p5.mp3",
+   answers:["je ne comprends pas"], hint:"три слова"},
+  {n:60, type:"dictation", q:"Нажми ▶ и напиши, что услышала.", audio:"audio/p14.mp3",
+   answers:["c'est combien"], hint:"вопрос про цену"},
+  {n:61, type:"translate", q:"Скажи по-французски: «Счёт, пожалуйста».", answers:["l'addition s'il vous plaît"],
+   hint:"addition — женского рода"},
+  {n:62, type:"fix", q:"Исправь: Je ne comprends pas, repites plus lentement, s'il vous plait.",
+   answers:["je ne comprends pas répétez plus lentement s'il vous plaît"],
+   hint:"две ошибки: форма глагола и î"},
+  {n:63, type:"order", q:"Собери фразу.", answer:"Plus lentement, s'il vous plaît.",
+   words:[{t:"vous",id:0},{t:"plaît.",id:1},{t:"Plus",id:2},{t:"s'il",id:3},{t:"lentement,",id:4}],
+   hint:"начни с наречия"},
+  {n:64, type:"translate", q:"Скажи по-французски: «Что это значит?»", answers:["qu'est-ce que ça veut dire"],
+   hint:"дословно: что это хочет сказать"},
+
+  /* --- урок 2: финал --- */
+  {n:65, type:"open", q:"Напиши 3 фразы, где есть é, è или ç.",
+   example:"Je m'appelle Evelina. J'étudie à l'université. C'est très bien.",
+   hint:"акценты важны — я проверю"},
+
+  /* --- урок 3: разминка --- */
+  {n:66, type:"choice", q:"Ты девушка. Je suis ___ .", options:["étudiante","étudiant"], answer:"étudiante",
+   hint:"прилагательное согласуется в роде"},
+  {n:67, type:"choice", q:"Как правильно?", options:["une leçon","un leçon"], answer:"une leçon",
+   hint:"leçon — женский род"},
+  {n:68, type:"choice", q:"Как правильно?", options:["un café","une café"], answer:"un café",
+   hint:"café — мужской род"},
+
+  /* --- урок 3: основное --- */
+  {n:69, type:"fill", q:"Допиши глагол: Je ___ à la maison.", answers:["suis"],
+   hint:"être: je suis"},
+  {n:70, type:"fill", q:"Допиши глагол: Nous ___ un chat.", answers:["avons"],
+   hint:"avoir: nous avons"},
+  {n:71, type:"translate", q:"Скажи по-французски: «У меня есть кот».", answers:["j'ai un chat"],
+   hint:"avoir: j'ai + un chat"},
+  {n:72, type:"translate", q:"Скажи по-французски: «Это трудный урок».", answers:["c'est une leçon difficile"],
+   hint:"leçon — женский род, значит une"},
+  {n:73, type:"fix", q:"Исправь: C'est un leçon difficile.", answers:["c'est une leçon difficile"],
+   hint:"род leçon"},
+  {n:74, type:"order", q:"Собери фразу.", answer:"Je suis à la maison.",
+   words:[{t:"à",id:0},{t:"maison.",id:1},{t:"Je",id:2},{t:"la",id:3},{t:"suis",id:4}],
+   hint:"à la maison = дома"},
+
+  /* --- урок 3: финал --- */
+  {n:75, type:"open", q:"Напиши 5 фраз: кто ты, откуда, сколько лет, что у тебя есть, что любишь.",
+   example:"Je m'appelle Evelina. Je viens de Moscou. J'ai vingt ans. J'ai un chat. J'aime la musique.",
+   hint:"это уйдёт в отчёт — разберу каждую"}
 ];
 
 /* ============================ состояние ============================ */
@@ -1021,6 +1130,7 @@ function isBlank(s){
 
 let state = defaultState();
 let saveTimer = null;
+const orderPicks = {};
 
 function save(){
   try{ localStorage.setItem(KEY, JSON.stringify(state)); }catch(e){}
@@ -1252,8 +1362,14 @@ function renderPlan(){
 
 /* ============================ рендер: уроки ============================ */
 
+function lessonDrillIds(n){
+  const C = LESSON_CONTENT[n] || {};
+  if(C.waves) return [].concat(C.waves.warm || [], C.waves.main || [], C.waves.final || []);
+  return C.drl || [];
+}
+
 function lessonStats(n){
-  const ids = ((LESSON_CONTENT[n] || {}).drl) || [];
+  const ids = lessonDrillIds(n);
   let done = 0;
   ids.forEach(id => { if(state.drills[id]) done++; });
   return { done: done, total: ids.length };
@@ -1319,10 +1435,11 @@ function esc(s){
     .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 }
 
-function drillCard(d){
+function drillCard(d, num){
   const solved = !!state.drills[d.n];
   const saved = (state.answers || {})[d.n];
   const savedText = saved && saved.text ? esc(saved.text) : "";
+  const label = d.type === "dictation" ? "Диктант" : (num ? "Задание " + num : "Задание");
   let body = "";
   if(d.type === "choice"){
     body = `<div class="opts">` + d.options.map(o =>
@@ -1334,6 +1451,18 @@ function drillCard(d){
         <button class="btn primary" data-act="open-done" data-n="${d.n}">Готово</button>
       </div>
       <div class="hint" id="ex-${d.n}"><span class="fr">${d.example}</span></div>`;
+  } else if(d.type === "order"){
+    const picks = orderPicks[d.n] || [];
+    const used = picks.map(id => d.words.find(w => w.id === id));
+    const free = d.words.filter(w => picks.indexOf(w.id) < 0);
+    body = `
+      <div class="built ${used.length ? "" : "empty"}">
+        ${used.map(w => `<button class="word" data-act="lword" data-n="${d.n}" data-id="${w.id}">${esc(w.t)}</button>`).join("")}
+      </div>
+      <div class="words">
+        ${free.map(w => `<button class="word" data-act="lword" data-n="${d.n}" data-id="${w.id}">${esc(w.t)}</button>`).join("")}
+      </div>
+      <div class="drow">${solved ? "" : `<button class="btn primary" data-act="check" data-n="${d.n}">Проверить</button>`}</div>`;
   } else if(d.type === "dictation"){
     body = `<div class="drow" style="margin:0 0 10px">
         <button class="btn primary" data-act="playdict" data-n="${d.n}">▶ Прослушать</button>
@@ -1355,7 +1484,7 @@ function drillCard(d){
   }
   return `
     <div class="card drill ${solved ? "solved" : ""}" id="drill-${d.n}">
-      <div class="qn">${d.type === "dictation" ? "Диктант" : "Задание"}</div>
+      <div class="qn">${label}</div>
       <p class="q">${d.q}</p>
       ${body}
       <div class="fb" id="fb-${d.n}"></div>
@@ -1378,7 +1507,17 @@ function renderLessonView(n){
   const traps = L.traps ? `<h4>Твои ловушки</h4><ul>${L.traps.map(t => `<li>${t}</li>`).join("")}</ul>` : "";
   const phr = (C.phr || []).map(i => phraseRow(PHRASES[i], i)).join("");
   const voc = (C.voc || []).map(i => vocabRow(VOCAB[i])).join("");
-  const drl = (C.drl || []).map(id => drillCard(drillByN(id))).join("");
+  let drl = "";
+  let counter = 0;
+  if(C.waves){
+    [["warm", "Разминка"], ["main", "Основное"], ["final", "Финал"]].forEach(pair => {
+      const ids = C.waves[pair[0]] || [];
+      if(!ids.length) return;
+      drl += `<div class="wave">${pair[1]}</div>` + ids.map(id => drillCard(drillByN(id), ++counter)).join("");
+    });
+  } else {
+    drl = (C.drl || []).map(id => drillCard(drillByN(id), ++counter)).join("");
+  }
   const dots = st.total
     ? `<div class="lvprog">` + Array.from({ length: st.total }, (_, k) =>
         `<span class="pdot ${k < st.done ? "on" : ""}"></span>`).join("") + `</div>`
@@ -1414,7 +1553,7 @@ function renderLessonView(n){
 
     ${drl ? `<div class="lsection"><h2>Задания</h2>${drl}</div>` : ""}
 
-    ${L.todo ? `<div class="lsection">
+    ${L.todo && L.todo.length ? `<div class="lsection">
       <h2>Вне приложения</h2>
       <p class="leadhint">Это не проверяется внутри: что-то вслух, что-то в тетради, что-то в чате со мной. Отмечай, когда сделала.</p>
       <div class="todolist">${L.todo.map((t, i) => {
@@ -1554,6 +1693,7 @@ function buildReport(){
 
 function checkFill(n){
   const d = drillByN(n);
+  if(d.type === "order"){ checkOrder(n); return; }
   const input = document.getElementById("in-" + n);
   const fb = document.getElementById("fb-" + n);
   const hint = document.getElementById("hint-" + n);
@@ -1598,6 +1738,29 @@ function checkFind3(n){
     markSolved(n);
   } else {
     feedback(fb, "bad", "Нашла " + (d.keywords.length - missing.length) + " из 3. Смотри на город, на «je» перед гласной и на «c» с хвостиком.");
+    if(hint) hint.classList.add("show");
+  }
+}
+
+function checkOrder(n){
+  const d = drillByN(n);
+  const fb = document.getElementById("fb-" + n);
+  const hint = document.getElementById("hint-" + n);
+  const picks = orderPicks[n] || [];
+  if(!picks.length){
+    feedback(fb, "bad", "Сначала собери фразу из слов.");
+    return;
+  }
+  const built = picks.map(id => d.words.find(w => w.id === id).t);
+  const ans = d.answer.split(/\s+/);
+  const ok = built.length === ans.length && built.every((t, i) => t === ans[i]);
+  rememberAnswer(n, built.join(" "), ok ? "ok" : "bad");
+  if(ok){
+    feedback(fb, "ok", "Верно. <span class='ans fr'>" + esc(d.answer) + "</span>");
+    markSolved(n);
+    if(hint) hint.classList.remove("show");
+  } else {
+    feedback(fb, "bad", "Порядок другой. Попробуй ещё.");
     if(hint) hint.classList.add("show");
   }
 }
@@ -1674,7 +1837,7 @@ function buildPool(mode){
     if(c) pool.push(c);
     pool.push(orderItem(p));
   });
-  DRILLS.filter(d => d.type !== "open").forEach(d => {
+  DRILLS.filter(d => d.type !== "open" && d.type !== "order").forEach(d => {
     pool.push({ kind: d.type, d: d });
   });
   return pool;
@@ -2077,6 +2240,19 @@ document.addEventListener("click", ev => {
     if(!d || !d.audio) return;
     stopAll();
     playFile(d.audio, d.answers[0], el, null, act === "playdictslow" ? 0.62 : null);
+    return;
+  }
+
+  if(act === "lword"){
+    const k = Number(n), wid = Number(el.dataset.id);
+    const d = drillByN(k);
+    if(!d || !d.words) return;
+    const picks = orderPicks[k] || (orderPicks[k] = []);
+    const at = picks.indexOf(wid);
+    if(at >= 0) picks.splice(at, 1);
+    else picks.push(wid);
+    const card = document.getElementById("drill-" + k);
+    if(card) card.outerHTML = drillCard(d);
     return;
   }
 
