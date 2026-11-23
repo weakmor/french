@@ -1180,16 +1180,18 @@ function isBlank(s){
   return !Object.keys(s.days || {}).length
       && !Object.keys(s.drills || {}).length
       && !Object.keys(s.answers || {}).length
-      && !Object.keys(s.todo || {}).length;
+      && !Object.keys(s.todo || {}).length
+      && !Object.keys(s.items || {}).length;
 }
 
 let state = defaultState();
 let saveTimer = null;
+let cloudReady = !SYNC;
 const orderPicks = {};
 
 function save(){
   try{ localStorage.setItem(KEY, JSON.stringify(state)); }catch(e){}
-  if(!SYNC) return;
+  if(!SYNC || !cloudReady) return;
   clearTimeout(saveTimer);
   saveTimer = setTimeout(() => { remotePut(state).catch(() => {}); }, 400);
 }
@@ -1201,18 +1203,67 @@ function loadLocal(){
   }catch(e){ /* приватный режим или file:// без хранилища */ }
 }
 
+// Слияние локального и облачного прогресса: ничего не теряем, когда занимаешься с двух устройств.
+function mergeProgress(local, remote){
+  if(!remote) return local;
+  const out = Object.assign(defaultState(), local);
+
+  ["days", "drills"].forEach(k => {
+    out[k] = Object.assign({}, local[k] || {});
+    Object.keys(remote[k] || {}).forEach(id => { if(remote[k][id]) out[k][id] = true; });
+  });
+
+  out.todo = Object.assign({}, local.todo || {});
+  Object.keys(remote.todo || {}).forEach(l => {
+    out.todo[l] = Object.assign({}, out.todo[l] || {}, remote.todo[l] || {});
+  });
+
+  out.answers = Object.assign({}, remote.answers || {}, local.answers || {});
+  Object.keys(out.answers).forEach(id => {
+    const la = (local.answers || {})[id];
+    const ra = (remote.answers || {})[id];
+    if(la && ra) out.answers[id] = (la.at || 0) >= (ra.at || 0) ? la : ra;
+  });
+
+  out.items = Object.assign({}, remote.items || {}, local.items || {});
+  Object.keys(out.items).forEach(id => {
+    const li = (local.items || {})[id];
+    const ri = (remote.items || {})[id];
+    if(!li || !ri) return;
+    const lt = li.ts || 0, rt = ri.ts || 0;
+    if(rt > lt) out.items[id] = ri;
+    else if(lt > rt) out.items[id] = li;
+    else out.items[id] = Object.assign({}, ri, li, { done: !!(li.done || ri.done) });
+  });
+
+  const lp = local.practice || { done: 0, correct: 0 };
+  const rp = remote.practice || { done: 0, correct: 0 };
+  out.practice = {
+    done: Math.max(lp.done || 0, rp.done || 0),
+    correct: Math.max(lp.correct || 0, rp.correct || 0)
+  };
+
+  return out;
+}
+
 async function syncCloud(){
   if(!SYNC) return;
   try{
     const remote = await remoteGet();
     if(remote && !isBlank(remote)){
-      state = Object.assign(defaultState(), remote);
+      const merged = mergeProgress(state, remote);
+      const changed = JSON.stringify(merged) !== JSON.stringify(state);
+      state = merged;
       try{ localStorage.setItem(KEY, JSON.stringify(state)); }catch(e){}
+      if(changed) await remotePut(state);
       renderAll();
     } else if(!isBlank(state)){
       await remotePut(state);
     }
-  }catch(e){}
+  }catch(e){
+  }finally{
+    cloudReady = true;
+  }
 }
 
 /* ============================ прогресс ============================ */
@@ -2669,7 +2720,7 @@ function v2AnswerText(it){
 
 function v2Save(id, patch){
   if(!state.items) state.items = {};
-  state.items[id] = Object.assign(state.items[id] || {}, patch);
+  state.items[id] = Object.assign(state.items[id] || {}, patch, { ts: Date.now() });
   save();
 }
 
