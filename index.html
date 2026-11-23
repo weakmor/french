@@ -1997,6 +1997,250 @@ const LESSONS_V2 = {
         ]
       }
     ]
+  },
+
+  /* ===================== урок 2 ===================== */
+  2: {
+    blocks: [
+      {
+        id: "warm", title: "Разминка", est: "4 мин",
+        items: [
+          { id:"l2w1", type:"choice", q:"Как правильно пишется «французский»?",
+            options:["français","francais"], answer:"français", hint:"ç перед a" },
+          { id:"l2w2", type:"choice", q:"Как правильно?",
+            options:["s'il vous plaît","s'il vous plait"], answer:"s'il vous plaît", hint:"î с циркумфлексом" },
+          { id:"l2w3", type:"input", q:"Скажи по-французски: «Я не понимаю».",
+            answers:["je ne comprends pas"], hint:"ne … pas" },
+          { id:"l2w4", type:"dictation", q:"Послушай и напиши.",
+            audio:"audio/p7.mp3", answers:["pouvez-vous répéter s'il vous plaît"], hint:"шесть слов" }
+        ]
+      },
+      {
+        id: "gram", title: "Грамматика: акценты и чтение", est: "8 мин",
+        theory:{
+          rule:"Акцент меняет звук: <b>é</b> — закрытое «э» (café), <b>è / ê</b> — открытое (mère, être), <b>ç</b> — «с» перед a/o/u (français, leçon). Конечные согласные обычно молчат: petit = «пти», vous = «ву». Читаются только c, r, f, l.",
+          ex:[
+            ["café, être, français","ç и é меняют звук"],
+            ["petit = «пти»","конечная t молчит"],
+            ["vous avez = «ву-за-вэ»","связывание"]
+          ],
+          traps:["francais ✗ → <b>français</b>","plait ✗ → <b>plaît</b>","repites ✗ → <b>répétez</b>"]
+        },
+        items: [
+          { id:"l2g1", type:"choice", q:"Что не читается в слове «petit»?",
+            options:["конечная t","первая p"], answer:"конечная t", hint:"правило: конечная согласная молчит" },
+          { id:"l2g2", type:"input", q:"Исправь: Je ne comprends pas, repites plus lentement, s'il vous plait.",
+            answers:["je ne comprends pas répétez plus lentement s'il vous plaît"], hint:"две ошибки: форма глагола и î" },
+          { id:"l2g3", type:"input", q:"Скажи по-французски: «Счёт, пожалуйста».",
+            answers:["l'addition s'il vous plaît"], hint:"addition — женский род" },
+          { id:"l2g4", type:"input", q:"Скажи по-французски: «Что это значит?»",
+            answers:["qu'est-ce que ça veut dire"], hint:"дословно: что это хочет сказать" },
+          { id:"l2g5", type:"input", q:"Скажи по-французски: «Помедленнее, пожалуйста».",
+            answers:["plus lentement s'il vous plaît"], hint:"plus lentement" },
+          { id:"l2g6", type:"order", q:"Собери фразу.",
+            answer:"Plus lentement, s'il vous plaît.",
+            words:[{t:"vous",id:0},{t:"plaît.",id:1},{t:"Plus",id:2},{t:"s'il",id:3},{t:"lentement,",id:4}],
+            hint:"начни с наречия" },
+          { id:"l2g7", type:"gapset", q:"Вставь слова с правильными акцентами.",
+            text:"Le matin, je bois un ___ (cafe). Mon ami est ___ (etre) content. Il apprend le ___ (francais).",
+            answers:["café","être","français"], hint:"акценты обязательны" },
+          { id:"l2g8", type:"input", q:"Извинись: «Извините, я заблудилась».",
+            answers:["excusez-moi je suis perdue"], hint:"excusez-moi" }
+        ]
+      },
+      {
+        id: "vocab", title: "Лексика: кафе и город", est: "5 мин",
+        words:[4,5,6,7],
+        theory:{
+          rule:"В кафе: <b>un</b> café, <b>une</b> addition, <b>un</b> croissant. Род — только с артиклем.",
+          ex:[["un café, un croissant","мужской род"],["une addition, une maison","женский род"]],
+          traps:["un addition ✗ → <b>une addition</b>"]
+        },
+        items: [
+          { id:"l2v1", type:"choice", q:"___ addition, s'il vous plaît.", options:["une","un"], answer:"une", hint:"addition — женский род" },
+          { id:"l2v2", type:"choice", q:"___ café", options:["un","une"], answer:"un", hint:"café — мужской род" },
+          { id:"l2v3", type:"input", q:"Как по-французски «дом»?", answers:["maison","une maison"], hint:"une maison" },
+          { id:"l2v4", type:"input", q:"Как по-французски «работа»?", answers:["travail","le travail"], hint:"le travail" },
+          { id:"l2v5", type:"input", q:"Вставь слово: Je vais au ___ . (работа)", answers:["travail"], hint:"au travail" },
+          { id:"l2v6", type:"input", q:"Как по-французски «друг»?", answers:["ami","un ami"], hint:"un ami" }
+        ]
+      },
+      {
+        id: "write", title: "Письмо", est: "8 мин",
+        theory:{
+          rule:"В кафе: <b>je voudrais</b> (я бы хотела), <b>c'est combien ?</b> (сколько стоит), <b>l'addition</b> (счёт).",
+          ex:[["Je voudrais un café.","Я бы хотела кофе."],["C'est combien ?","Сколько стоит?"]],
+          traps:["je veux un café — грубовато, лучше <b>je voudrais</b>"]
+        },
+        items: [
+          { id:"l2p1", type:"gapset", q:"Рассказ о походе в кафе — вставь слова.",
+            text:"Le matin, je vais au ___ (cafe). Je prends un ___ (the) et un croissant. Le serveur est très ___ (sympa). L'___ (addition) fait six euros. Je dis : « Merci, bonne ___ (journee) ! »",
+            answers:["café","thé","sympa","addition","journée"], hint:"не забывай акценты" },
+          { id:"l2p2", type:"writefree", q:"Опиши свой завтрак или поход в кафе: 5–7 предложений.",
+            min:25, example:"Le matin, je vais au café. Je prends un thé et un croissant. Le café est petit mais très sympa. Je paie cinq euros. Le soir, je retourne à la maison." }
+        ]
+      },
+      {
+        id: "listen", title: "Аудирование", est: "5 мин",
+        items: [
+          { id:"l2a1", type:"dialog", q:"Послушай диалог в кафе и ответь на вопросы.",
+            audio:"audio/dialog2.mp3",
+            lines:[
+              ["Pierre","Bonjour ! Qu'est-ce que vous prenez ?","Здравствуйте! Что будете брать?"],
+              ["Léa","Bonjour, je voudrais un café et un croissant, s'il vous plaît.","Здравствуйте, я бы хотела кофе и круассан, пожалуйста."],
+              ["Pierre","Très bien. Et avec ça ?","Хорошо. Что-нибудь ещё?"],
+              ["Léa","C'est tout, merci. L'addition, s'il vous plaît.","Это всё, спасибо. Счёт, пожалуйста."],
+              ["Pierre","Ça fait six euros.","С вас шесть евро."],
+              ["Léa","Voilà. Merci, bonne journée !","Вот. Спасибо, хорошего дня!"]
+            ],
+            questions:[
+              { q:"Что заказывает Лея?", options:["Кофе и круассан","Чай и пирожное","Суп и салат"], answer:"Кофе и круассан" },
+              { q:"Что спрашивает Пьер после заказа?", options:["Что-нибудь ещё","Сколько ей лет","Откуда она"], answer:"Что-нибудь ещё" },
+              { q:"Сколько стоит заказ?", options:["Шесть евро","Два евро","Десять евро"], answer:"Шесть евро" },
+              { q:"Что Лея просит в конце?", options:["Счёт","Меню","Воду"], answer:"Счёт" },
+              { q:"Кто официант?", options:["Пьер","Лея","Никто"], answer:"Пьер" },
+              { q:"Что Лея говорит на прощание?", options:["Хорошего дня","До завтра","Извините"], answer:"Хорошего дня" }
+            ] },
+          { id:"l2a2", type:"dictation", q:"Фраза на слух.",
+            audio:"audio/p11.mp3", answers:["l'addition s'il vous plaît"], hint:"три слова" },
+          { id:"l2a3", type:"dictation", q:"Ещё одна — короткая.",
+            audio:"audio/p14.mp3", answers:["c'est combien"], hint:"два слова" }
+        ]
+      },
+      {
+        id: "read", title: "Чтение", est: "4 мин",
+        items: [
+          { id:"l2r1", type:"reading", title:"Маленькое кафе",
+            text:"Le matin, Léa va dans un petit café près de la maison. Elle prend un café et un croissant. Le café coûte deux euros. Le serveur s'appelle Pierre : il est très sympa. Léa regarde les gens dans la rue. Il y a des étudiants, des touristes et un chien. À dix heures, elle va à l'université. Le soir, elle retourne au café avec son amie. Elles parlent, elles rient et elles écoutent de la musique. Léa aime beaucoup ce café.",
+            questions:[
+              { q:"Куда идёт Лея утром?", options:["В маленькое кафе","В университет","На работу"], answer:"В маленькое кафе" },
+              { q:"Что она берёт?", options:["Кофе и круассан","Чай и торт","Только воду"], answer:"Кофе и круассан" },
+              { q:"Сколько стоит кофе?", options:["Два евро","Шесть евро","Один евро"], answer:"Два евро" },
+              { q:"Кто работает в кафе?", options:["Пьер","Иван","Нина"], answer:"Пьер" },
+              { q:"Когда она возвращается в кафе?", options:["Вечером","Утром","В полдень"], answer:"Вечером" }
+            ] }
+        ]
+      }
+    ]
+  },
+
+  /* ===================== урок 3 ===================== */
+  3: {
+    blocks: [
+      {
+        id: "warm", title: "Разминка", est: "4 мин",
+        items: [
+          { id:"l3w1", type:"choice", q:"Ты девушка. Je suis ___ .",
+            options:["étudiante","étudiant"], answer:"étudiante", hint:"согласование в роде" },
+          { id:"l3w2", type:"choice", q:"Какой артикль? ___ leçon",
+            options:["une","un"], answer:"une", hint:"leçon — женский род" },
+          { id:"l3w3", type:"input", q:"Скажи по-французски: «У меня есть кот».", answers:["j'ai un chat"], hint:"avoir: j'ai" },
+          { id:"l3w4", type:"dictation", q:"Послушай и напиши.",
+            audio:"audio/p31.mp3", answers:["j'ai un chat"], hint:"три слова" }
+        ]
+      },
+      {
+        id: "gram", title: "Грамматика: être и avoir", est: "8 мин",
+        theory:{
+          rule:"<b>être</b> — быть/являться, <b>avoir</b> — иметь. Оба неправильные, учи сразу с местоимениями.",
+          ex:[
+            ["je suis / j'ai","я есть / у меня есть"],
+            ["tu es / tu as","ты"],
+            ["il, elle est / il, elle a","он, она"],
+            ["nous sommes / nous avons","мы"],
+            ["vous êtes / vous avez","вы"],
+            ["ils, elles sont / ils, elles ont","они"]
+          ],
+          traps:["nous avez ✗ → <b>nous avons</b>","ils est ✗ → <b>ils sont</b>"]
+        },
+        items: [
+          { id:"l3g1", type:"input", q:"Допиши: Je ___ à la maison.", answers:["suis"], hint:"être: je suis" },
+          { id:"l3g2", type:"input", q:"Допиши: Nous ___ une voiture.", answers:["avons"], hint:"avoir: nous avons" },
+          { id:"l3g3", type:"input", q:"Скажи по-французски: «Это трудный урок».", answers:["c'est une leçon difficile"], hint:"leçon — женский род" },
+          { id:"l3g4", type:"input", q:"Исправь: C'est un leçon difficile.", answers:["c'est une leçon difficile"], hint:"род слова leçon" },
+          { id:"l3g5", type:"input", q:"Допиши: Elle ___ (être) étudiante.", answers:["est"], hint:"elle est" },
+          { id:"l3g6", type:"input", q:"Допиши: Ils ___ (avoir) un chat.", answers:["ont"], hint:"ils ont" },
+          { id:"l3g7", type:"order", q:"Собери фразу.",
+            answer:"Je suis à la maison.",
+            words:[{t:"à",id:0},{t:"maison.",id:1},{t:"Je",id:2},{t:"la",id:3},{t:"suis",id:4}],
+            hint:"à la maison = дома" },
+          { id:"l3g8", type:"choice", q:"Tu ___ quel âge ?", options:["as","est"], answer:"as", hint:"avoir: tu as" }
+        ]
+      },
+      {
+        id: "vocab", title: "Лексика: учёба", est: "5 мин",
+        words:[0,1,2,3,8,9],
+        theory:{
+          rule:"Слова об учёбе: <b>une</b> université, <b>une</b> leçon, <b>un</b> cours, <b>une</b> école.",
+          ex:[["une université, une école","женский род"],["un cours, un chien","мужской род"]],
+          traps:["un leçon ✗ → <b>une leçon</b>"]
+        },
+        items: [
+          { id:"l3v1", type:"choice", q:"___ école", options:["une","un"], answer:"une", hint:"école — женский род" },
+          { id:"l3v2", type:"choice", q:"___ cours", options:["un","une"], answer:"un", hint:"cours — мужской род" },
+          { id:"l3v3", type:"input", q:"Как по-французски «урок»?", answers:["leçon","une leçon"], hint:"une leçon" },
+          { id:"l3v4", type:"input", q:"Как по-французски «школа»?", answers:["école","une école"], hint:"une école" },
+          { id:"l3v5", type:"input", q:"Вставь слово: J'ai un ___ . (собака)", answers:["chien"], hint:"un chien" },
+          { id:"l3v6", type:"input", q:"Как по-французски «парень, друг»?", answers:["copain","un copain"], hint:"un copain" }
+        ]
+      },
+      {
+        id: "write", title: "Письмо", est: "8 мин",
+        theory:{
+          rule:"Рассказ о семье: <b>il / elle est</b>, <b>ils sont</b>. Притяжательные: <b>mon</b> frère, <b>ma</b> sœur.",
+          ex:[["Mon père est professeur.","Мой отец — преподаватель."],["Ma sœur habite à Paris.","Моя сестра живёт в Париже."]],
+          traps:["mon sœur ✗ → <b>ma sœur</b>"]
+        },
+        items: [
+          { id:"l3p1", type:"gapset", q:"Рассказ о семье — вставь глаголы.",
+            text:"Ma famille habite à Moscou. Mon père ___ (être) professeur. Ma mère ___ (travailler) dans une école. J'___ (avoir) un frère et une sœur. Mon frère ___ (avoir) vingt ans. Il ___ (étudier) à l'université. Nous ___ (avoir) un chat. Le dimanche, nous ___ (être) à la maison. Ils ___ (aimer) la musique.",
+            answers:["est","travaille","ai","a","étudie","avons","sommes","aiment"], hint:"être / avoir + обычные глаголы" },
+          { id:"l3p2", type:"writefree", q:"Опиши свою семью или друзей: 5–7 предложений.",
+            min:25, example:"Ma famille habite à Moscou. Mon père est professeur. Ma mère travaille dans une école. J'ai un frère et une sœur. Nous avons un chat. Le dimanche, nous sommes à la maison." }
+        ]
+      },
+      {
+        id: "listen", title: "Аудирование", est: "5 мин",
+        items: [
+          { id:"l3a1", type:"dialog", q:"Послушай разговор о семье и ответь на вопросы.",
+            audio:"audio/dialog3.mp3",
+            lines:[
+              ["Pierre","Tu as des frères et sœurs ?","У тебя есть братья и сёстры?"],
+              ["Léa","Oui, j'ai un frère et une sœur.","Да, у меня есть брат и сестра."],
+              ["Pierre","Ils habitent où ?","Где они живут?"],
+              ["Léa","Mon frère habite à Moscou. Ma sœur est à Paris.","Мой брат живёт в Москве. Моя сестра в Париже."],
+              ["Pierre","Tu as un animal ?","У тебя есть животное?"],
+              ["Léa","Oui, j'ai un chat. Il s'appelle Minou.","Да, у меня есть кот. Его зовут Мину."]
+            ],
+            questions:[
+              { q:"Есть ли у Леи брат и сестра?", options:["Да, брат и сестра","Только брат","Никого"], answer:"Да, брат и сестра" },
+              { q:"Где живёт брат?", options:["В Москве","В Париже","В Лионе"], answer:"В Москве" },
+              { q:"Где сестра?", options:["В Париже","В Москве","В Ницце"], answer:"В Париже" },
+              { q:"Какое животное у Леи?", options:["Кот","Собака","Птица"], answer:"Кот" },
+              { q:"Как зовут кота?", options:["Мину","Пьер","Иван"], answer:"Мину" },
+              { q:"Кто задаёт вопросы?", options:["Пьер","Лея","Сестра"], answer:"Пьер" }
+            ] },
+          { id:"l3a2", type:"dictation", q:"Фраза на слух.",
+            audio:"audio/p30.mp3", answers:["j'ai vingt ans"], hint:"три слова" },
+          { id:"l3a3", type:"dictation", q:"Ещё одна.",
+            audio:"audio/p28.mp3", answers:["très bien merci"], hint:"три слова" }
+        ]
+      },
+      {
+        id: "read", title: "Чтение", est: "4 мин",
+        items: [
+          { id:"l3r1", type:"reading", title:"Семья Леи",
+            text:"La famille de Léa habite à Moscou. Son père est professeur. Sa mère travaille dans une école. Léa a un frère et une sœur. Son frère s'appelle Ivan : il a vingt ans et il étudie à l'université. Sa sœur s'appelle Nina : elle habite à Paris et elle travaille dans un café. La famille a aussi un chat, Minou. Le dimanche, ils sont tous à la maison. Ils mangent, ils parlent et ils écoutent de la musique.",
+            questions:[
+              { q:"Где живёт семья Леи?", options:["В Москве","В Париже","В Марселе"], answer:"В Москве" },
+              { q:"Кто отец Леи?", options:["Преподаватель","Врач","Официант"], answer:"Преподаватель" },
+              { q:"Где работает мать?", options:["В школе","В кафе","В университете"], answer:"В школе" },
+              { q:"Сколько лет брату Ивану?", options:["Двадцать","Двадцать два","Восемнадцать"], answer:"Двадцать" },
+              { q:"Где сестра Нина?", options:["В Париже","В Москве","В Лионе"], answer:"В Париже" }
+            ] }
+        ]
+      }
+    ]
   }
 };
 
@@ -2997,9 +3241,7 @@ document.addEventListener("click", ev => {
 
   if(act === "export"){
     const text = buildReport();
-    const now = new Date();
-    const pad = x => String(x).padStart(2, "0");
-    const name = "французский-" + now.getFullYear() + "-" + pad(now.getMonth() + 1) + "-" + pad(now.getDate()) + ".txt";
+    const name = "французский-результаты.txt";
     try{
       const blob = new Blob([text], { type: "text/plain;charset=utf-8" });
       const a = document.createElement("a");
